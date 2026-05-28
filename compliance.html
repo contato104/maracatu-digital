@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Compliance — Maracatu Digital Intelligence</title>
+<meta name="description" content="Código de Conduta e Ética da Maracatu Digital. Compromisso com transparência, integridade e responsabilidade." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #EA4335;
+    --yellow: #FBBC04;
+    --green: #34A853;
+    --blue: #4285F4;
+    --ink: #0A0A0A;
+    --bg: #FAFAF7;
+    --card: #FFFFFF;
+    --muted: #6B7280;
+    --border: #ECECE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .narrow { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  /* === HEADER === */
+  header.nav {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+    background: transparent;
+  }
+  header.nav.scrolled {
+    position: fixed;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 0;
+  }
+  .logo-link { display: flex; align-items: center; text-decoration: none; }
+  .logo-link img {
+    height: 52px; width: auto; display: block;
+    filter: brightness(0) invert(1);
+    transition: opacity 0.2s;
+  }
+  .logo-link:hover img { opacity: 0.85; }
+  nav ul { display: flex; gap: 36px; list-style: none; }
+  nav a {
+    text-decoration: none; color: #fff;
+    font-size: 14px; font-weight: 500;
+    transition: opacity 0.2s;
+    letter-spacing: 0.2px;
+  }
+  nav a:hover { opacity: 0.65; }
+
+  /* === HERO === */
+  .page-hero {
+    position: relative;
+    padding: 180px 0 100px;
+    background: #000; color: #fff;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(234, 67, 53, 0.28), transparent 65%);
+    pointer-events: none;
+  }
+  .page-hero::after {
+    content: ''; position: absolute; bottom: -250px; left: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(66, 133, 244, 0.25), transparent 65%);
+    pointer-events: none;
+  }
+  .grain {
+    position: absolute; inset: 0; opacity: 0.4; pointer-events: none;
+    background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.02) 1px, transparent 1px),
+                      radial-gradient(circle at 70% 80%, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px, 120px 120px;
+  }
+  .page-hero .container { position: relative; z-index: 1; }
+  .breadcrumb {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+  }
+  .breadcrumb a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .breadcrumb a:hover { color: #fff; }
+  .breadcrumb .sep { opacity: 0.4; }
+  .page-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px);
+    font-size: 13px; font-weight: 500; color: #fff;
+    margin-bottom: 28px;
+    letter-spacing: 0.2px;
+  }
+  .page-eyebrow .gdots { display: inline-flex; gap: 3px; }
+  .page-eyebrow .gdots span { width: 8px; height: 8px; border-radius: 50%; }
+  .page-eyebrow .gdots span:nth-child(1) { background: var(--blue); }
+  .page-eyebrow .gdots span:nth-child(2) { background: var(--red); }
+  .page-eyebrow .gdots span:nth-child(3) { background: var(--yellow); }
+  .page-eyebrow .gdots span:nth-child(4) { background: var(--green); }
+  .page-hero h1 {
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 800; line-height: 1; letter-spacing: -3px;
+    margin-bottom: 24px;
+  }
+  .page-hero h1 .accent { color: var(--yellow); font-weight: 400; font-family: 'Instrument Serif', serif; font-style: italic; }
+  .page-hero p.lead {
+    font-size: 20px; color: rgba(255,255,255,0.75);
+    max-width: 620px; line-height: 1.55;
+  }
+
+  /* === CONTENT === */
+  .doc {
+    padding: 80px 0 120px;
+    background: var(--bg);
+  }
+  .doc-grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .doc-toc {
+    position: sticky; top: 100px;
+    padding: 24px 0;
+    border-top: 2px solid var(--ink);
+  }
+  .doc-toc-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .doc-toc ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .doc-toc a {
+    color: var(--muted); text-decoration: none;
+    font-size: 14px; line-height: 1.4;
+    transition: color 0.2s, padding-left 0.2s;
+    display: block; padding: 2px 0;
+  }
+  .doc-toc a:hover {
+    color: var(--ink); padding-left: 4px;
+  }
+  .doc-toc a.active { color: var(--ink); font-weight: 600; }
+
+  .doc-content { max-width: 760px; }
+  .doc-content > section { margin-bottom: 64px; scroll-margin-top: 100px; }
+  .doc-content > section:last-child { margin-bottom: 0; }
+
+  .doc-content .intro-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 36px;
+    margin-bottom: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-content .intro-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 6px; height: 100%;
+    background: linear-gradient(180deg, var(--red) 0%, var(--yellow) 33%, var(--green) 66%, var(--blue) 100%);
+  }
+  .doc-content .intro-card p {
+    font-size: 18px; line-height: 1.6; color: var(--ink);
+    font-weight: 500;
+    padding-left: 12px;
+  }
+
+  .doc-content h2 {
+    font-size: 32px; font-weight: 800; letter-spacing: -1px;
+    line-height: 1.1; margin-bottom: 8px;
+    display: flex; align-items: baseline; gap: 14px;
+  }
+  .doc-content h2 .num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px; font-style: italic; font-weight: 400;
+    color: var(--red); letter-spacing: 0;
+  }
+  .doc-content h2 + .lead {
+    font-size: 16px; color: var(--muted);
+    margin-bottom: 24px; line-height: 1.55;
+  }
+  .doc-content h3 {
+    font-size: 19px; font-weight: 700; letter-spacing: -0.3px;
+    margin-top: 32px; margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .doc-content p {
+    font-size: 16px; line-height: 1.7; color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .doc-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 16px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .doc-content ul li {
+    font-size: 16px; line-height: 1.6; color: var(--ink);
+    padding-left: 26px; position: relative;
+  }
+  .doc-content ul li::before {
+    content: '';
+    position: absolute; left: 0; top: 10px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--ink);
+  }
+  .doc-content section:nth-child(3n+2) ul li::before { background: var(--red); }
+  .doc-content section:nth-child(3n+3) ul li::before { background: var(--green); }
+  .doc-content section:nth-child(3n+4) ul li::before { background: var(--blue); }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .values-grid .value-tag {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 14px; font-weight: 600;
+    text-align: center;
+    color: var(--ink);
+    transition: all 0.2s;
+  }
+  .values-grid .value-tag:hover {
+    border-color: transparent;
+    transform: translateY(-2px);
+  }
+  .values-grid .value-tag:nth-child(7n+1):hover { background: var(--red); color: #fff; }
+  .values-grid .value-tag:nth-child(7n+2):hover { background: var(--yellow); color: var(--ink); }
+  .values-grid .value-tag:nth-child(7n+3):hover { background: var(--green); color: #fff; }
+  .values-grid .value-tag:nth-child(7n+4):hover { background: var(--blue); color: #fff; }
+  .values-grid .value-tag:nth-child(7n+5):hover { background: var(--ink); color: #fff; }
+  .values-grid .value-tag:nth-child(7n+6):hover { background: var(--red); color: #fff; }
+  .values-grid .value-tag:nth-child(7n+7):hover { background: var(--green); color: #fff; }
+
+  .mission-card {
+    background: var(--ink); color: #fff;
+    border-radius: 20px;
+    padding: 32px 36px;
+    margin-top: 28px;
+    position: relative; overflow: hidden;
+  }
+  .mission-card::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(251, 188, 4, 0.2), transparent 70%);
+  }
+  .mission-card h3 {
+    color: var(--yellow); margin-top: 0;
+    font-size: 13px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+  .mission-card p {
+    color: rgba(255,255,255,0.9); margin-bottom: 0;
+    font-size: 18px; line-height: 1.6;
+    position: relative; z-index: 1;
+  }
+
+  .law-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 12px; font-weight: 600;
+    font-family: 'Inter', monospace;
+    margin-right: 4px;
+  }
+
+  .callout {
+    border-left: 3px solid var(--red);
+    padding: 4px 0 4px 20px;
+    margin: 24px 0;
+    color: var(--ink);
+    font-style: italic;
+    font-size: 16px; line-height: 1.6;
+  }
+
+  .doc-footer-meta {
+    margin-top: 80px; padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px; color: var(--muted);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .doc-footer-meta strong { color: var(--ink); font-weight: 600; }
+
+  .back-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 24px; border-radius: 999px;
+    background: var(--ink); color: #fff;
+    text-decoration: none;
+    font-weight: 600; font-size: 14px;
+    margin-top: 32px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .back-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--ink); color: #fff;
+    padding: 60px 0 30px;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    color: rgba(255,255,255,0.5); font-size: 13px;
+  }
+  .footer-certs { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .cert-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    font-size: 12px; color: rgba(255,255,255,0.8);
+  }
+  .cert-badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .cert-badge:nth-child(1) .dot { background: var(--red); }
+  .cert-badge:nth-child(2) .dot { background: var(--yellow); }
+  .cert-badge:nth-child(3) .dot { background: var(--green); }
+
+  /* WhatsApp floating */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 12px 30px rgba(52, 168, 83, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; z-index: 100; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wa-float:hover {
+    transform: scale(1.08);
+    box-shadow: 0 16px 40px rgba(52, 168, 83, 0.5);
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 968px) {
+    nav ul { display: none; }
+    .doc-grid { grid-template-columns: 1fr; gap: 32px; }
+    .doc-toc {
+      position: static;
+      padding: 20px;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--ink);
+    }
+    .page-hero { padding: 130px 0 70px; }
+    .page-hero h1 { font-size: clamp(40px, 9vw, 64px); }
+    .doc { padding: 60px 0 80px; }
+    .doc-content > section { margin-bottom: 48px; }
+    .doc-content h2 { font-size: 26px; }
+    .wa-float { width: 52px; height: 52px; bottom: 18px; right: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="nav" id="siteNav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo-link">
+      <img src="https://static.wixstatic.com/media/b8c5b7_e487a62dbfb444a4b641e03001c32014~mv2.png" alt="Maracatu Digital Intelligence" />
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html#servicos">Serviços</a></li>
+        <li><a href="index.html#processo">Como funciona</a></li>
+        <li><a href="index.html#clientes">Clientes</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="grain"></div>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Início</a>
+      <span class="sep">·</span>
+      <span>Compliance</span>
+    </div>
+    <div class="page-eyebrow">
+      <span class="gdots"><span></span><span></span><span></span><span></span></span>
+      Código de Conduta e Ética
+    </div>
+    <h1>Compliance<span class="accent">.</span></h1>
+    <p class="lead">Alinhada com os mais rigorosos padrões de ética e transparência, a Maracatu se compromete a adotar as práticas descritas neste documento como seu próprio padrão de conduta — e dos profissionais que nos representam.</p>
+  </div>
+</section>
+
+<!-- DOC CONTENT -->
+<div class="doc">
+  <div class="container">
+    <div class="doc-grid">
+      <aside class="doc-toc">
+        <div class="doc-toc-title">Neste documento</div>
+        <ul>
+          <li><a href="#aplicacao">Aplicação e alcance</a></li>
+          <li><a href="#valores">Valores e missão</a></li>
+          <li><a href="#objetivos">Objetivos</a></li>
+          <li><a href="#ccem">Central de Compliance (C.C.E.M.)</a></li>
+          <li><a href="#kyc">Know Your Customer</a></li>
+          <li><a href="#fornecedores">Contratação de fornecedores</a></li>
+          <li><a href="#lavagem">Prevenção à lavagem</a></li>
+          <li><a href="#corrupcao">Prevenção à corrupção</a></li>
+          <li><a href="#conflito">Conflito de interesses</a></li>
+          <li><a href="#dados">Proteção de dados (LGPD)</a></li>
+          <li><a href="#concorrencia">Concorrência leal</a></li>
+          <li><a href="#sigilo">Sigilo de informações</a></li>
+          <li><a href="#social">Responsabilidade social</a></li>
+        </ul>
+      </aside>
+
+      <div class="doc-content">
+
+        <div class="intro-card">
+          <p>Este Código reflete os valores e orienta as condutas da Maracatu. Sua publicidade é assegurada pela disponibilização permanente, interna e externamente, por meio deste site.</p>
+        </div>
+
+        <section id="aplicacao">
+          <h2><span class="num">01</span>Aplicação e alcance</h2>
+          <p>A ética aqui descrita deve nortear as decisões corporativas e gerenciais e reger todas as relações comerciais da empresa. Os termos do Código são de conhecimento e contam com a concordância de todos os sócios, diretores, profissionais e prestadores de serviços, diretos ou indiretos, da Maracatu — as <strong>"Pessoas Vinculadas"</strong>.</p>
+          <p>Devem ser respeitados em relação a quaisquer atos praticados no exercício profissional perante a Maracatu, seus clientes, fornecedores e demais partes relacionadas. A fiscalização do cumprimento do disposto neste Código caberá a todos os sócios, diretores e profissionais.</p>
+        </section>
+
+        <section id="valores">
+          <h2><span class="num">02</span>Valores e missão</h2>
+          <p class="lead">Os 13 valores que orientam cada decisão da Maracatu:</p>
+          <div class="values-grid">
+            <span class="value-tag">Honestidade</span>
+            <span class="value-tag">Integridade</span>
+            <span class="value-tag">Comprometimento</span>
+            <span class="value-tag">Disciplina</span>
+            <span class="value-tag">Colaboração</span>
+            <span class="value-tag">Determinação</span>
+            <span class="value-tag">Criatividade</span>
+            <span class="value-tag">Inovação</span>
+            <span class="value-tag">Proatividade</span>
+            <span class="value-tag">Responsabilidade</span>
+            <span class="value-tag">Transparência</span>
+            <span class="value-tag">Precisão</span>
+            <span class="value-tag">Diversidade</span>
+          </div>
+
+          <div class="mission-card">
+            <h3>Missão</h3>
+            <p>Garantir aos nossos clientes, independente do seu tamanho, a possibilidade de estar presente no ambiente digital concorrendo em pé de igualdade com empresas de qualquer porte — atendendo suas expectativas com inovação, técnica, eficiência, agilidade, ética, responsabilidade social e tecnologia de ponta.</p>
+          </div>
+        </section>
+
+        <section id="objetivos">
+          <h2><span class="num">03</span>Objetivos</h2>
+          <p>A Maracatu deseja se relacionar da melhor maneira possível, de forma íntegra e ética, com todos os públicos envolvidos em sua atividade — criando vínculos duradouros e baseados em confiança mútua.</p>
+          <ul>
+            <li>Oferecer soluções que atendam aos interesses das Partes Relacionadas, cuidando para que exista equilíbrio entre os interesses envolvidos</li>
+            <li>Estar abertos ao diálogo, sempre respeitando a diversidade e a liberdade de opinião e expressão, sem nenhum tipo de discriminação</li>
+            <li>Profissionalismo e eficiência na relação com clientes, sempre dispensando tratamento digno e respeitoso</li>
+            <li>Pronto retorno e pontualidade na entrega e na execução dos serviços contratados</li>
+            <li>Auxílio constante, claro e abrangente para afastar todas as dúvidas relacionadas aos trabalhos desenvolvidos</li>
+          </ul>
+        </section>
+
+        <section id="ccem">
+          <h2><span class="num">04</span>Central de Compliance e Ética da Maracatu</h2>
+          <p class="lead">A C.C.E.M. é a estrutura interna responsável por fiscalizar condutas, deliberar sobre denúncias e revisar práticas das áreas de negócio.</p>
+          <h3>Principais atribuições</h3>
+          <ul>
+            <li>Fiscalizar as condutas das Pessoas Vinculadas no desempenho de suas atividades</li>
+            <li>Opinar sobre procedimentos das áreas de negócio, RH, compras, financeiro e contratos, revisando periodicamente tais práticas</li>
+            <li>Monitorar a gestão dos contratos com a Administração Pública</li>
+            <li>Deliberar sobre medidas a serem tomadas no âmbito de denúncias relatadas</li>
+            <li>Ouvir o responsável pela área envolvida antes de deliberar qualquer medida disciplinar — de advertência ao desligamento por justa causa</li>
+            <li>Garantir sigilo da autoria e do teor das denúncias recebidas</li>
+            <li>Validar contratações de ex-funcionários públicos, políticos ou de iniciativa privada para cargos de gestão, realizando "due diligence anticorrupção" em cada caso</li>
+            <li>Garantir a rotatividade dos representantes da Maracatu com autoridades públicas e órgãos governamentais</li>
+            <li>Acessar regularmente o CEIS e o CNEP para prevenir contratações com empresas listadas</li>
+            <li>Realizar fiscalizações periódicas, por amostragem, para identificar novos riscos</li>
+          </ul>
+          <div class="callout">A Maracatu não realiza contribuições a candidatos e partidos políticos. É totalmente proibido usar recursos da empresa para alcançar objetivos políticos ou facilitações.</div>
+          <p>A C.C.E.M. estimula, por parte das Pessoas Vinculadas e Partes Relacionadas, a utilização do <strong>Canal de Denúncia</strong> para reportar qualquer suspeita de conduta contrária ao Código, com prazo de até 60 dias para apurar, relatar e deliberar.</p>
+        </section>
+
+        <section id="kyc">
+          <h2><span class="num">05</span>Know Your Customer e cadastro</h2>
+          <ul>
+            <li>Os clientes da Maracatu devem ser devidamente identificados por meio de cadastros individuais e completos, com indicação de como chegaram à empresa, perfil e interesses — inclusive com entrevistas pessoais quando necessário</li>
+            <li>As informações cadastrais são atualizadas periodicamente, em intervalo mínimo de um ano</li>
+            <li>Toda contratação deve ser formalizada por instrumento próprio, com bases claras sobre as obrigações das partes e remuneração compatível e adequada ao produto ou serviço prestado</li>
+          </ul>
+        </section>
+
+        <section id="fornecedores">
+          <h2><span class="num">06</span>Contratação de fornecedores</h2>
+          <p>Para garantir que os valores e interesses deste Código sejam preservados, a Maracatu busca efetuar contratação transparente e idônea. Os fornecedores devem seguir as regras e procedimentos internos de cadastro estabelecidos pelo departamento de compras, bem como efetuar sua formalização contratual.</p>
+        </section>
+
+        <section id="lavagem">
+          <h2><span class="num">07</span>Prevenção à lavagem de capitais</h2>
+          <p><span class="law-tag">Lei nº 9.613/98</span></p>
+          <p>As Pessoas Vinculadas têm ciência do conteúdo da Lei de Combate à Lavagem de Bens e Capitais, bem como da regulamentação complementar — incluindo normativos e resoluções do COAF e do BACEN — estando comprometidas a observá-las.</p>
+          <ul>
+            <li>Fica vedado a qualquer Pessoa Vinculada o recebimento de qualquer numerário, em espécie, para fins de investimento, remuneração ou pagamento</li>
+            <li>Situações que contrariem as limitações estabelecidas ou apresentem indícios de ilicitude devem ser comunicadas formalmente para que as medidas adequadas sejam tomadas</li>
+          </ul>
+        </section>
+
+        <section id="corrupcao">
+          <h2><span class="num">08</span>Prevenção à corrupção e ao suborno</h2>
+          <p><span class="law-tag">Lei nº 12.846/13</span></p>
+          <ul>
+            <li>A Maracatu e as Pessoas Vinculadas não podem oferecer, prometer ou dar nenhuma coisa de valor — direta ou indiretamente — a qualquer terceiro, especialmente agente de governo ou autoridade, nacional ou internacional</li>
+            <li>Quaisquer despesas com patrocínio devem ser autorizadas, sendo vedada a destinação de recursos para custear a prática de ilícitos</li>
+            <li>É proibido dificultar ou intervir em fiscalização realizada por agentes ou órgãos públicos</li>
+            <li>É proibido fraudar, manipular ou impedir licitações e contratos relacionados a órgãos governamentais</li>
+            <li>É vedado aceitar ou dar brindes, presentes e/ou favores com valor econômico superior a R$ 150,00, bem como custear viagem, hospedagem ou entretenimento a agentes públicos sem motivo lícito e autorização</li>
+          </ul>
+        </section>
+
+        <section id="conflito">
+          <h2><span class="num">09</span>Conflito de interesses</h2>
+          <ul>
+            <li>As Pessoas Vinculadas devem tratar os clientes de forma equitativa, sem beneficiar ou prejudicar um cliente em detrimento de outro por nenhum motivo</li>
+            <li>Devem identificar situações que representem potencial conflito e possam interferir em sua capacidade de agir no melhor interesse dos clientes</li>
+            <li>É proibido aconselhar clientes a realizar negócio para obter, para si ou para outrem, vantagem indevida</li>
+            <li>É expressamente proibida a constituição de sociedade entre Profissionais da Maracatu e Prestadores de Serviços ou Fornecedores que atuem no mesmo segmento</li>
+            <li>A contratação de familiares somente é permitida desde que não haja nenhum nível de subordinação hierárquica direta ou indireta, nem influência em decisões da gestão</li>
+          </ul>
+        </section>
+
+        <section id="dados">
+          <h2><span class="num">10</span>Proteção de dados pessoais (LGPD)</h2>
+          <p><span class="law-tag">Lei nº 13.709/18</span></p>
+          <p>A Maracatu e as Pessoas Vinculadas comprometem-se a respeitar o tratamento de Dados Pessoais conforme definido em lei, única e exclusivamente para os fins previamente informados pelas Partes Envolvidas — adotando todas as medidas necessárias à segurança, sigilo, confidencialidade e integridade dos dados.</p>
+          <h3>Medidas adotadas</h3>
+          <ul>
+            <li>Agir de forma cuidadosa no tratamento, coleta, produção, recepção, classificação, utilização, acesso, reprodução, distribuição, processamento, armazenamento e transporte dos dados pessoais e sensíveis</li>
+            <li>Comitê com reuniões mensais para fiscalizar condutas relacionadas ao tratamento de dados e deliberar sobre eventuais denúncias</li>
+            <li>Programas de capacitação, palestras e treinamentos para preparação e informação sobre proteção de Dados Pessoais</li>
+            <li>Processos internos para mitigar riscos no momento de implementação de novos produtos, serviços, tecnologias e modelos de negócios</li>
+            <li>Revisão periódica das políticas e programas de segurança para determinar as modificações necessárias</li>
+            <li>Canal para receber e responder dúvidas e queixas dos titulares dos Dados Pessoais</li>
+            <li>Medidas de segurança e procedimentos técnicos que permitam efetuar o rastreamento dos Dados durante seu tratamento</li>
+          </ul>
+        </section>
+
+        <section id="concorrencia">
+          <h2><span class="num">11</span>Concorrência leal</h2>
+          <ul>
+            <li>As Pessoas Vinculadas devem prevenir situações que possam ser interpretadas como prática anticoncorrencial — como participação em reuniões e alinhamentos com concorrentes que possam ser contrários aos interesses do mercado</li>
+            <li>É proibido se valer de informações sigilosas de terceiros ou repassar informações da Maracatu ou de seus clientes</li>
+            <li>Nenhum profissional, diretor ou sócio pode criar situações de conflito de interesse aceitando benefícios — financeiros ou não — para influenciar a escolha e contratação de parceiros, fornecedores ou novos profissionais</li>
+          </ul>
+          <div class="callout">Exemplos vedados: viagens, brindes acima de R$ 150,00, ingressos para shows, veículos, imóveis, roupas, participação no negócio do fornecedor, remuneração paralela, empréstimos ou reforma de residência/veículo.</div>
+        </section>
+
+        <section id="sigilo">
+          <h2><span class="num">12</span>Sigilo das informações</h2>
+          <ul>
+            <li>As Pessoas Vinculadas têm acesso a dados estratégicos, informações confidenciais, segredos de indústria e propriedade intelectual da Maracatu e de seus clientes apenas na medida da competência atribuída (<em>need-to-know basis</em>)</li>
+            <li>As Informações Confidenciais devem ser tratadas como tal e mantidas em sigilo, limitando-se a divulgação e o acesso às Pessoas Vinculadas diretamente envolvidas</li>
+            <li>A confidencialidade deve ser preservada mesmo após o encerramento do vínculo. Um termo de NDA deve ser assinado pelo profissional no encerramento</li>
+            <li>A privacidade dos indivíduos é respeitada: informações pessoais são coletadas somente para fins de processamento, arquivamento e uso apenas na medida do necessário e em conformidade com a legislação brasileira</li>
+            <li>Toda entrada e saída de material de propriedade da Maracatu deve ser autorizada pela diretoria de operações e registrada no setor competente</li>
+          </ul>
+        </section>
+
+        <section id="social">
+          <h2><span class="num">13</span>Responsabilidade social</h2>
+          <p>A Maracatu reconhece a importância da Responsabilidade Social e está preocupada em afetar positivamente o meio social no qual está inserida. As Pessoas Vinculadas são estimuladas, mas não obrigadas, a se engajar em trabalhos beneficentes.</p>
+          <p>Há o compromisso de <strong>promover a igualdade e a harmonia entre pessoas de diferentes sexos, etnias, convicções políticas, nacionalidades, faixas etárias, orientações sexuais, raças, religiões, cores, idades, condições especiais e deficientes</strong> — praticando a tolerância e a integração, sempre objetivando a harmonia no ambiente de trabalho.</p>
+          <p>São vedadas às Pessoas Vinculadas a utilização de peça de vestuário e a distribuição de material de cunho político-partidário no âmbito profissional.</p>
+        </section>
+
+        <div class="doc-footer-meta">
+          <div><strong>Vigência:</strong> 1º de março de 2020</div>
+          <div><strong>Local:</strong> Jaboatão dos Guararapes, Pernambuco, Brasil</div>
+          <div><strong>Revisão:</strong> Anual</div>
+        </div>
+
+        <a href="index.html" class="back-cta">← Voltar para o site</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WhatsApp floating -->
+<a href="https://wa.me/5511966249876" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+  </svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-bottom">
+    <div>© 2026 Maracatu Digital Intelligence. Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav scroll
+  (function() {
+    var nav = document.getElementById('siteNav');
+    function onScroll() {
+      if (window.scrollY > 60) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // TOC active state on scroll
+  (function() {
+    var sections = document.querySelectorAll('.doc-content > section[id]');
+    var links = document.querySelectorAll('.doc-toc a');
+    function onScroll() {
+      var pos = window.scrollY + 150;
+      var active = null;
+      sections.forEach(function(s) {
+        if (s.offsetTop <= pos) active = s.id;
+      });
+      links.forEach(function(l) {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + active);
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+</body>
+</html>

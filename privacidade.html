@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Política de Privacidade — Maracatu Digital Intelligence</title>
+<meta name="description" content="Política de Privacidade e Cookies da Maracatu Digital. Como tratamos seus dados pessoais com transparência." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #EA4335;
+    --yellow: #FBBC04;
+    --green: #34A853;
+    --blue: #4285F4;
+    --ink: #0A0A0A;
+    --bg: #FAFAF7;
+    --card: #FFFFFF;
+    --muted: #6B7280;
+    --border: #ECECE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* === HEADER === */
+  header.nav {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+    background: transparent;
+  }
+  header.nav.scrolled {
+    position: fixed;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 0;
+  }
+  .logo-link { display: flex; align-items: center; text-decoration: none; }
+  .logo-link img {
+    height: 52px; width: auto; display: block;
+    filter: brightness(0) invert(1);
+    transition: opacity 0.2s;
+  }
+  .logo-link:hover img { opacity: 0.85; }
+  nav ul { display: flex; gap: 36px; list-style: none; }
+  nav a {
+    text-decoration: none; color: #fff;
+    font-size: 14px; font-weight: 500;
+    transition: opacity 0.2s;
+    letter-spacing: 0.2px;
+  }
+  nav a:hover { opacity: 0.65; }
+
+  /* === HERO === */
+  .page-hero {
+    position: relative;
+    padding: 180px 0 100px;
+    background: #000; color: #fff;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(66, 133, 244, 0.32), transparent 65%);
+    pointer-events: none;
+  }
+  .page-hero::after {
+    content: ''; position: absolute; bottom: -250px; left: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(52, 168, 83, 0.22), transparent 65%);
+    pointer-events: none;
+  }
+  .grain {
+    position: absolute; inset: 0; opacity: 0.4; pointer-events: none;
+    background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.02) 1px, transparent 1px),
+                      radial-gradient(circle at 70% 80%, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px, 120px 120px;
+  }
+  .page-hero .container { position: relative; z-index: 1; }
+  .breadcrumb {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+  }
+  .breadcrumb a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .breadcrumb a:hover { color: #fff; }
+  .breadcrumb .sep { opacity: 0.4; }
+  .page-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px);
+    font-size: 13px; font-weight: 500; color: #fff;
+    margin-bottom: 28px;
+    letter-spacing: 0.2px;
+  }
+  .page-eyebrow .lock {
+    width: 14px; height: 14px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--green);
+  }
+  .page-hero h1 {
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 800; line-height: 1; letter-spacing: -3px;
+    margin-bottom: 24px;
+  }
+  .page-hero h1 .accent { color: var(--blue); font-weight: 400; font-family: 'Instrument Serif', serif; font-style: italic; }
+  .page-hero p.lead {
+    font-size: 20px; color: rgba(255,255,255,0.75);
+    max-width: 620px; line-height: 1.55;
+  }
+
+  /* === CONTENT === */
+  .doc {
+    padding: 80px 0 120px;
+    background: var(--bg);
+  }
+  .doc-grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .doc-toc {
+    position: sticky; top: 100px;
+    padding: 24px 0;
+    border-top: 2px solid var(--ink);
+  }
+  .doc-toc-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .doc-toc ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .doc-toc a {
+    color: var(--muted); text-decoration: none;
+    font-size: 14px; line-height: 1.4;
+    transition: color 0.2s, padding-left 0.2s;
+    display: block; padding: 2px 0;
+  }
+  .doc-toc a:hover {
+    color: var(--ink); padding-left: 4px;
+  }
+  .doc-toc a.active { color: var(--ink); font-weight: 600; }
+
+  .doc-content { max-width: 760px; }
+  .doc-content > section { margin-bottom: 64px; scroll-margin-top: 100px; }
+  .doc-content > section:last-child { margin-bottom: 0; }
+
+  .doc-content .intro-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 36px;
+    margin-bottom: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-content .intro-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 6px; height: 100%;
+    background: linear-gradient(180deg, var(--blue) 0%, var(--green) 50%, var(--yellow) 100%);
+  }
+  .doc-content .intro-card p {
+    font-size: 18px; line-height: 1.6; color: var(--ink);
+    font-weight: 500;
+    padding-left: 12px;
+  }
+
+  .doc-content h2 {
+    font-size: 32px; font-weight: 800; letter-spacing: -1px;
+    line-height: 1.1; margin-bottom: 8px;
+    display: flex; align-items: baseline; gap: 14px;
+  }
+  .doc-content h2 .num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px; font-style: italic; font-weight: 400;
+    color: var(--blue); letter-spacing: 0;
+  }
+  .doc-content h2 + .lead {
+    font-size: 16px; color: var(--muted);
+    margin-bottom: 24px; line-height: 1.55;
+  }
+  .doc-content h3 {
+    font-size: 19px; font-weight: 700; letter-spacing: -0.3px;
+    margin-top: 28px; margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .doc-content p {
+    font-size: 16px; line-height: 1.7; color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .doc-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 16px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .doc-content ul li {
+    font-size: 16px; line-height: 1.6; color: var(--ink);
+    padding-left: 26px; position: relative;
+  }
+  .doc-content ul li::before {
+    content: '';
+    position: absolute; left: 0; top: 10px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--ink);
+  }
+  .doc-content section:nth-child(3n+2) ul li::before { background: var(--blue); }
+  .doc-content section:nth-child(3n+3) ul li::before { background: var(--green); }
+  .doc-content section:nth-child(3n+4) ul li::before { background: var(--red); }
+
+  /* Cookie type cards */
+  .cookie-list {
+    display: flex; flex-direction: column; gap: 14px;
+    margin-bottom: 16px;
+  }
+  .cookie-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .cookie-item:hover {
+    border-color: var(--ink);
+    transform: translateX(2px);
+  }
+  .cookie-item h4 {
+    font-size: 15px; font-weight: 700;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 10px;
+    color: var(--ink);
+  }
+  .cookie-item h4 .icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; flex-shrink: 0;
+    font-size: 14px; font-weight: 700;
+  }
+  .cookie-item:nth-child(1) h4 .icon { background: var(--blue); }
+  .cookie-item:nth-child(2) h4 .icon { background: var(--red); }
+  .cookie-item:nth-child(3) h4 .icon { background: var(--yellow); color: var(--ink); }
+  .cookie-item:nth-child(4) h4 .icon { background: var(--green); }
+  .cookie-item:nth-child(5) h4 .icon { background: var(--ink); }
+  .cookie-item:nth-child(6) h4 .icon { background: var(--blue); }
+  .cookie-item:nth-child(7) h4 .icon { background: var(--green); }
+  .cookie-item p {
+    font-size: 14px; line-height: 1.55; color: var(--muted);
+    margin: 0;
+  }
+
+  .info-box {
+    background: var(--ink); color: #fff;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin: 24px 0;
+    position: relative; overflow: hidden;
+  }
+  .info-box::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(66, 133, 244, 0.25), transparent 70%);
+  }
+  .info-box h3 {
+    color: var(--blue); margin-top: 0;
+    font-size: 13px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .info-box p {
+    color: rgba(255,255,255,0.9); margin: 0;
+    font-size: 16px; line-height: 1.6;
+    position: relative; z-index: 1;
+  }
+  .info-box p strong { color: var(--yellow); }
+
+  .callout {
+    border-left: 3px solid var(--blue);
+    padding: 4px 0 4px 20px;
+    margin: 24px 0;
+    color: var(--ink);
+    font-style: italic;
+    font-size: 16px; line-height: 1.6;
+  }
+
+  .commitment-list {
+    list-style: none; padding-left: 0;
+    display: flex; flex-direction: column; gap: 16px !important;
+    counter-reset: commit;
+  }
+  .commitment-list li {
+    padding-left: 56px !important;
+    position: relative;
+    counter-increment: commit;
+  }
+  .commitment-list li::before {
+    content: counter(commit, upper-alpha) !important;
+    background: var(--blue); color: #fff !important;
+    width: 36px !important; height: 36px !important;
+    border-radius: 50% !important;
+    display: flex !important; align-items: center; justify-content: center;
+    font-size: 14px !important; font-weight: 700 !important;
+    font-family: 'Inter', sans-serif !important;
+    top: 0 !important; left: 0 !important;
+    position: absolute !important;
+  }
+  .commitment-list li:nth-child(2)::before { background: var(--red) !important; }
+  .commitment-list li:nth-child(3)::before { background: var(--yellow) !important; color: var(--ink) !important; }
+
+  .doc-footer-meta {
+    margin-top: 80px; padding-top: 32px;
+    border-top: 1px solid var(--border);
+    font-size: 14px; color: var(--muted);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .doc-footer-meta strong { color: var(--ink); font-weight: 600; }
+
+  .back-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 24px; border-radius: 999px;
+    background: var(--ink); color: #fff;
+    text-decoration: none;
+    font-weight: 600; font-size: 14px;
+    margin-top: 32px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .back-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--ink); color: #fff;
+    padding: 60px 0 30px;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    color: rgba(255,255,255,0.5); font-size: 13px;
+  }
+  .footer-certs { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .cert-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    font-size: 12px; color: rgba(255,255,255,0.8);
+  }
+  .cert-badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .cert-badge:nth-child(1) .dot { background: var(--red); }
+  .cert-badge:nth-child(2) .dot { background: var(--yellow); }
+  .cert-badge:nth-child(3) .dot { background: var(--green); }
+
+  /* WhatsApp floating */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 12px 30px rgba(52, 168, 83, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; z-index: 100; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wa-float:hover {
+    transform: scale(1.08);
+    box-shadow: 0 16px 40px rgba(52, 168, 83, 0.5);
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 968px) {
+    nav ul { display: none; }
+    .doc-grid { grid-template-columns: 1fr; gap: 32px; }
+    .doc-toc {
+      position: static;
+      padding: 20px;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--ink);
+    }
+    .page-hero { padding: 130px 0 70px; }
+    .page-hero h1 { font-size: clamp(40px, 9vw, 64px); }
+    .doc { padding: 60px 0 80px; }
+    .doc-content > section { margin-bottom: 48px; }
+    .doc-content h2 { font-size: 26px; }
+    .wa-float { width: 52px; height: 52px; bottom: 18px; right: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="nav" id="siteNav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo-link">
+      <img src="https://static.wixstatic.com/media/b8c5b7_e487a62dbfb444a4b641e03001c32014~mv2.png" alt="Maracatu Digital Intelligence" />
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html#servicos">Serviços</a></li>
+        <li><a href="index.html#processo">Como funciona</a></li>
+        <li><a href="index.html#clientes">Clientes</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="grain"></div>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Início</a>
+      <span class="sep">·</span>
+      <span>Política de Privacidade</span>
+    </div>
+    <div class="page-eyebrow">
+      <span class="lock">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.7 1.4-3.1 3.1-3.1s3.1 1.4 3.1 3.1v2z"/></svg>
+      </span>
+      LGPD · Lei nº 13.709/18
+    </div>
+    <h1>Sua privacidade<span class="accent">.</span></h1>
+    <p class="lead">A sua privacidade é importante para nós. Esta política descreve como tratamos os seus dados pessoais com transparência, segurança e respeito à legislação brasileira.</p>
+  </div>
+</section>
+
+<!-- DOC CONTENT -->
+<div class="doc">
+  <div class="container">
+    <div class="doc-grid">
+      <aside class="doc-toc">
+        <div class="doc-toc-title">Neste documento</div>
+        <ul>
+          <li><a href="#principios">Princípios gerais</a></li>
+          <li><a href="#cookies">O que são cookies</a></li>
+          <li><a href="#uso">Como usamos cookies</a></li>
+          <li><a href="#desativar">Desativar cookies</a></li>
+          <li><a href="#proprios">Cookies que definimos</a></li>
+          <li><a href="#terceiros">Cookies de terceiros</a></li>
+          <li><a href="#compromisso">Compromisso do usuário</a></li>
+          <li><a href="#mais">Mais informações</a></li>
+        </ul>
+      </aside>
+
+      <div class="doc-content">
+
+        <div class="intro-card">
+          <p>É política da Maracatu Digital Intelligence respeitar a sua privacidade em relação a qualquer informação que possamos coletar neste site e em outras propriedades que possuímos e operamos.</p>
+        </div>
+
+        <section id="principios">
+          <h2><span class="num">01</span>Princípios gerais</h2>
+          <p>Solicitamos informações pessoais <strong>apenas quando realmente precisamos delas</strong> para lhe fornecer um serviço. Fazemos isso por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como será usado.</p>
+          <p>Apenas retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado. Quando armazenamos dados, protegemos dentro de meios comercialmente aceitáveis para evitar perdas, roubos, acessos, divulgações, cópias, usos ou modificações não autorizadas.</p>
+          <ul>
+            <li>Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei</li>
+            <li>Nosso site pode conter links externos não operados por nós — não temos controle sobre suas práticas de privacidade</li>
+            <li>Você é livre para recusar nossa solicitação de informações pessoais, entendendo que talvez não possamos fornecer alguns dos serviços desejados</li>
+            <li>O uso continuado do nosso site é considerado aceitação das nossas práticas em torno de privacidade e informações pessoais</li>
+          </ul>
+          <div class="callout">Se você tiver alguma dúvida sobre como lidamos com dados do usuário e informações pessoais, entre em contato conosco.</div>
+        </section>
+
+        <section id="cookies">
+          <h2><span class="num">02</span>O que são cookies</h2>
+          <p>Como é prática comum em quase todos os sites profissionais, este site usa cookies — <strong>pequenos arquivos baixados no seu computador</strong> para melhorar sua experiência.</p>
+          <p>Esta página descreve quais informações eles coletam, como as usamos e por que às vezes precisamos armazenar esses cookies. Também compartilhamos como você pode impedir que esses cookies sejam armazenados — embora isso possa fazer o downgrade ou "quebrar" certos elementos da funcionalidade do site.</p>
+        </section>
+
+        <section id="uso">
+          <h2><span class="num">03</span>Como usamos cookies</h2>
+          <p>Utilizamos cookies por vários motivos detalhados nas próximas seções. Infelizmente, na maioria dos casos, não existem opções padrão do setor para desativar os cookies sem desativar completamente a funcionalidade e os recursos que eles adicionam a este site.</p>
+          <div class="info-box">
+            <h3>Recomendação</h3>
+            <p>É recomendável que você <strong>deixe todos os cookies ativos</strong> se não tiver certeza se precisa ou não deles, caso sejam usados para fornecer um serviço que você usa.</p>
+          </div>
+        </section>
+
+        <section id="desativar">
+          <h2><span class="num">04</span>Desativar cookies</h2>
+          <p>Você pode impedir a configuração de cookies ajustando as configurações do seu navegador — consulte a Ajuda do navegador para saber como fazer isso.</p>
+          <p>Esteja ciente de que a desativação de cookies afetará a funcionalidade deste e de muitos outros sites que você visita. A desativação geralmente resultará na desativação de determinadas funcionalidades e recursos. Portanto, é recomendável que você não desative os cookies.</p>
+        </section>
+
+        <section id="proprios">
+          <h2><span class="num">05</span>Cookies que definimos</h2>
+          <p class="lead">Os cookies próprios do site, organizados por finalidade:</p>
+          <div class="cookie-list">
+            <div class="cookie-item">
+              <h4><span class="icon">👤</span>Cookies relacionados à conta</h4>
+              <p>Se você criar uma conta conosco, usaremos cookies para o gerenciamento do processo de inscrição e administração geral. Esses cookies geralmente serão excluídos quando você sair do sistema; em alguns casos, podem permanecer posteriormente para lembrar suas preferências.</p>
+            </div>
+            <div class="cookie-item">
+              <h4><span class="icon">🔐</span>Cookies relacionados ao login</h4>
+              <p>Utilizamos cookies quando você está logado, para que possamos lembrar dessa ação. Isso evita que você precise fazer login sempre que visitar uma nova página. Esses cookies são normalmente removidos quando você efetua logout.</p>
+            </div>
+            <div class="cookie-item">
+              <h4><span class="icon">✉</span>Boletins por e-mail</h4>
+              <p>Este site oferece serviços de assinatura de boletim informativo. Os cookies podem ser usados para lembrar se você já está registrado e se deve mostrar determinadas notificações válidas apenas para usuários inscritos ou não inscritos.</p>
+            </div>
+            <div class="cookie-item">
+              <h4><span class="icon">🛒</span>Processamento de pedidos</h4>
+              <p>Este site oferece facilidades de comércio eletrônico ou pagamento, e alguns cookies são essenciais para garantir que seu pedido seja lembrado entre as páginas, para que possamos processá-lo adequadamente.</p>
+            </div>
+            <div class="cookie-item">
+              <h4><span class="icon">📊</span>Pesquisas e questionários</h4>
+              <p>Periodicamente oferecemos pesquisas e questionários para fornecer informações interessantes, ferramentas úteis ou para entender nossa base de usuários com mais precisão. Esses cookies podem lembrar quem já participou ou fornecer resultados precisos após alterações de páginas.</p>
+            </div>
+            <div class="cookie-item">
+              <h4><span class="icon">📝</span>Formulários</h4>
+              <p>Quando você envia dados por meio de um formulário — como nas páginas de contato ou nos formulários de comentários — os cookies podem ser configurados para lembrar os detalhes do usuário para correspondência futura.</p>
+            </div>
+            <div class="cookie-item">
+              <h4><span class="icon">⚙</span>Preferências do site</h4>
+              <p>Para proporcionar uma ótima experiência, oferecemos a funcionalidade de definir suas preferências de como o site é executado. Para lembrar essas preferências, precisamos definir cookies que serão chamados sempre que você interagir com uma página afetada por elas.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="terceiros">
+          <h2><span class="num">06</span>Cookies de terceiros</h2>
+          <p>Em alguns casos especiais, também usamos cookies fornecidos por <strong>terceiros confiáveis</strong>. A seção a seguir detalha quais cookies de terceiros você pode encontrar através deste site.</p>
+          <h3>Google Analytics</h3>
+          <p>Este site usa o Google Analytics, uma das soluções de análise mais difundidas e confiáveis da web, para nos ajudar a entender como você usa o site e como podemos melhorar sua experiência. Esses cookies podem rastrear itens como o tempo gasto no site e as páginas visitadas, para que possamos continuar produzindo conteúdo atraente.</p>
+          <h3>Análises de uso</h3>
+          <p>Análises de terceiros são usadas para rastrear e medir o uso deste site, ajudando-nos a entender como podemos melhorar o site para você.</p>
+          <h3>Testes de novos recursos</h3>
+          <p>Periodicamente testamos novos recursos e fazemos alterações sutis na maneira como o site se apresenta. Quando ainda estamos testando, esses cookies podem ser usados para garantir que você receba uma experiência consistente enquanto entendemos quais otimizações nossos usuários mais apreciam.</p>
+          <h3>Métricas de conversão</h3>
+          <p>É importante entendermos as estatísticas sobre quantos visitantes do nosso site realmente convertem. Esses dados nos permitem analisar custos de publicidade com precisão para garantir o melhor preço possível em nossos serviços.</p>
+        </section>
+
+        <section id="compromisso">
+          <h2><span class="num">07</span>Compromisso do usuário</h2>
+          <p>O usuário se compromete a fazer uso adequado dos conteúdos e da informação que a Maracatu Digital Intelligence oferece no site, com caráter enunciativo, mas não limitativo:</p>
+          <ul class="commitment-list">
+            <li>Não se envolver em atividades que sejam ilegais ou contrárias à boa fé e à ordem pública</li>
+            <li>Não difundir propaganda ou conteúdo de natureza racista, xenofóbica, sobre cassinos e apostas online, jogos de sorte e azar, qualquer tipo de pornografia ilegal, de apologia ao terrorismo ou contra os direitos humanos</li>
+            <li>Não causar danos aos sistemas físicos (hardware) e lógicos (software) da Maracatu, de seus fornecedores ou terceiros, nem introduzir ou disseminar vírus informáticos ou quaisquer sistemas capazes de causar danos</li>
+          </ul>
+        </section>
+
+        <section id="mais">
+          <h2><span class="num">08</span>Mais informações</h2>
+          <p>Esperamos que esteja esclarecido. Como mencionado anteriormente, se houver algo que você não tem certeza se precisa ou não, geralmente é mais seguro deixar os cookies ativados — caso interaja com um dos recursos que você usa em nosso site.</p>
+          <p>Para qualquer dúvida adicional sobre como tratamos seus dados, você pode entrar em contato pelo nosso <a href="index.html#contato" style="color: var(--blue); font-weight: 600; text-decoration: underline; text-underline-offset: 3px;">formulário de contato</a> ou diretamente pelo <a href="https://wa.me/5511966249876" target="_blank" rel="noopener" style="color: var(--green); font-weight: 600; text-decoration: underline; text-underline-offset: 3px;">WhatsApp</a>.</p>
+        </section>
+
+        <div class="doc-footer-meta">
+          <div><strong>Vigência:</strong> Janeiro de 2021</div>
+          <div><strong>Base legal:</strong> Lei nº 13.709/18 (LGPD)</div>
+          <div><strong>Última atualização:</strong> Anual</div>
+        </div>
+
+        <a href="index.html" class="back-cta">← Voltar para o site</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WhatsApp floating -->
+<a href="https://wa.me/5511966249876" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+  </svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-bottom">
+    <div>© 2026 Maracatu Digital Intelligence. Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var nav = document.getElementById('siteNav');
+    function onScroll() {
+      if (window.scrollY > 60) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  (function() {
+    var sections = document.querySelectorAll('.doc-content > section[id]');
+    var links = document.querySelectorAll('.doc-toc a');
+    function onScroll() {
+      var pos = window.scrollY + 150;
+      var active = null;
+      sections.forEach(function(s) {
+        if (s.offsetTop <= pos) active = s.id;
+      });
+      links.forEach(function(l) {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + active);
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+</body>
+</html>
