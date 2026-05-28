@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog — Maracatu Digital Intelligence</title>
+<meta name="description" content="Insights, estratégias e bastidores de marketing digital. Conteúdo direto, sem encheção." />
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/b8c5b7_e487a62dbfb444a4b641e03001c32014~mv2.png" />
+<link rel="apple-touch-icon" href="https://static.wixstatic.com/media/b8c5b7_e487a62dbfb444a4b641e03001c32014~mv2.png" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Blog — Maracatu Digital Intelligence" />
+<meta property="og:description" content="Insights, estratégias e bastidores de marketing digital." />
+<meta property="og:image" content="https://static.wixstatic.com/media/b8c5b7_208052d92b6844279e1596fc222f8e47~mv2.jpg" />
+<meta property="og:url" content="https://maracatumktdigital.com/blog" />
+<meta name="theme-color" content="#0A0A0A" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #EA4335;
+    --yellow: #FBBC04;
+    --green: #34A853;
+    --blue: #4285F4;
+    --ink: #0A0A0A;
+    --bg: #FAFAF7;
+    --card: #FFFFFF;
+    --muted: #6B7280;
+    --border: #ECECE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* === HEADER === */
+  header.nav {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+    background: transparent;
+  }
+  header.nav.scrolled {
+    position: fixed;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 0;
+  }
+  .logo-link { display: flex; align-items: center; text-decoration: none; }
+  .logo-link img {
+    height: 104px; width: auto; display: block;
+    filter: brightness(0) invert(1);
+    transition: opacity 0.2s, height 0.3s;
+  }
+  header.nav.scrolled .logo-link img { height: 72px; }
+  .logo-link:hover img { opacity: 0.85; }
+  nav ul { display: flex; gap: 36px; list-style: none; }
+  nav a {
+    text-decoration: none; color: #fff;
+    font-size: 14px; font-weight: 500;
+    transition: opacity 0.2s;
+    letter-spacing: 0.2px;
+  }
+  nav a:hover { opacity: 0.65; }
+
+  /* === HERO === */
+  .page-hero {
+    position: relative;
+    padding: 200px 0 100px;
+    background: #000; color: #fff;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(234, 67, 53, 0.25), transparent 65%);
+    pointer-events: none;
+  }
+  .page-hero::after {
+    content: ''; position: absolute; bottom: -250px; left: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(251, 188, 4, 0.18), transparent 65%);
+    pointer-events: none;
+  }
+  .grain {
+    position: absolute; inset: 0; opacity: 0.4; pointer-events: none;
+    background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.02) 1px, transparent 1px),
+                      radial-gradient(circle at 70% 80%, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px, 120px 120px;
+  }
+  .page-hero .container { position: relative; z-index: 1; }
+  .breadcrumb {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+  }
+  .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: #fff; }
+  .breadcrumb .sep { opacity: 0.4; }
+  .page-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px);
+    font-size: 13px; font-weight: 500; color: #fff;
+    margin-bottom: 28px;
+    letter-spacing: 0.2px;
+  }
+  .page-eyebrow .pulse {
+    width: 8px; height: 8px; background: var(--green); border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.6);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(52, 168, 83, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(52, 168, 83, 0); }
+  }
+  .page-hero h1 {
+    font-size: clamp(56px, 8vw, 120px);
+    font-weight: 800; line-height: 0.95; letter-spacing: -4px;
+    margin-bottom: 28px;
+  }
+  .page-hero h1 .accent {
+    color: var(--yellow);
+    font-weight: 400; font-family: 'Instrument Serif', serif; font-style: italic;
+  }
+  .page-hero p.lead {
+    font-size: 21px; color: rgba(255,255,255,0.75);
+    max-width: 620px; line-height: 1.5;
+  }
+
+  /* === FILTERS === */
+  .filters {
+    background: var(--bg);
+    padding: 36px 0;
+    position: sticky; top: 0; z-index: 30;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+  .filters.stuck { background: rgba(250, 250, 247, 0.92); backdrop-filter: blur(10px); }
+  .filter-row {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    align-items: center; justify-content: center;
+  }
+  .filter-pill {
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--border);
+    font-size: 14px; font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-pill:hover { border-color: var(--ink); }
+  .filter-pill.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .filter-pill .dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    margin-right: 8px; vertical-align: middle;
+  }
+  .filter-pill[data-cat="performance"] .dot { background: var(--red); }
+  .filter-pill[data-cat="seo"] .dot { background: var(--blue); }
+  .filter-pill[data-cat="branding"] .dot { background: var(--yellow); }
+  .filter-pill[data-cat="conteudo"] .dot { background: var(--green); }
+  .filter-pill[data-cat="estrategia"] .dot { background: var(--ink); }
+
+  /* === FEATURED POST === */
+  .featured-section { padding: 60px 0 40px; }
+  .featured-post {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 0;
+    background: #fff;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.4s, box-shadow 0.4s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .featured-post:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.1);
+  }
+  .featured-visual {
+    background: linear-gradient(135deg, var(--blue) 0%, #5a9aff 100%);
+    position: relative; overflow: hidden;
+    min-height: 380px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .featured-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 45%),
+      radial-gradient(circle at 75% 75%, rgba(0,0,0,0.15), transparent 50%);
+  }
+  .featured-visual .big-letter {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(140px, 18vw, 240px);
+    color: #fff; opacity: 0.95; line-height: 0.8;
+    font-style: italic; letter-spacing: -8px;
+    position: relative; z-index: 1;
+  }
+  .featured-content { padding: 48px 52px; display: flex; flex-direction: column; }
+  .post-cat {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase;
+    background: rgba(66, 133, 244, 0.1); color: var(--blue);
+    margin-bottom: 24px; width: fit-content;
+  }
+  .post-cat.cat-performance { background: rgba(234, 67, 53, 0.1); color: var(--red); }
+  .post-cat.cat-branding { background: rgba(251, 188, 4, 0.15); color: #b8860b; }
+  .post-cat.cat-conteudo { background: rgba(52, 168, 83, 0.1); color: var(--green); }
+  .post-cat.cat-estrategia { background: rgba(10, 10, 10, 0.08); color: var(--ink); }
+  .featured-content h2 {
+    font-size: clamp(28px, 3vw, 40px); font-weight: 800;
+    letter-spacing: -1.2px; line-height: 1.1;
+    margin-bottom: 18px;
+  }
+  .featured-content p.excerpt {
+    font-size: 17px; color: var(--muted);
+    line-height: 1.55; margin-bottom: 28px;
+    flex: 1;
+  }
+  .post-meta {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; color: var(--muted);
+  }
+  .post-meta .author {
+    font-weight: 600; color: var(--ink);
+  }
+  .post-meta .dot-sep {
+    width: 3px; height: 3px; border-radius: 50%;
+    background: var(--muted); opacity: 0.5;
+  }
+
+  /* === POSTS GRID === */
+  .posts-section { padding: 40px 0 100px; }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .post-card {
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    color: inherit;
+    display: flex; flex-direction: column;
+  }
+  .post-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+  }
+  .post-visual {
+    height: 180px;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .post-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 45%),
+      radial-gradient(circle at 75% 75%, rgba(0,0,0,0.15), transparent 50%);
+  }
+  .post-visual .letter {
+    font-family: 'Instrument Serif', serif;
+    font-size: 100px; color: #fff; opacity: 0.95;
+    font-style: italic; line-height: 0.8;
+    position: relative; z-index: 1;
+  }
+  .post-visual.bg-red { background: linear-gradient(135deg, var(--red), #ff6b5f); }
+  .post-visual.bg-yellow { background: linear-gradient(135deg, var(--yellow), #ffd95e); }
+  .post-visual.bg-yellow .letter { color: var(--ink); opacity: 0.85; }
+  .post-visual.bg-green { background: linear-gradient(135deg, var(--green), #5dc77e); }
+  .post-visual.bg-blue { background: linear-gradient(135deg, var(--blue), #6ba8ff); }
+  .post-visual.bg-ink { background: linear-gradient(135deg, var(--ink), #2a2a2a); }
+  .post-visual.bg-mix {
+    background: linear-gradient(135deg, var(--red) 0%, var(--yellow) 33%, var(--green) 66%, var(--blue) 100%);
+  }
+  .post-body { padding: 28px; display: flex; flex-direction: column; flex: 1; }
+  .post-body .post-cat { font-size: 11px; padding: 5px 12px; margin-bottom: 16px; }
+  .post-body h3 {
+    font-size: 19px; font-weight: 700;
+    letter-spacing: -0.5px; line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .post-body p.excerpt {
+    font-size: 14px; color: var(--muted);
+    line-height: 1.55; margin-bottom: 20px;
+    flex: 1;
+  }
+  .post-body .post-meta { font-size: 12px; }
+
+  /* === NEWSLETTER === */
+  .newsletter-section {
+    padding: 0 24px 120px;
+  }
+  .newsletter-box {
+    background: #000; color: #fff;
+    border-radius: 32px;
+    padding: 72px 60px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .newsletter-box::before {
+    content: ''; position: absolute; top: -150px; left: -150px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(251, 188, 4, 0.25), transparent 65%);
+    pointer-events: none;
+  }
+  .newsletter-box::after {
+    content: ''; position: absolute; bottom: -150px; right: -150px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(52, 168, 83, 0.25), transparent 65%);
+    pointer-events: none;
+  }
+  .newsletter-box > * { position: relative; z-index: 1; }
+  .newsletter-box .eyebrow-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+    font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px; color: var(--yellow);
+  }
+  .newsletter-box h2 {
+    font-size: clamp(32px, 4vw, 48px); font-weight: 800;
+    letter-spacing: -1.5px; line-height: 1.05;
+    margin-bottom: 18px; max-width: 700px; margin-left: auto; margin-right: auto;
+  }
+  .newsletter-box p {
+    font-size: 17px; color: rgba(255,255,255,0.7);
+    max-width: 520px; margin: 0 auto 36px; line-height: 1.55;
+  }
+  .newsletter-form {
+    display: flex; gap: 10px; max-width: 460px; margin: 0 auto;
+  }
+  .newsletter-form input {
+    flex: 1; padding: 16px 22px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff; font-family: inherit; font-size: 15px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .newsletter-form input::placeholder { color: rgba(255,255,255,0.5); }
+  .newsletter-form input:focus { outline: none; border-color: var(--yellow); background: rgba(255,255,255,0.12); }
+  .newsletter-form button {
+    padding: 16px 28px; border-radius: 999px;
+    background: var(--yellow); color: var(--ink);
+    border: none; font-family: inherit; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: transform 0.2s, background 0.2s;
+  }
+  .newsletter-form button:hover { transform: translateY(-2px); background: #fff; }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--ink); color: #fff;
+    padding: 60px 0 30px;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    color: rgba(255,255,255,0.5); font-size: 13px;
+  }
+  .footer-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.8); text-decoration: none;
+    font-size: 14px; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .footer-back:hover { color: var(--yellow); }
+
+  /* WhatsApp floating */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 12px 30px rgba(52, 168, 83, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; z-index: 100; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.08); box-shadow: 0 16px 40px rgba(52, 168, 83, 0.5); }
+
+  @media (max-width: 968px) {
+    nav ul { display: none; }
+    .page-hero { padding: 130px 0 70px; }
+    .page-hero h1 { font-size: clamp(48px, 12vw, 80px); }
+    .featured-post { grid-template-columns: 1fr; }
+    .featured-visual { min-height: 220px; }
+    .featured-content { padding: 32px 28px; }
+    .posts-grid { grid-template-columns: 1fr; }
+    .newsletter-box { padding: 52px 28px; }
+    .newsletter-form { flex-direction: column; }
+    .wa-float { width: 52px; height: 52px; bottom: 18px; right: 18px; }
+    .filter-row { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+    .filter-pill { flex-shrink: 0; }
+  }
+  @media (max-width: 660px) {
+    .posts-grid { grid-template-columns: 1fr; }
+  }
+  @media (min-width: 660px) and (max-width: 968px) {
+    .posts-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="nav" id="siteNav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo-link">
+      <img src="https://static.wixstatic.com/media/b8c5b7_e487a62dbfb444a4b641e03001c32014~mv2.png" alt="Maracatu Digital Intelligence" />
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html#servicos">Serviços</a></li>
+        <li><a href="index.html#processo">Como funciona</a></li>
+        <li><a href="index.html#clientes">Clientes</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="grain"></div>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Início</a>
+      <span class="sep">·</span>
+      <span>Blog</span>
+    </div>
+    <div class="page-eyebrow">
+      <span class="pulse"></span>
+      Novos conteúdos toda semana
+    </div>
+    <h1>Blog<span class="accent">.</span></h1>
+    <p class="lead">Insights, estratégias e bastidores reais de quem faz marketing digital todo dia. Direto, sem encheção.</p>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="filters" id="filters">
+  <div class="container">
+    <div class="filter-row">
+      <button class="filter-pill active" data-cat="all">Todos</button>
+      <button class="filter-pill" data-cat="performance"><span class="dot"></span>Performance</button>
+      <button class="filter-pill" data-cat="seo"><span class="dot"></span>SEO & GEO</button>
+      <button class="filter-pill" data-cat="branding"><span class="dot"></span>Branding</button>
+      <button class="filter-pill" data-cat="conteudo"><span class="dot"></span>Conteúdo</button>
+      <button class="filter-pill" data-cat="estrategia"><span class="dot"></span>Estratégia</button>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED POST -->
+<section class="featured-section">
+  <div class="container">
+    <a href="#" class="featured-post" data-cat="seo">
+      <div class="featured-visual">
+        <div class="big-letter">G</div>
+      </div>
+      <div class="featured-content">
+        <span class="post-cat">SEO & GEO · Destaque</span>
+        <h2>GEO: o novo SEO que já está redefinindo a busca em 2026</h2>
+        <p class="excerpt">A entrada da IA generativa nas buscas mudou o jogo. Não basta mais ranquear no Google — sua marca precisa ser citada pelos LLMs. Veja o que mudou e como adaptar sua estratégia.</p>
+        <div class="post-meta">
+          <span class="author">Maracatu Digital</span>
+          <span class="dot-sep"></span>
+          <span>15 de maio, 2026</span>
+          <span class="dot-sep"></span>
+          <span>8 min de leitura</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- POSTS GRID -->
+<section class="posts-section">
+  <div class="container">
+    <div class="posts-grid">
+
+      <a href="#" class="post-card" data-cat="performance">
+        <div class="post-visual bg-red">
+          <div class="letter">P</div>
+        </div>
+        <div class="post-body">
+          <span class="post-cat cat-performance">Performance</span>
+          <h3>Como Google Ads + IA mudou a régua do ROI esse ano</h3>
+          <p class="excerpt">O que separa quem queima verba de quem multiplica retorno. Spoiler: não é mais sobre lance, é sobre dado.</p>
+          <div class="post-meta">
+            <span>08 de maio, 2026</span>
+            <span class="dot-sep"></span>
+            <span>6 min</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card" data-cat="branding">
+        <div class="post-visual bg-yellow">
+          <div class="letter">B</div>
+        </div>
+        <div class="post-body">
+          <span class="post-cat cat-branding">Branding</span>
+          <h3>Branding em tempo de IA: por que sua marca importa mais</h3>
+          <p class="excerpt">Com tudo virando commodity, o que diferencia é identidade. Como construir uma marca que as pessoas reconhecem em segundos.</p>
+          <div class="post-meta">
+            <span>02 de maio, 2026</span>
+            <span class="dot-sep"></span>
+            <span>5 min</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card" data-cat="performance">
+        <div class="post-visual bg-ink">
+          <div class="letter">5</div>
+        </div>
+        <div class="post-body">
+          <span class="post-cat cat-performance">Performance</span>
+          <h3>5 erros caros que vimos em campanhas de mídia paga em 2026</h3>
+          <p class="excerpt">A gente analisa 1.000+ campanhas por ano. Esses cinco padrões aparecem em quase todas que falham.</p>
+          <div class="post-meta">
+            <span>25 de abril, 2026</span>
+            <span class="dot-sep"></span>
+            <span>7 min</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card" data-cat="conteudo">
+        <div class="post-visual bg-green">
+          <div class="letter">V</div>
+        </div>
+        <div class="post-body">
+          <span class="post-cat cat-conteudo">Conteúdo</span>
+          <h3>Vídeo curto: o formato que ninguém pode mais ignorar</h3>
+          <p class="excerpt">Reels, Shorts, TikToks. O que funciona em 2026, o que parou de funcionar e como adaptar seu time interno.</p>
+          <div class="post-meta">
+            <span>18 de abril, 2026</span>
+            <span class="dot-sep"></span>
+            <span>5 min</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card" data-cat="estrategia">
+        <div class="post-visual bg-blue">
+          <div class="letter">L</div>
+        </div>
+        <div class="post-body">
+          <span class="post-cat cat-estrategia">Estratégia</span>
+          <h3>LGPD na prática: o que mudou na coleta de dados pra marketing</h3>
+          <p class="excerpt">Do consentimento ao cookie. O que você ainda pode fazer, o que precisa repensar e como ficar tranquilo.</p>
+          <div class="post-meta">
+            <span>10 de abril, 2026</span>
+            <span class="dot-sep"></span>
+            <span>9 min</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card" data-cat="conteudo">
+        <div class="post-visual bg-mix">
+          <div class="letter">C</div>
+        </div>
+        <div class="post-body">
+          <span class="post-cat cat-conteudo">Conteúdo</span>
+          <h3>Conteúdo orgânico ainda funciona? Sim — mas diferente</h3>
+          <p class="excerpt">O alcance orgânico não morreu, só mudou de endereço. Onde apostar agora e como medir resultado real.</p>
+          <div class="post-meta">
+            <span>03 de abril, 2026</span>
+            <span class="dot-sep"></span>
+            <span>6 min</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-box">
+      <span class="eyebrow-pill">Newsletter</span>
+      <h2>Receba 1 e-mail por semana com o que vale a pena saber.</h2>
+      <p>Análises curtas, cases reais e o que mudou no marketing digital — direto, sem promessas vazias.</p>
+      <form class="newsletter-form" onsubmit="return assinarNewsletter(event)">
+        <input type="email" id="newsletterEmail" placeholder="seu@email.com" required />
+        <button type="submit">Assinar</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- WhatsApp floating -->
+<a href="https://wa.me/5511966249876" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+  </svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-bottom">
+    <a href="index.html" class="footer-back">← Voltar para o site</a>
+    <div>© 2026 Maracatu Digital Intelligence. Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav scroll
+  (function() {
+    var nav = document.getElementById('siteNav');
+    var filters = document.getElementById('filters');
+    function onScroll() {
+      if (window.scrollY > 60) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+      if (window.scrollY > 500) filters.classList.add('stuck');
+      else filters.classList.remove('stuck');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // Category filter
+  (function() {
+    var pills = document.querySelectorAll('.filter-pill');
+    var posts = document.querySelectorAll('[data-cat]');
+    pills.forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        pills.forEach(function(p) { p.classList.remove('active'); });
+        pill.classList.add('active');
+        var cat = pill.getAttribute('data-cat');
+        posts.forEach(function(post) {
+          if (post.classList.contains('filter-pill')) return;
+          if (cat === 'all' || post.getAttribute('data-cat') === cat) {
+            post.style.display = '';
+          } else {
+            post.style.display = 'none';
+          }
+        });
+      });
+    });
+  })();
+
+  // Newsletter → WhatsApp
+  window.assinarNewsletter = function(e) {
+    e.preventDefault();
+    var email = document.getElementById('newsletterEmail').value.trim();
+    var texto = 'Olá! Quero assinar a newsletter da Maracatu Digital.\n\nEmail: ' + email;
+    window.open('https://wa.me/5511966249876?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+    return false;
+  };
+</script>
+
+</body>
+</html>
