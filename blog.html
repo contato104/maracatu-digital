@@ -607,21 +607,6 @@
   </div>
 </section>
 
-<!-- NEWSLETTER -->
-<section class="newsletter-section">
-  <div class="container">
-    <div class="newsletter-box">
-      <span class="eyebrow-pill">Newsletter</span>
-      <h2>Receba 1 e-mail por semana com o que vale a pena saber.</h2>
-      <p>Análises curtas, cases reais e o que mudou no marketing digital — direto, sem promessas vazias.</p>
-      <form class="newsletter-form" onsubmit="return assinarNewsletter(event)">
-        <input type="email" id="newsletterEmail" placeholder="seu@email.com" required />
-        <button type="submit">Assinar</button>
-      </form>
-    </div>
-  </div>
-</section>
-
 <!-- WhatsApp floating -->
 <a href="https://wa.me/5511966249876" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
@@ -673,14 +658,6 @@
     });
   })();
 
-  // Newsletter → WhatsApp
-  window.assinarNewsletter = function(e) {
-    e.preventDefault();
-    var email = document.getElementById('newsletterEmail').value.trim();
-    var texto = 'Olá! Quero assinar a newsletter da Maracatu Digital.\n\nEmail: ' + email;
-    window.open('https://wa.me/5511966249876?text=' + encodeURIComponent(texto), '_blank', 'noopener');
-    return false;
-  };
 </script>
 
 </body>
