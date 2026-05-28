@@ -78,7 +78,6 @@
   }
   header.nav.scrolled .logo-link img { height: 72px; }
   .logo-link:hover img { opacity: 0.85; }
-  header.nav.scrolled .logo-link img { filter: brightness(0) invert(1); }
   nav ul { display: flex; gap: 36px; list-style: none; }
   nav a {
     text-decoration: none; color: #fff;
@@ -87,6 +86,65 @@
     letter-spacing: 0.2px;
   }
   nav a:hover { opacity: 0.65; }
+
+  /* Hamburguer (mobile only) */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    cursor: pointer;
+    align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .nav-toggle:hover { background: rgba(255,255,255,0.16); }
+  .nav-toggle .bar {
+    display: block; width: 18px; height: 2px;
+    background: #fff; border-radius: 2px;
+    position: relative;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .nav-toggle .bar::before, .nav-toggle .bar::after {
+    content: ''; position: absolute; left: 0;
+    width: 18px; height: 2px; background: #fff; border-radius: 2px;
+    transition: transform 0.3s;
+  }
+  .nav-toggle .bar::before { top: -6px; }
+  .nav-toggle .bar::after { top: 6px; }
+  body.menu-open .nav-toggle .bar { background: transparent; }
+  body.menu-open .nav-toggle .bar::before { transform: translateY(6px) rotate(45deg); }
+  body.menu-open .nav-toggle .bar::after { transform: translateY(-6px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 10, 10, 0.97);
+    backdrop-filter: blur(20px);
+    z-index: 49;
+    padding: 100px 24px 40px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  body.menu-open .mobile-menu { opacity: 1; pointer-events: auto; }
+  .mobile-menu ul {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .mobile-menu a {
+    display: block;
+    padding: 18px 20px;
+    color: #fff; text-decoration: none;
+    font-size: 22px; font-weight: 700;
+    letter-spacing: -0.5px;
+    border-radius: 14px;
+    transition: background 0.2s, padding-left 0.2s;
+  }
+  .mobile-menu a:hover { background: rgba(255,255,255,0.06); padding-left: 28px; }
+  body.menu-open { overflow: hidden; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 12px 22px; border-radius: 999px;
@@ -972,6 +1030,12 @@
 
   /* === RESPONSIVE === */
   @media (max-width: 968px) {
+    .logo-link img { height: 72px; }
+    header.nav.scrolled .logo-link img { height: 56px; }
+    .nav-inner { padding: 16px 0; }
+    nav ul { display: none; }
+    .nav-toggle { display: flex; }
+    .mobile-menu { display: block; }
     .gpartner-section { padding: 70px 0; }
     .gpartner-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
     .gpartner-badge { margin: 0 auto; }
@@ -993,7 +1057,6 @@
     .video-grid { grid-template-columns: 1fr; gap: 48px; }
     .video-frame { max-width: 320px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-    nav ul { display: none; }
     .section { padding: 80px 0; }
     .process { padding: 90px 0; }
     .cta-section { padding: 120px 0 140px; }
@@ -1003,11 +1066,20 @@
     .wa-float { width: 52px; height: 52px; bottom: 18px; right: 18px; }
   }
   @media (max-width: 560px) {
+    .logo-link img { height: 56px; }
+    header.nav.scrolled .logo-link img { height: 44px; }
     .services-grid { grid-template-columns: 1fr; }
     .stats-grid { grid-template-columns: 1fr 1fr; }
+    .stats { padding: 40px 0; }
+    .stats-grid { gap: 24px; }
+    .stat .num { font-size: 36px; }
     .clients-grid { grid-template-columns: repeat(2, 1fr); }
     .footer-grid { grid-template-columns: 1fr; }
-    .topbar { font-size: 12px; }
+    .hero h1 { letter-spacing: -1.5px; }
+    .gallery-strip { height: 200px; grid-template-columns: repeat(5, minmax(160px, 1fr)); }
+    .section { padding: 60px 0; }
+    .video-section { padding: 60px 0; }
+    .cta-section { padding: 90px 0 100px; }
   }
 </style>
 </head>
@@ -1028,8 +1100,24 @@
         <li><a href="#contato">Contato</a></li>
       </ul>
     </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span class="bar"></span>
+    </button>
   </div>
 </header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="container">
+    <ul>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#processo">Como funciona</a></li>
+      <li><a href="#clientes">Clientes</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1349,6 +1437,25 @@
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', function() { heroH = window.innerHeight - 80; });
+  })();
+
+  // Mobile menu toggle
+  (function() {
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('mobileMenu');
+    if (!toggle || !menu) return;
+    toggle.addEventListener('click', function() {
+      var open = document.body.classList.toggle('menu-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    });
+    menu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        document.body.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menu');
+      });
+    });
   })();
 
   // Contact form → WhatsApp
