@@ -308,12 +308,11 @@
     text-align: center;
   }
   .welcome .welcome-icon {
-    width: 88px; height: 88px; border-radius: 28px;
-    background: linear-gradient(135deg, var(--red) 0%, var(--yellow) 33%, var(--green) 66%, var(--blue) 100%);
-    margin: 0 auto 32px;
+    margin: 0 auto 36px;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 20px 40px rgba(234, 67, 53, 0.25);
-    font-size: 40px; line-height: 1;
+  }
+  .welcome .welcome-icon img {
+    height: 110px; width: auto; display: block;
   }
   .welcome h1 {
     font-size: clamp(40px, 6vw, 64px);
@@ -497,7 +496,9 @@
 
 <!-- STEP 0: WELCOME -->
 <section class="step active welcome" data-step="0">
-  <div class="welcome-icon">👋</div>
+  <div class="welcome-icon">
+    <img src="https://static.wixstatic.com/media/b8c5b7_e487a62dbfb444a4b641e03001c32014~mv2.png" alt="Maracatu Digital Intelligence" />
+  </div>
   <h1>Bem-vindo à <span class="accent">Maracatu.</span></h1>
   <p>Esse é o briefing pra gente entender o seu negócio a fundo e desenhar a estratégia perfeita pra sua marca crescer no digital.</p>
   <div class="perks">
