@@ -177,6 +177,63 @@
     resize: vertical; min-height: 120px; line-height: 1.55;
   }
 
+  /* === FILE UPLOAD === */
+  .file-row { margin-bottom: 10px; }
+  .file-input { display: none; }
+  .file-btn {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 20px;
+    border: 2px dashed var(--border);
+    border-radius: 14px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--ink);
+    font-size: 15px; font-weight: 600;
+  }
+  .file-btn:hover {
+    border-color: var(--ink);
+    background: #fafaf5;
+  }
+  .file-btn .file-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .file-btn .file-name {
+    flex: 1;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .file-btn.has-file {
+    border-style: solid;
+    border-color: var(--green);
+    background: rgba(52, 168, 83, 0.04);
+  }
+  .file-btn.has-file .file-icon {
+    background: var(--green); color: #fff;
+  }
+  .file-btn.has-file .file-name { color: var(--ink); font-weight: 600; }
+  .file-clear {
+    background: transparent; border: none;
+    color: var(--muted); cursor: pointer;
+    padding: 6px; border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .file-clear:hover { color: var(--red); background: rgba(234, 67, 53, 0.08); }
+  .file-divider {
+    text-align: center;
+    color: var(--muted); font-size: 12px;
+    margin: 8px 0;
+    text-transform: uppercase; letter-spacing: 1px;
+    font-weight: 600;
+  }
+
   /* === CHOICE BUTTONS === */
   .choices {
     display: grid; gap: 10px;
@@ -485,27 +542,58 @@
 <section class="step" data-step="2" data-section="materiais">
   <div class="eyebrow"><span class="dot"></span>Materiais visuais</div>
   <h1>Seus arquivos da marca.</h1>
-  <p class="lead">Cole os links de pastas no Google Drive, Dropbox ou WeTransfer. Se ainda não tem, deixa em branco — a gente conversa.</p>
+  <p class="lead">Anexa os arquivos da sua marca. Se preferir, cola um link de pasta do Drive. Se ainda não tem, pode deixar em branco e a gente conversa.</p>
 
   <div class="field">
     <label>Logo em alta qualidade</label>
-    <input type="url" data-q="mat_logo" placeholder="https://drive.google.com/..." />
-    <p class="hint">PDF, AI ou PNG transparente, se possível.</p>
+    <div class="file-row">
+      <input type="file" class="file-input" id="file_mat_logo" data-file="mat_logo" accept=".png,.jpg,.jpeg,.pdf,.ai,.svg,.eps" />
+      <label for="file_mat_logo" class="file-btn" id="filebtn_mat_logo">
+        <span class="file-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </span>
+        <span class="file-name">Anexar arquivo</span>
+      </label>
+    </div>
+    <div class="file-divider">ou</div>
+    <input type="url" data-q="mat_logo_url" placeholder="Cola um link do Drive" />
+    <p class="hint">PDF, AI, SVG ou PNG transparente, se possível.</p>
   </div>
 
   <div class="field">
     <label>Manual de marca</label>
-    <input type="url" data-q="mat_manual" placeholder="https://drive.google.com/..." />
+    <div class="file-row">
+      <input type="file" class="file-input" id="file_mat_manual" data-file="mat_manual" accept=".pdf,.doc,.docx,.zip" />
+      <label for="file_mat_manual" class="file-btn" id="filebtn_mat_manual">
+        <span class="file-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </span>
+        <span class="file-name">Anexar arquivo</span>
+      </label>
+    </div>
+    <div class="file-divider">ou</div>
+    <input type="url" data-q="mat_manual_url" placeholder="Cola um link do Drive" />
   </div>
 
   <div class="field">
     <label>Drive com fotos e vídeos da empresa</label>
     <input type="url" data-q="mat_fotos" placeholder="https://drive.google.com/..." />
+    <p class="hint">Como fotos e vídeos costumam ser pesados, melhor compartilhar via link.</p>
   </div>
 
   <div class="field">
-    <label>Possui mailing interno de clientes? Cola o link da planilha.</label>
-    <input type="url" data-q="mat_mailing" placeholder="https://docs.google.com/spreadsheets/..." />
+    <label>Mailing interno de clientes</label>
+    <div class="file-row">
+      <input type="file" class="file-input" id="file_mat_mailing" data-file="mat_mailing" accept=".csv,.xlsx,.xls,.numbers" />
+      <label for="file_mat_mailing" class="file-btn" id="filebtn_mat_mailing">
+        <span class="file-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </span>
+        <span class="file-name">Anexar planilha</span>
+      </label>
+    </div>
+    <div class="file-divider">ou</div>
+    <input type="url" data-q="mat_mailing_url" placeholder="Cola o link da planilha (Google Sheets, Excel...)" />
     <p class="hint">Listas com nomes, e-mails e telefones de contato.</p>
   </div>
 </section>
@@ -514,7 +602,7 @@
 <section class="step" data-step="3" data-section="publico">
   <div class="eyebrow"><span class="dot"></span>Seu público</div>
   <h1>Quem é a pessoa que <span class="accent">compra de você?</span></h1>
-  <p class="lead">Quanto mais específico melhor — isso vai guiar toda a comunicação.</p>
+  <p class="lead">Quanto mais específico, melhor. Isso vai guiar toda a comunicação.</p>
 
   <div class="field">
     <label>Qual a faixa etária do seu público? <span class="req">*</span></label>
@@ -532,8 +620,8 @@
   </div>
 
   <div class="field">
-    <label>Sexo do seu público</label>
-    <div class="choices" data-choice="pub_sexo">
+    <label>Sexo do seu público <span class="hint" style="font-size:13px;font-weight:500;color:var(--muted);margin-left:6px;">(pode escolher mais de um)</span></label>
+    <div class="choices" data-choice="pub_sexo" data-multi="true">
       <button type="button" class="choice"><span class="marker"></span>Feminino</button>
       <button type="button" class="choice"><span class="marker"></span>Masculino</button>
       <button type="button" class="choice"><span class="marker"></span>Não definido</button>
@@ -582,7 +670,7 @@
 <section class="step" data-step="5" data-section="historico">
   <div class="eyebrow"><span class="dot"></span>Histórico anterior</div>
   <h1>Bora aprender com o passado.</h1>
-  <p class="lead">A gente quer entender o que funcionou pra continuar — e o que precisa mudar pra você se sentir bem servido.</p>
+  <p class="lead">A gente quer entender o que funcionou pra continuar fazendo, e o que precisa mudar pra você se sentir bem servido.</p>
 
   <div class="milestone">
     <span class="milestone-emoji">🎯</span>
@@ -636,7 +724,7 @@
 
   <div class="field">
     <label>Hashtags e/ou slogan que gostaria que estivessem sempre nas postagens:</label>
-    <textarea data-q="cri_hashtags" placeholder="#suamarca #seusegmento — pode listar várias."></textarea>
+    <textarea data-q="cri_hashtags" placeholder="#suamarca #seusegmento. Pode listar várias."></textarea>
   </div>
 
   <div class="field">
@@ -659,7 +747,7 @@
 <section class="step" data-step="8" data-section="palavras">
   <div class="eyebrow"><span class="dot"></span>Palavras-chave</div>
   <h1>Palavras-chave do seu serviço.</h1>
-  <p class="lead">Pra quem vai investir em tráfego pago — os termos que as pessoas digitam no Google quando buscam o que você oferece.</p>
+  <p class="lead">Pra quem vai investir em tráfego pago. São os termos que as pessoas digitam no Google quando buscam o que você oferece.</p>
 
   <div class="milestone">
     <span class="milestone-emoji">🚀</span>
@@ -683,27 +771,49 @@
   <div class="review-list" id="reviewList"></div>
 </section>
 
-<!-- STEP 10: SUCCESS -->
+<!-- STEP 10: SENDING (loading) -->
 <section class="step success" data-step="10">
-  <div class="success-icon">
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  <div id="sendingState">
+    <div class="success-icon" style="background: var(--ink); animation: spin 1.2s linear infinite;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation: none;"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
+    </div>
+    <h1>Enviando seu briefing…</h1>
+    <p>Só um instante, tá indo direto pro nosso time.</p>
   </div>
-  <h1>Briefing pronto! ✨</h1>
-  <p>Tá tudo aqui. Agora é só nos enviar e a gente já começa a trabalhar no seu projeto. Em até 24h alguém do time entra em contato.</p>
 
-  <div class="success-actions">
-    <button class="btn btn-whatsapp btn-big" id="sendWhatsApp">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-      Enviar pelo WhatsApp
-    </button>
-    <button class="btn btn-secondary" id="downloadTxt">
-      Baixar uma cópia (.txt)
-    </button>
-    <button class="btn btn-secondary" id="copyText">
-      Copiar texto do briefing
-    </button>
+  <div id="successState" style="display:none;">
+    <div class="success-icon">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h1>Briefing recebido. ✨</h1>
+    <p>Agradecemos pela confiança. Em até 24h alguém do nosso time entra em contato pra dar sequência ao trabalho.</p>
+    <div class="success-actions">
+      <button class="btn btn-secondary" id="downloadTxt">
+        Baixar uma cópia em PDF/TXT
+      </button>
+    </div>
+  </div>
+
+  <div id="errorState" style="display:none;">
+    <div class="success-icon" style="background: var(--red);">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+    <h1>Tivemos um problema.</h1>
+    <p id="errorMsg" style="color: var(--red); margin-bottom: 12px;">Erro no envio.</p>
+    <p>Mas suas respostas estão salvas. Pode tentar de novo ou baixar uma cópia e enviar pra gente pelo WhatsApp.</p>
+    <div class="success-actions">
+      <button class="btn btn-primary" id="retrySend">Tentar novamente</button>
+      <button class="btn btn-secondary" id="downloadTxtError">Baixar cópia</button>
+    </div>
   </div>
 </section>
+
+<style>
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
 
 </main>
 
@@ -740,10 +850,10 @@
         { q: 'empresa_gmn', label: 'Google Meu Negócio' },
       ]},
       { section: 'Materiais visuais', step: 2, items: [
-        { q: 'mat_logo', label: 'Link da logo' },
-        { q: 'mat_manual', label: 'Link do manual de marca' },
-        { q: 'mat_fotos', label: 'Drive de fotos/vídeos' },
-        { q: 'mat_mailing', label: 'Mailing de clientes' },
+        { q: 'mat_logo_url', label: 'Logo (link)', fileKey: 'mat_logo' },
+        { q: 'mat_manual_url', label: 'Manual de marca (link)', fileKey: 'mat_manual' },
+        { q: 'mat_fotos', label: 'Drive de fotos e vídeos' },
+        { q: 'mat_mailing_url', label: 'Mailing de clientes (link)', fileKey: 'mat_mailing' },
       ]},
       { section: 'Seu público', step: 3, items: [
         { q: 'pub_idade', label: 'Faixa etária' },
@@ -848,6 +958,9 @@
       save();
     }
 
+    // File storage (in-memory, not in localStorage since base64 is too big)
+    var fileStore = {};
+
     // === RESTORE INPUTS ===
     function restoreInputs() {
       document.querySelectorAll('[data-q]').forEach(function(el) {
@@ -857,9 +970,10 @@
       document.querySelectorAll('[data-choice]').forEach(function(group) {
         var key = group.getAttribute('data-choice');
         if (answers[key]) {
+          var values = Array.isArray(answers[key]) ? answers[key] : [answers[key]];
           group.querySelectorAll('.choice').forEach(function(c) {
             var txt = c.textContent.trim();
-            if (txt === answers[key]) c.classList.add('selected');
+            if (values.indexOf(txt) !== -1) c.classList.add('selected');
           });
         }
       });
@@ -875,13 +989,70 @@
 
     document.querySelectorAll('[data-choice]').forEach(function(group) {
       var key = group.getAttribute('data-choice');
+      var multi = group.getAttribute('data-multi') === 'true';
       group.querySelectorAll('.choice').forEach(function(choice) {
         choice.addEventListener('click', function() {
-          group.querySelectorAll('.choice').forEach(function(c) { c.classList.remove('selected'); });
-          choice.classList.add('selected');
-          answers[key] = choice.textContent.trim();
+          if (multi) {
+            choice.classList.toggle('selected');
+            var selected = [];
+            group.querySelectorAll('.choice.selected').forEach(function(c) {
+              selected.push(c.textContent.trim());
+            });
+            answers[key] = selected;
+          } else {
+            group.querySelectorAll('.choice').forEach(function(c) { c.classList.remove('selected'); });
+            choice.classList.add('selected');
+            answers[key] = choice.textContent.trim();
+          }
           save();
         });
+      });
+    });
+
+    // === FILE INPUT HANDLERS ===
+    document.querySelectorAll('input[type="file"][data-file]').forEach(function(input) {
+      var key = input.getAttribute('data-file');
+      var btn = document.getElementById('filebtn_' + key);
+      input.addEventListener('change', function() {
+        var file = input.files[0];
+        if (!file) return;
+        if (file.size > 1.5 * 1024 * 1024) {
+          alert('Arquivo muito grande (limite 1,5 MB para anexo direto). Cole o link do Google Drive no campo abaixo.');
+          input.value = '';
+          return;
+        }
+        // Read to base64
+        var reader = new FileReader();
+        reader.onload = function() {
+          fileStore[key] = {
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            data: reader.result.split(',')[1]
+          };
+          // Update UI
+          btn.classList.add('has-file');
+          btn.querySelector('.file-name').textContent = file.name;
+          // Add a clear button if not already
+          if (!btn.querySelector('.file-clear')) {
+            var clearBtn = document.createElement('button');
+            clearBtn.type = 'button';
+            clearBtn.className = 'file-clear';
+            clearBtn.setAttribute('aria-label', 'Remover arquivo');
+            clearBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+            clearBtn.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              delete fileStore[key];
+              input.value = '';
+              btn.classList.remove('has-file');
+              btn.querySelector('.file-name').textContent = 'Anexar arquivo';
+              clearBtn.remove();
+            });
+            btn.appendChild(clearBtn);
+          }
+        };
+        reader.readAsDataURL(file);
       });
     });
 
@@ -915,6 +1086,7 @@
       if (!validateStep(current)) return;
       if (current === 9) {
         show(10);
+        submitBriefing();
       } else if (current < 9) {
         show(current + 1);
       }
@@ -939,9 +1111,15 @@
         sec.items.forEach(function(item) {
           var div = document.createElement('div');
           div.className = 'review-item';
-          var ans = answers[item.q] || '';
+          var ans = answers[item.q];
+          if (Array.isArray(ans)) ans = ans.join(', ');
+          // Check for file attachment too
+          var hasFile = item.fileKey && fileStore[item.fileKey];
+          var fileLabel = hasFile ? '📎 ' + fileStore[item.fileKey].name : '';
+          var display = ans || '';
+          if (hasFile) display = display ? (fileLabel + ' + ' + display) : fileLabel;
           div.innerHTML = '<div class="q">' + item.label + '<a href="#" class="edit-link" data-go="' + sec.step + '">editar</a></div>' +
-                          '<div class="a' + (ans ? '' : ' empty') + '">' + (ans ? escapeHTML(ans) : '— em branco —') + '</div>';
+                          '<div class="a' + (display ? '' : ' empty') + '">' + (display ? escapeHTML(display) : 'em branco') + '</div>';
           items.appendChild(div);
         });
         details.appendChild(items);
@@ -961,37 +1139,127 @@
 
     // === FORMAT FOR SUBMISSION ===
     function buildBriefingText() {
-      var out = '*BRIEFING — MARACATU DIGITAL*\n\n';
+      var out = 'BRIEFING MARACATU DIGITAL\n';
+      out += '=========================\n\n';
       var empresa = answers.empresa_nome || 'Sem nome';
       out += 'Empresa: ' + empresa + '\n';
       out += 'Enviado em: ' + new Date().toLocaleString('pt-BR') + '\n\n';
       QUESTIONS.forEach(function(sec) {
-        out += '━━━ ' + sec.section.toUpperCase() + ' ━━━\n';
+        out += '\n--- ' + sec.section.toUpperCase() + ' ---\n';
         sec.items.forEach(function(item) {
-          var ans = answers[item.q] || '—';
-          out += '\n*' + item.label + ':*\n' + ans + '\n';
+          var ans = answers[item.q];
+          if (Array.isArray(ans)) ans = ans.join(', ');
+          var hasFile = item.fileKey && fileStore[item.fileKey];
+          var parts = [];
+          if (hasFile) parts.push('[Arquivo anexado: ' + fileStore[item.fileKey].name + ']');
+          if (ans) parts.push(ans);
+          var display = parts.length ? parts.join('\n') : '(em branco)';
+          out += '\n' + item.label + ':\n' + display + '\n';
         });
         out += '\n';
       });
+      // List attached files
+      var fileKeys = Object.keys(fileStore);
+      if (fileKeys.length > 0) {
+        out += '\n--- ARQUIVOS ANEXADOS ---\n';
+        fileKeys.forEach(function(k) {
+          out += '\n• ' + fileStore[k].name + ' (' + (fileStore[k].size/1024).toFixed(0) + ' KB)\n';
+        });
+      }
       return out;
     }
 
-    // === SUBMIT ACTIONS ===
-    document.getElementById('sendWhatsApp').addEventListener('click', function() {
-      var text = buildBriefingText();
-      // WhatsApp URL limit ~4000 chars
-      if (text.length < 3800) {
-        window.open('https://wa.me/5511966249876?text=' + encodeURIComponent(text), '_blank', 'noopener');
-      } else {
-        // Copy + open whatsapp with short message
-        copyToClipboard(text).then(function() {
-          var shortMsg = 'Olá! Preenchi o briefing da Maracatu (' + (answers.empresa_nome || 'sem nome') + '). O texto completo está copiado pra colar aqui no chat 👇';
-          window.open('https://wa.me/5511966249876?text=' + encodeURIComponent(shortMsg), '_blank', 'noopener');
+    function buildBriefingHTML() {
+      var html = '<div style="font-family:Inter,Arial,sans-serif;max-width:680px;margin:0 auto;color:#0a0a0a;">';
+      html += '<div style="background:#0a0a0a;padding:32px;border-radius:16px 16px 0 0;color:#fff;">';
+      html += '<div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fbbc04;margin-bottom:8px;">Novo briefing</div>';
+      html += '<h1 style="font-size:28px;margin:0;letter-spacing:-1px;">' + escapeHTML(answers.empresa_nome || 'Sem nome') + '</h1>';
+      html += '<div style="margin-top:8px;color:rgba(255,255,255,0.7);font-size:13px;">Enviado em ' + new Date().toLocaleString('pt-BR') + '</div>';
+      html += '</div>';
+      html += '<div style="background:#fff;padding:24px 32px;border:1px solid #ECECE6;border-top:none;border-radius:0 0 16px 16px;">';
+      QUESTIONS.forEach(function(sec, i) {
+        var colors = ['#EA4335','#FBBC04','#34A853','#4285F4','#EA4335','#FBBC04','#34A853','#4285F4'];
+        html += '<div style="margin:24px 0 12px;padding-top:20px;border-top:1px solid #ECECE6;">';
+        html += '<div style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + colors[i % colors.length] + ';margin-right:8px;vertical-align:middle;"></div>';
+        html += '<span style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0a0a0a;vertical-align:middle;">' + sec.section + '</span>';
+        html += '</div>';
+        sec.items.forEach(function(item) {
+          var ans = answers[item.q];
+          if (Array.isArray(ans)) ans = ans.join(', ');
+          var hasFile = item.fileKey && fileStore[item.fileKey];
+          var parts = [];
+          if (hasFile) parts.push('📎 ' + fileStore[item.fileKey].name);
+          if (ans) parts.push(ans);
+          var display = parts.join('\n');
+          var empty = !display;
+          if (empty) display = '(em branco)';
+          html += '<div style="margin:12px 0;padding:10px 0;border-bottom:1px dashed #ECECE6;">';
+          html += '<div style="font-size:12px;color:#6B7280;margin-bottom:4px;">' + item.label + '</div>';
+          html += '<div style="font-size:15px;line-height:1.5;color:' + (empty ? '#bbb' : '#0a0a0a') + ';white-space:pre-wrap;">' + escapeHTML(display) + '</div>';
+          html += '</div>';
         });
+      });
+      var fileKeys = Object.keys(fileStore);
+      if (fileKeys.length > 0) {
+        html += '<div style="margin-top:24px;padding:16px;background:#FAFAF7;border-radius:12px;">';
+        html += '<div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#0a0a0a;margin-bottom:10px;">Arquivos anexados</div>';
+        fileKeys.forEach(function(k) {
+          html += '<div style="font-size:14px;margin:4px 0;">📎 ' + escapeHTML(fileStore[k].name) + ' <span style="color:#6B7280;">(' + (fileStore[k].size/1024).toFixed(0) + ' KB)</span></div>';
+        });
+        html += '</div>';
       }
-    });
+      html += '</div></div>';
+      return html;
+    }
 
-    document.getElementById('downloadTxt').addEventListener('click', function() {
+    // === SUBMIT TO BACKEND ===
+    function submitBriefing() {
+      var sending = document.getElementById('sendingState');
+      var success = document.getElementById('successState');
+      var error = document.getElementById('errorState');
+      sending.style.display = '';
+      success.style.display = 'none';
+      error.style.display = 'none';
+
+      var attachments = Object.keys(fileStore).map(function(k) {
+        return {
+          filename: fileStore[k].name,
+          content: fileStore[k].data,
+          type: fileStore[k].type
+        };
+      });
+
+      var payload = {
+        empresa: answers.empresa_nome || 'Sem nome',
+        timestamp: new Date().toISOString(),
+        answers: answers,
+        html: buildBriefingHTML(),
+        text: buildBriefingText(),
+        attachments: attachments
+      };
+
+      fetch('/api/submit-briefing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r) {
+        if (!r.ok) return r.text().then(function(t) { throw new Error(t || 'Erro ' + r.status); });
+        return r.json();
+      }).then(function() {
+        sending.style.display = 'none';
+        success.style.display = '';
+        // Clear localStorage after success
+        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+      }).catch(function(err) {
+        console.error(err);
+        sending.style.display = 'none';
+        error.style.display = '';
+        document.getElementById('errorMsg').textContent = 'Erro: ' + (err.message || 'falha de conexão');
+      });
+    }
+
+    // === DOWNLOAD / RETRY ===
+    function downloadTxt() {
       var text = buildBriefingText();
       var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
       var url = URL.createObjectURL(blob);
@@ -1000,30 +1268,10 @@
       a.download = 'briefing-maracatu-' + (answers.empresa_nome || 'cliente').replace(/[^a-z0-9]/gi, '-').toLowerCase() + '.txt';
       a.click();
       URL.revokeObjectURL(url);
-    });
-
-    document.getElementById('copyText').addEventListener('click', function() {
-      var btn = this;
-      copyToClipboard(buildBriefingText()).then(function() {
-        var oldText = btn.textContent;
-        btn.textContent = '✓ Copiado!';
-        setTimeout(function() { btn.textContent = oldText; }, 2000);
-      });
-    });
-
-    function copyToClipboard(text) {
-      if (navigator.clipboard) {
-        return navigator.clipboard.writeText(text);
-      } else {
-        var ta = document.createElement('textarea');
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        return Promise.resolve();
-      }
     }
+    document.getElementById('downloadTxt').addEventListener('click', downloadTxt);
+    document.getElementById('downloadTxtError').addEventListener('click', downloadTxt);
+    document.getElementById('retrySend').addEventListener('click', submitBriefing);
 
     // === BOOT ===
     load();
