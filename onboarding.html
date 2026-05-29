@@ -889,18 +889,20 @@
     ];
 
     // === STORAGE ===
+    var savedStep = 0; // Etapa salva da última sessão (se existir)
     function load() {
       try {
         var raw = localStorage.getItem(STORAGE_KEY);
         if (raw) {
           var data = JSON.parse(raw);
           answers = data.answers || {};
-          // Restore current step if user was past welcome
           if (typeof data.step === 'number' && data.step > 0 && data.step < 10) {
-            current = data.step;
+            savedStep = data.step;
           }
         }
       } catch(e) {}
+      // SEMPRE inicia na tela de boas-vindas, independente do estado salvo
+      current = 0;
     }
     var saveTimer = null;
     function save() {
@@ -1316,10 +1318,28 @@
     // === BOOT ===
     load();
     restoreInputs();
-    if (current > 0 && current < 10) {
-      show(current);
-    } else {
-      show(0);
+    show(0); // Sempre começa na tela de boas-vindas
+
+    // Se houver progresso salvo, mostra opção "Continuar de onde parei"
+    if (savedStep > 0) {
+      var resumeBanner = document.createElement('div');
+      resumeBanner.style.cssText = 'margin-top: 24px; padding: 14px 20px; background: rgba(10,10,10,0.04); border: 1px solid var(--border); border-radius: 14px; display: inline-flex; align-items: center; gap: 14px; font-size: 14px; color: var(--ink);';
+      resumeBanner.innerHTML = '<span>Você começou esse briefing antes. Quer continuar de onde parou (etapa ' + savedStep + ')?</span>' +
+                                '<button type="button" id="resumeBtn" style="background: var(--ink); color: #fff; border: none; padding: 8px 16px; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;">Continuar</button>' +
+                                '<button type="button" id="restartBtn" style="background: transparent; color: var(--muted); border: none; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: underline;">Começar do zero</button>';
+      var welcomeStep = document.querySelector('.step[data-step="0"]');
+      welcomeStep.appendChild(resumeBanner);
+
+      document.getElementById('resumeBtn').addEventListener('click', function() {
+        show(savedStep);
+      });
+      document.getElementById('restartBtn').addEventListener('click', function() {
+        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+        answers = {};
+        document.querySelectorAll('[data-q]').forEach(function(el) { el.value = ''; });
+        document.querySelectorAll('.choice.selected').forEach(function(el) { el.classList.remove('selected'); });
+        resumeBanner.remove();
+      });
     }
   })();
 </script>
