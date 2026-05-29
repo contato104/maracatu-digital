@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Briefing — Maracatu Digital Intelligence</title>
+<meta name="description" content="Vamos começar nosso trabalho juntos." />
+<meta name="robots" content="noindex,nofollow,noarchive" />
+<link rel="icon" type="image/png" href="https://static.wixstatic.com/media/b8c5b7_e487a62dbfb444a4b641e03001c32014~mv2.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #EA4335;
+    --yellow: #FBBC04;
+    --green: #34A853;
+    --blue: #4285F4;
+    --ink: #0A0A0A;
+    --bg: #FAFAF7;
+    --card: #FFFFFF;
+    --muted: #6B7280;
+    --border: #ECECE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+
+  /* === TOP BAR === */
+  .top-bar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(250, 250, 247, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .top-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 18px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .top-logo img { height: 52px; width: auto; display: block; }
+  .step-counter {
+    font-size: 13px; font-weight: 600;
+    color: var(--muted); letter-spacing: 0.3px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .step-counter strong { color: var(--ink); font-weight: 700; }
+  .step-counter .save-indicator {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--green);
+    font-weight: 500;
+    opacity: 0; transition: opacity 0.4s;
+    margin-left: 6px;
+  }
+  .step-counter.saving .save-indicator { opacity: 1; }
+  .save-indicator .check {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--green); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px;
+  }
+
+  /* === PROGRESS BAR === */
+  .progress {
+    height: 3px; width: 100%;
+    background: var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--red) 0%, var(--yellow) 33%, var(--green) 66%, var(--blue) 100%);
+    background-size: 200% 100%;
+    transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: shine 4s linear infinite;
+  }
+  @keyframes shine {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* === MAIN === */
+  main {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 60px 24px;
+    position: relative;
+  }
+  .step {
+    width: 100%; max-width: 640px;
+    display: none;
+    animation: fadeUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .step.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(10,10,10,0.04);
+    border: 1px solid var(--border);
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+  .step[data-section="empresa"] .eyebrow .dot { background: var(--red); }
+  .step[data-section="materiais"] .eyebrow .dot { background: var(--yellow); }
+  .step[data-section="publico"] .eyebrow .dot { background: var(--green); }
+  .step[data-section="negocio"] .eyebrow .dot { background: var(--blue); }
+  .step[data-section="historico"] .eyebrow .dot { background: var(--red); }
+  .step[data-section="estrategia"] .eyebrow .dot { background: var(--yellow); }
+  .step[data-section="criacao"] .eyebrow .dot { background: var(--green); }
+  .step[data-section="palavras"] .eyebrow .dot { background: var(--blue); }
+
+  .step h1 {
+    font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+    letter-spacing: -1.2px; line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .step h1 .req { color: var(--red); font-weight: 800; }
+  .step h1 .accent { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .step p.lead {
+    font-size: 17px; color: var(--muted);
+    line-height: 1.55; margin-bottom: 36px;
+  }
+  .step p.hint {
+    font-size: 13px; color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* === INPUTS === */
+  .field { margin-bottom: 28px; }
+  .field label {
+    display: block;
+    font-size: 15px; font-weight: 600;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .field label .req { color: var(--red); }
+  .field input[type="text"],
+  .field input[type="url"],
+  .field input[type="email"],
+  .field input[type="tel"],
+  .field textarea {
+    width: 100%;
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field input::placeholder, .field textarea::placeholder {
+    color: #b8b8b0;
+  }
+  .field input:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--ink);
+    box-shadow: 0 0 0 4px rgba(10,10,10,0.05);
+  }
+  .field textarea {
+    resize: vertical; min-height: 120px; line-height: 1.55;
+  }
+
+  /* === CHOICE BUTTONS === */
+  .choices {
+    display: grid; gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+  .choice {
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    text-align: left;
+    font-family: inherit;
+    font-size: 15px; font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .choice:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .choice .marker {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .choice.selected {
+    border-color: var(--ink);
+    background: var(--ink); color: #fff;
+  }
+  .choice.selected .marker {
+    border-color: #fff; background: #fff;
+  }
+  .choice.selected .marker::after {
+    content: ''; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--ink);
+  }
+
+  /* === NAV === */
+  .nav-buttons {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 40px; gap: 16px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 28px; border-radius: 999px;
+    font-family: inherit; font-weight: 700; font-size: 15px;
+    border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.18); }
+  .btn-primary:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-back {
+    background: transparent; color: var(--muted);
+    padding: 14px 20px; font-weight: 600;
+  }
+  .btn-back:hover { color: var(--ink); }
+  .btn-back svg { transition: transform 0.2s; }
+  .btn-back:hover svg { transform: translateX(-3px); }
+  .btn-primary svg { transition: transform 0.2s; }
+  .btn-primary:hover svg { transform: translateX(3px); }
+  .btn-big {
+    padding: 18px 36px; font-size: 16px;
+  }
+
+  /* === WELCOME === */
+  .welcome {
+    text-align: center;
+  }
+  .welcome .welcome-icon {
+    width: 88px; height: 88px; border-radius: 28px;
+    background: linear-gradient(135deg, var(--red) 0%, var(--yellow) 33%, var(--green) 66%, var(--blue) 100%);
+    margin: 0 auto 32px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 20px 40px rgba(234, 67, 53, 0.25);
+    font-size: 40px; line-height: 1;
+  }
+  .welcome h1 {
+    font-size: clamp(40px, 6vw, 64px);
+    letter-spacing: -2.5px;
+    margin-bottom: 20px;
+  }
+  .welcome p {
+    font-size: 19px; color: var(--muted);
+    line-height: 1.55; max-width: 520px;
+    margin: 0 auto 36px;
+  }
+  .welcome .perks {
+    display: flex; justify-content: center; gap: 28px;
+    flex-wrap: wrap; margin-bottom: 44px;
+    color: var(--muted); font-size: 14px;
+  }
+  .welcome .perk {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .welcome .perk .icon {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--green); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+  }
+
+  /* === MILESTONE === */
+  .milestone {
+    background: var(--ink); color: #fff;
+    border-radius: 24px;
+    padding: 36px;
+    text-align: center;
+    margin: 32px 0;
+    position: relative; overflow: hidden;
+  }
+  .milestone::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 250px; height: 250px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(251, 188, 4, 0.2), transparent 70%);
+  }
+  .milestone-emoji {
+    font-size: 48px; margin-bottom: 12px;
+    display: block;
+  }
+  .milestone h3 {
+    font-size: 22px; font-weight: 800; margin-bottom: 8px;
+    position: relative; z-index: 1;
+  }
+  .milestone p {
+    color: rgba(255,255,255,0.75); font-size: 15px;
+    position: relative; z-index: 1;
+  }
+
+  /* === REVIEW === */
+  .review-list {
+    display: flex; flex-direction: column; gap: 16px;
+    margin-bottom: 36px;
+  }
+  .review-section {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .review-section summary {
+    padding: 20px 24px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    list-style: none;
+    font-weight: 700; font-size: 16px;
+  }
+  .review-section summary::-webkit-details-marker { display: none; }
+  .review-section summary::after {
+    content: '+'; font-size: 22px; color: var(--muted);
+    transition: transform 0.3s;
+  }
+  .review-section[open] summary::after { content: '−'; }
+  .review-section .items {
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .review-item {
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .review-item:last-child { border-bottom: none; }
+  .review-item .q {
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .review-item .a {
+    font-size: 15px; color: var(--ink); font-weight: 500;
+    white-space: pre-wrap;
+  }
+  .review-item .a.empty { color: #c5c5bc; font-style: italic; font-weight: 400; }
+  .review-item .edit-link {
+    font-size: 12px; color: var(--blue);
+    text-decoration: none; font-weight: 600;
+    margin-left: 8px;
+  }
+  .review-item .edit-link:hover { text-decoration: underline; }
+
+  /* === SUCCESS === */
+  .success {
+    text-align: center;
+  }
+  .success-icon {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: var(--green);
+    margin: 0 auto 32px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    box-shadow: 0 20px 50px rgba(52, 168, 83, 0.3);
+    animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes pop {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  .success h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    letter-spacing: -2px; margin-bottom: 16px;
+  }
+  .success p {
+    font-size: 18px; color: var(--muted);
+    max-width: 480px; margin: 0 auto 36px;
+    line-height: 1.55;
+  }
+  .success-actions {
+    display: flex; flex-direction: column; gap: 10px;
+    max-width: 360px; margin: 0 auto;
+  }
+  .success-actions .btn {
+    width: 100%; justify-content: center;
+  }
+  .btn-whatsapp {
+    background: var(--green); color: #fff;
+  }
+  .btn-whatsapp:hover { background: #2a8c44; }
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    border: 2px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .top-logo img { height: 40px; }
+    main { padding: 30px 20px; }
+    .step h1 { font-size: 26px; }
+    .step p.lead { font-size: 15px; margin-bottom: 24px; }
+    .field { margin-bottom: 22px; }
+    .nav-buttons { flex-direction: column-reverse; gap: 12px; align-items: stretch; }
+    .nav-buttons .btn { justify-content: center; width: 100%; }
+    .btn-back { padding: 12px; }
+    .welcome .welcome-icon { width: 72px; height: 72px; font-size: 32px; }
+    .welcome .perks { gap: 16px; }
+    .choices { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-inner">
+    <div class="top-logo">
+      <img src="https://static.wixstatic.com/media/b8c5b7_e487a62dbfb444a4b641e03001c32014~mv2.png" alt="Maracatu Digital Intelligence" />
+    </div>
+    <div class="step-counter" id="stepCounter">
+      Etapa <strong id="stepNow">1</strong> de <strong id="stepTotal">10</strong>
+      <span class="save-indicator"><span class="check">✓</span>salvo</span>
+    </div>
+  </div>
+  <div class="progress">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+</div>
+
+<main>
+
+<!-- STEP 0: WELCOME -->
+<section class="step active welcome" data-step="0">
+  <div class="welcome-icon">👋</div>
+  <h1>Bem-vindo à <span class="accent">Maracatu.</span></h1>
+  <p>Esse é o briefing pra gente entender o seu negócio a fundo e desenhar a estratégia perfeita pra sua marca crescer no digital.</p>
+  <div class="perks">
+    <span class="perk"><span class="icon">⏱</span>~10 minutos</span>
+    <span class="perk"><span class="icon">💾</span>Salva sozinho</span>
+    <span class="perk"><span class="icon">📨</span>Direto pro nosso time</span>
+  </div>
+  <button class="btn btn-primary btn-big" data-action="start">
+    Começar
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </button>
+</section>
+
+<!-- STEP 1: EMPRESA -->
+<section class="step" data-step="1" data-section="empresa">
+  <div class="eyebrow"><span class="dot"></span>Sua empresa</div>
+  <h1>Vamos começar pelo básico.</h1>
+  <p class="lead">Quem é você, onde podemos te encontrar online e o que define a sua marca.</p>
+
+  <div class="field">
+    <label>Nome da empresa <span class="req">*</span></label>
+    <input type="text" data-q="empresa_nome" data-required="true" placeholder="Ex: Doceria da Maria" />
+  </div>
+
+  <div class="field">
+    <label>Sua empresa tem site? Informa o endereço, se houver.</label>
+    <input type="url" data-q="empresa_site" placeholder="https://www.suaempresa.com.br" />
+  </div>
+
+  <div class="field">
+    <label>Sua empresa tem slogan? Qual?</label>
+    <input type="text" data-q="empresa_slogan" placeholder='Ex: "A doceria que abraça"' />
+  </div>
+
+  <div class="field">
+    <label>Tem Google Meu Negócio? Você possui o acesso?</label>
+    <input type="text" data-q="empresa_gmn" placeholder='Ex: "Sim, tenho acesso" / "Sim, mas perdi o acesso" / "Não tenho"' />
+  </div>
+</section>
+
+<!-- STEP 2: MATERIAIS -->
+<section class="step" data-step="2" data-section="materiais">
+  <div class="eyebrow"><span class="dot"></span>Materiais visuais</div>
+  <h1>Seus arquivos da marca.</h1>
+  <p class="lead">Cole os links de pastas no Google Drive, Dropbox ou WeTransfer. Se ainda não tem, deixa em branco — a gente conversa.</p>
+
+  <div class="field">
+    <label>Logo em alta qualidade</label>
+    <input type="url" data-q="mat_logo" placeholder="https://drive.google.com/..." />
+    <p class="hint">PDF, AI ou PNG transparente, se possível.</p>
+  </div>
+
+  <div class="field">
+    <label>Manual de marca</label>
+    <input type="url" data-q="mat_manual" placeholder="https://drive.google.com/..." />
+  </div>
+
+  <div class="field">
+    <label>Drive com fotos e vídeos da empresa</label>
+    <input type="url" data-q="mat_fotos" placeholder="https://drive.google.com/..." />
+  </div>
+
+  <div class="field">
+    <label>Possui mailing interno de clientes? Cola o link da planilha.</label>
+    <input type="url" data-q="mat_mailing" placeholder="https://docs.google.com/spreadsheets/..." />
+    <p class="hint">Listas com nomes, e-mails e telefones de contato.</p>
+  </div>
+</section>
+
+<!-- STEP 3: PÚBLICO -->
+<section class="step" data-step="3" data-section="publico">
+  <div class="eyebrow"><span class="dot"></span>Seu público</div>
+  <h1>Quem é a pessoa que <span class="accent">compra de você?</span></h1>
+  <p class="lead">Quanto mais específico melhor — isso vai guiar toda a comunicação.</p>
+
+  <div class="field">
+    <label>Qual a faixa etária do seu público? <span class="req">*</span></label>
+    <input type="text" data-q="pub_idade" data-required="true" placeholder="Ex: 25 a 45 anos" />
+  </div>
+
+  <div class="field">
+    <label>Qual o nível de escolaridade do seu público? <span class="req">*</span></label>
+    <div class="choices" data-choice="pub_escolaridade" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Sem instrução</button>
+      <button type="button" class="choice"><span class="marker"></span>Ensino Fundamental</button>
+      <button type="button" class="choice"><span class="marker"></span>Ensino Médio</button>
+      <button type="button" class="choice"><span class="marker"></span>Ensino Superior</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Sexo do seu público</label>
+    <div class="choices" data-choice="pub_sexo">
+      <button type="button" class="choice"><span class="marker"></span>Feminino</button>
+      <button type="button" class="choice"><span class="marker"></span>Masculino</button>
+      <button type="button" class="choice"><span class="marker"></span>Não definido</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Quem é o seu público-alvo principal?</label>
+    <textarea data-q="pub_alvo" placeholder="Ex: Mães de 30-45 anos, classe B, que valorizam produtos artesanais e gostam de presentear..."></textarea>
+  </div>
+</section>
+
+<!-- STEP 4: NEGÓCIO -->
+<section class="step" data-step="4" data-section="negocio">
+  <div class="eyebrow"><span class="dot"></span>Posicionamento</div>
+  <h1>Como você se posiciona no mercado?</h1>
+  <p class="lead">Aqui é onde a gente entende o que torna sua marca única.</p>
+
+  <div class="field">
+    <label>Como você descreveria o seu negócio em poucas palavras?</label>
+    <textarea data-q="neg_descricao" placeholder='Ex: "Uma doceria artesanal especializada em bolos de aniversário personalizados."'></textarea>
+  </div>
+
+  <div class="field">
+    <label>Cite 2 ou 3 concorrentes diretos.</label>
+    <textarea data-q="neg_concorrentes" placeholder="Nome / @ do Instagram / Site, se souber."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Como o seu cliente percebe o seu produto na categoria?</label>
+    <input type="text" data-q="neg_percepcao" placeholder='Ex: "Bom custo-benefício", "Premium", "Barato com qualidade média"...' />
+  </div>
+
+  <div class="field">
+    <label>Qual a recorrência de consumo dos clientes?</label>
+    <input type="text" data-q="neg_recorrencia" placeholder='Ex: "Compram a cada 3 meses" / "Compra única"' />
+  </div>
+
+  <div class="field">
+    <label>Qual o tempo médio que dura o fechamento de uma venda?</label>
+    <input type="text" data-q="neg_fechamento" placeholder='Ex: "1 dia após o primeiro contato" / "1 a 2 semanas"' />
+  </div>
+</section>
+
+<!-- STEP 5: HISTÓRICO -->
+<section class="step" data-step="5" data-section="historico">
+  <div class="eyebrow"><span class="dot"></span>Histórico anterior</div>
+  <h1>Bora aprender com o passado.</h1>
+  <p class="lead">A gente quer entender o que funcionou pra continuar — e o que precisa mudar pra você se sentir bem servido.</p>
+
+  <div class="milestone">
+    <span class="milestone-emoji">🎯</span>
+    <h3>Quase na metade!</h3>
+    <p>Você tá indo super bem. Falta pouco pra gente saber tudo que precisa.</p>
+  </div>
+
+  <div class="field">
+    <label>O que você mais gostava nos trabalhos entregues pela agência anterior?</label>
+    <textarea data-q="hist_gostava" placeholder="Pode ser qualquer coisa: prazos, atendimento, qualidade, ideias..."></textarea>
+  </div>
+
+  <div class="field">
+    <label>O que sentia falta ou deixava a desejar e quer que seja diferente agora?</label>
+    <textarea data-q="hist_faltava" placeholder="Seja sincero! É isso que vai guiar a gente."></textarea>
+  </div>
+</section>
+
+<!-- STEP 6: ESTRATÉGIA -->
+<section class="step" data-step="6" data-section="estrategia">
+  <div class="eyebrow"><span class="dot"></span>Estratégia de transmissão</div>
+  <h1>O que você já tentou até agora?</h1>
+  <p class="lead">Saber o que vocês testaram ajuda a gente a não repetir erros e a multiplicar o que deu certo.</p>
+
+  <div class="field">
+    <label>Já fez anúncios em alguma mídia?</label>
+    <textarea data-q="est_anuncios" placeholder="TV, jornal, outdoor, redes sociais... Conta um pouco da experiência: deu retorno? Quais problemas enfrentou?"></textarea>
+  </div>
+
+  <div class="field">
+    <label>Existe alguma campanha, data ou lançamento importante previsto pros próximos meses?</label>
+    <textarea data-q="est_campanhas" placeholder='Ex: Black Friday, Dia das Mães, lançamento de produto novo, abertura de loja...'></textarea>
+  </div>
+</section>
+
+<!-- STEP 7: CRIAÇÃO -->
+<section class="step" data-step="7" data-section="criacao">
+  <div class="eyebrow"><span class="dot"></span>Direcionamento criativo</div>
+  <h1>Como a sua marca <span class="accent">fala?</span></h1>
+  <p class="lead">Vamos alinhar tom de voz, referências e o que evitar.</p>
+
+  <div class="field">
+    <label>Qual o tipo de linguagem deve ser usada nos textos?</label>
+    <textarea data-q="cri_linguagem" placeholder='Ex: "Mais formal", "Descolada com gírias", "Acolhedora", "Técnica e direta"...'></textarea>
+  </div>
+
+  <div class="field">
+    <label>Quais termos devem ser evitados em legendas e peças gráficas?</label>
+    <textarea data-q="cri_termos_evitar" placeholder='Ex: "Não usar palavrão", "Evitar termos religiosos", "Não falar de preço"...'></textarea>
+  </div>
+
+  <div class="field">
+    <label>Hashtags e/ou slogan que gostaria que estivessem sempre nas postagens:</label>
+    <textarea data-q="cri_hashtags" placeholder="#suamarca #seusegmento — pode listar várias."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Cite marcas ou perfis cuja estética te inspira.</label>
+    <textarea data-q="cri_inspiracao" placeholder="Pode ser do mesmo segmento ou não. @instagram / nome da marca / link."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Quais datas comemorativas fazem sentido pro seu negócio?</label>
+    <textarea data-q="cri_datas_gerais" placeholder="Ex: Páscoa, Natal, Dia das Mães, Dia dos Namorados..."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Seu segmento tem datas próprias que devem ser marcadas?</label>
+    <textarea data-q="cri_datas_segmento" placeholder="Ex: Dia do Confeiteiro, Semana da Padaria Artesanal, Festival X..."></textarea>
+  </div>
+</section>
+
+<!-- STEP 8: PALAVRAS-CHAVE -->
+<section class="step" data-step="8" data-section="palavras">
+  <div class="eyebrow"><span class="dot"></span>Palavras-chave</div>
+  <h1>Palavras-chave do seu serviço.</h1>
+  <p class="lead">Pra quem vai investir em tráfego pago — os termos que as pessoas digitam no Google quando buscam o que você oferece.</p>
+
+  <div class="milestone">
+    <span class="milestone-emoji">🚀</span>
+    <h3>Última etapa!</h3>
+    <p>Tá quase. Depois daqui é só revisar e enviar.</p>
+  </div>
+
+  <div class="field">
+    <label>Indique palavras-chave referentes ao seu serviço/produto.</label>
+    <textarea data-q="pal_chave" placeholder='Ex: "Bolo de aniversário sob encomenda", "Doces personalizados Recife", "Bolo decorado infantil"...'></textarea>
+    <p class="hint">Dica: pense no que VOCÊ pesquisaria no Google se fosse um cliente. Pode listar várias separadas por vírgula.</p>
+  </div>
+</section>
+
+<!-- STEP 9: REVIEW -->
+<section class="step" data-step="9">
+  <div class="eyebrow"><span class="dot"></span>Quase lá</div>
+  <h1>Revisa suas respostas.</h1>
+  <p class="lead">Dá uma conferida no que você preencheu antes de enviar. Pode clicar em qualquer pergunta pra voltar e editar.</p>
+
+  <div class="review-list" id="reviewList"></div>
+</section>
+
+<!-- STEP 10: SUCCESS -->
+<section class="step success" data-step="10">
+  <div class="success-icon">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <h1>Briefing pronto! ✨</h1>
+  <p>Tá tudo aqui. Agora é só nos enviar e a gente já começa a trabalhar no seu projeto. Em até 24h alguém do time entra em contato.</p>
+
+  <div class="success-actions">
+    <button class="btn btn-whatsapp btn-big" id="sendWhatsApp">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      Enviar pelo WhatsApp
+    </button>
+    <button class="btn btn-secondary" id="downloadTxt">
+      Baixar uma cópia (.txt)
+    </button>
+    <button class="btn btn-secondary" id="copyText">
+      Copiar texto do briefing
+    </button>
+  </div>
+</section>
+
+</main>
+
+<!-- NAV BUTTONS (out of step containers, shared) -->
+<div style="max-width:640px; margin: 0 auto; padding: 0 24px 60px; width: 100%;" id="navContainer">
+  <div class="nav-buttons" id="navButtons" style="display: none;">
+    <button class="btn btn-back" id="btnBack">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Voltar
+    </button>
+    <button class="btn btn-primary" id="btnNext">
+      Próximo
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var STORAGE_KEY = 'maracatu_briefing_v1';
+    var TOTAL_STEPS = 11; // 0 welcome → 10 success
+    var FORM_STEPS = 9; // step 0 welcome + 1-8 form + 9 review = 10 user-visible. 10 is success.
+
+    var sections = document.querySelectorAll('.step');
+    var current = 0;
+    var answers = {};
+
+    // Questions metadata for review
+    var QUESTIONS = [
+      { section: 'Sua empresa', step: 1, items: [
+        { q: 'empresa_nome', label: 'Nome da empresa' },
+        { q: 'empresa_site', label: 'Site' },
+        { q: 'empresa_slogan', label: 'Slogan' },
+        { q: 'empresa_gmn', label: 'Google Meu Negócio' },
+      ]},
+      { section: 'Materiais visuais', step: 2, items: [
+        { q: 'mat_logo', label: 'Link da logo' },
+        { q: 'mat_manual', label: 'Link do manual de marca' },
+        { q: 'mat_fotos', label: 'Drive de fotos/vídeos' },
+        { q: 'mat_mailing', label: 'Mailing de clientes' },
+      ]},
+      { section: 'Seu público', step: 3, items: [
+        { q: 'pub_idade', label: 'Faixa etária' },
+        { q: 'pub_escolaridade', label: 'Escolaridade' },
+        { q: 'pub_sexo', label: 'Sexo' },
+        { q: 'pub_alvo', label: 'Público-alvo principal' },
+      ]},
+      { section: 'Posicionamento', step: 4, items: [
+        { q: 'neg_descricao', label: 'Descrição do negócio' },
+        { q: 'neg_concorrentes', label: 'Concorrentes' },
+        { q: 'neg_percepcao', label: 'Percepção do produto' },
+        { q: 'neg_recorrencia', label: 'Recorrência de consumo' },
+        { q: 'neg_fechamento', label: 'Tempo de fechamento da venda' },
+      ]},
+      { section: 'Histórico anterior', step: 5, items: [
+        { q: 'hist_gostava', label: 'O que gostava da agência anterior' },
+        { q: 'hist_faltava', label: 'O que sentia falta' },
+      ]},
+      { section: 'Estratégia de transmissão', step: 6, items: [
+        { q: 'est_anuncios', label: 'Experiência com anúncios' },
+        { q: 'est_campanhas', label: 'Campanhas/datas previstas' },
+      ]},
+      { section: 'Direcionamento criativo', step: 7, items: [
+        { q: 'cri_linguagem', label: 'Tipo de linguagem' },
+        { q: 'cri_termos_evitar', label: 'Termos a evitar' },
+        { q: 'cri_hashtags', label: 'Hashtags / slogan recorrentes' },
+        { q: 'cri_inspiracao', label: 'Marcas que inspiram' },
+        { q: 'cri_datas_gerais', label: 'Datas comemorativas relevantes' },
+        { q: 'cri_datas_segmento', label: 'Datas próprias do segmento' },
+      ]},
+      { section: 'Palavras-chave', step: 8, items: [
+        { q: 'pal_chave', label: 'Palavras-chave de busca' },
+      ]},
+    ];
+
+    // === STORAGE ===
+    function load() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          var data = JSON.parse(raw);
+          answers = data.answers || {};
+          // Restore current step if user was past welcome
+          if (typeof data.step === 'number' && data.step > 0 && data.step < 10) {
+            current = data.step;
+          }
+        }
+      } catch(e) {}
+    }
+    var saveTimer = null;
+    function save() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers: answers, step: current }));
+      var counter = document.getElementById('stepCounter');
+      counter.classList.add('saving');
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function() { counter.classList.remove('saving'); }, 1500);
+    }
+
+    // === RENDER ===
+    function show(n) {
+      current = n;
+      sections.forEach(function(s) { s.classList.remove('active'); });
+      var target = document.querySelector('.step[data-step="' + n + '"]');
+      if (target) target.classList.add('active');
+
+      // Counter & progress
+      var visibleStep = Math.min(n, 9);
+      document.getElementById('stepNow').textContent = (n === 0 ? 1 : Math.min(n + 1, 10));
+      document.getElementById('stepTotal').textContent = 10;
+      var pct = n === 0 ? 0 : (n === 10 ? 100 : (n / 9) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+
+      // Nav visibility
+      var nav = document.getElementById('navButtons');
+      if (n === 0 || n === 10) {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+        document.getElementById('btnBack').style.visibility = n === 1 ? 'hidden' : 'visible';
+        document.getElementById('btnNext').textContent = '';
+        var nextBtn = document.getElementById('btnNext');
+        if (n === 8) {
+          nextBtn.innerHTML = 'Revisar &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        } else if (n === 9) {
+          nextBtn.innerHTML = 'Finalizar &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        } else {
+          nextBtn.innerHTML = 'Próximo &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        }
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Render review if on review step
+      if (n === 9) renderReview();
+
+      // Focus first input
+      setTimeout(function() {
+        var firstInput = target ? target.querySelector('input, textarea, button.choice') : null;
+        if (firstInput && n > 0 && n < 9) firstInput.focus({ preventScroll: true });
+      }, 100);
+
+      save();
+    }
+
+    // === RESTORE INPUTS ===
+    function restoreInputs() {
+      document.querySelectorAll('[data-q]').forEach(function(el) {
+        var key = el.getAttribute('data-q');
+        if (answers[key]) el.value = answers[key];
+      });
+      document.querySelectorAll('[data-choice]').forEach(function(group) {
+        var key = group.getAttribute('data-choice');
+        if (answers[key]) {
+          group.querySelectorAll('.choice').forEach(function(c) {
+            var txt = c.textContent.trim();
+            if (txt === answers[key]) c.classList.add('selected');
+          });
+        }
+      });
+    }
+
+    // === INPUT HANDLERS ===
+    document.querySelectorAll('[data-q]').forEach(function(el) {
+      el.addEventListener('input', function() {
+        answers[el.getAttribute('data-q')] = el.value.trim();
+        save();
+      });
+    });
+
+    document.querySelectorAll('[data-choice]').forEach(function(group) {
+      var key = group.getAttribute('data-choice');
+      group.querySelectorAll('.choice').forEach(function(choice) {
+        choice.addEventListener('click', function() {
+          group.querySelectorAll('.choice').forEach(function(c) { c.classList.remove('selected'); });
+          choice.classList.add('selected');
+          answers[key] = choice.textContent.trim();
+          save();
+        });
+      });
+    });
+
+    // === VALIDATION ===
+    function validateStep(n) {
+      var step = document.querySelector('.step[data-step="' + n + '"]');
+      if (!step) return true;
+      var ok = true;
+      step.querySelectorAll('[data-required="true"]').forEach(function(el) {
+        var key = el.getAttribute('data-q') || el.getAttribute('data-choice');
+        if (!answers[key]) {
+          ok = false;
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.style.borderColor = 'var(--red)';
+            el.focus();
+            setTimeout(function() { el.style.borderColor = ''; }, 2000);
+          } else {
+            el.style.outline = '2px solid var(--red)';
+            setTimeout(function() { el.style.outline = ''; }, 2000);
+          }
+        }
+      });
+      return ok;
+    }
+
+    // === NAVIGATION ===
+    document.querySelector('[data-action="start"]').addEventListener('click', function() {
+      show(1);
+    });
+    document.getElementById('btnNext').addEventListener('click', function() {
+      if (!validateStep(current)) return;
+      if (current === 9) {
+        show(10);
+      } else if (current < 9) {
+        show(current + 1);
+      }
+    });
+    document.getElementById('btnBack').addEventListener('click', function() {
+      if (current > 1) show(current - 1);
+    });
+
+    // === REVIEW RENDER ===
+    function renderReview() {
+      var list = document.getElementById('reviewList');
+      list.innerHTML = '';
+      QUESTIONS.forEach(function(sec, idx) {
+        var details = document.createElement('details');
+        details.className = 'review-section';
+        if (idx < 2) details.open = true;
+        var summary = document.createElement('summary');
+        summary.textContent = sec.section;
+        details.appendChild(summary);
+        var items = document.createElement('div');
+        items.className = 'items';
+        sec.items.forEach(function(item) {
+          var div = document.createElement('div');
+          div.className = 'review-item';
+          var ans = answers[item.q] || '';
+          div.innerHTML = '<div class="q">' + item.label + '<a href="#" class="edit-link" data-go="' + sec.step + '">editar</a></div>' +
+                          '<div class="a' + (ans ? '' : ' empty') + '">' + (ans ? escapeHTML(ans) : '— em branco —') + '</div>';
+          items.appendChild(div);
+        });
+        details.appendChild(items);
+        list.appendChild(details);
+      });
+
+      list.querySelectorAll('.edit-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          show(parseInt(link.getAttribute('data-go'), 10));
+        });
+      });
+    }
+    function escapeHTML(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // === FORMAT FOR SUBMISSION ===
+    function buildBriefingText() {
+      var out = '*BRIEFING — MARACATU DIGITAL*\n\n';
+      var empresa = answers.empresa_nome || 'Sem nome';
+      out += 'Empresa: ' + empresa + '\n';
+      out += 'Enviado em: ' + new Date().toLocaleString('pt-BR') + '\n\n';
+      QUESTIONS.forEach(function(sec) {
+        out += '━━━ ' + sec.section.toUpperCase() + ' ━━━\n';
+        sec.items.forEach(function(item) {
+          var ans = answers[item.q] || '—';
+          out += '\n*' + item.label + ':*\n' + ans + '\n';
+        });
+        out += '\n';
+      });
+      return out;
+    }
+
+    // === SUBMIT ACTIONS ===
+    document.getElementById('sendWhatsApp').addEventListener('click', function() {
+      var text = buildBriefingText();
+      // WhatsApp URL limit ~4000 chars
+      if (text.length < 3800) {
+        window.open('https://wa.me/5511966249876?text=' + encodeURIComponent(text), '_blank', 'noopener');
+      } else {
+        // Copy + open whatsapp with short message
+        copyToClipboard(text).then(function() {
+          var shortMsg = 'Olá! Preenchi o briefing da Maracatu (' + (answers.empresa_nome || 'sem nome') + '). O texto completo está copiado pra colar aqui no chat 👇';
+          window.open('https://wa.me/5511966249876?text=' + encodeURIComponent(shortMsg), '_blank', 'noopener');
+        });
+      }
+    });
+
+    document.getElementById('downloadTxt').addEventListener('click', function() {
+      var text = buildBriefingText();
+      var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'briefing-maracatu-' + (answers.empresa_nome || 'cliente').replace(/[^a-z0-9]/gi, '-').toLowerCase() + '.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('copyText').addEventListener('click', function() {
+      var btn = this;
+      copyToClipboard(buildBriefingText()).then(function() {
+        var oldText = btn.textContent;
+        btn.textContent = '✓ Copiado!';
+        setTimeout(function() { btn.textContent = oldText; }, 2000);
+      });
+    });
+
+    function copyToClipboard(text) {
+      if (navigator.clipboard) {
+        return navigator.clipboard.writeText(text);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        return Promise.resolve();
+      }
+    }
+
+    // === BOOT ===
+    load();
+    restoreInputs();
+    if (current > 0 && current < 10) {
+      show(current);
+    } else {
+      show(0);
+    }
+  })();
+</script>
+
+</body>
+</html>
