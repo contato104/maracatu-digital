@@ -1243,19 +1243,60 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       }).then(function(r) {
-        if (!r.ok) return r.text().then(function(t) { throw new Error(t || 'Erro ' + r.status); });
-        return r.json();
-      }).then(function() {
-        sending.style.display = 'none';
-        success.style.display = '';
-        // Clear localStorage after success
-        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
-      }).catch(function(err) {
-        console.error(err);
+        return r.json().then(function(data) { return { ok: r.ok, status: r.status, data: data }; })
+                       .catch(function() { return { ok: r.ok, status: r.status, data: {} }; });
+      }).then(function(result) {
+        if (result.ok) {
+          sending.style.display = 'none';
+          success.style.display = '';
+          try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+          return;
+        }
+        var errMsg = (result.data && result.data.error) || ('Erro ' + result.status);
+        // Fallback automático para mailto quando o backend ainda não está configurado
+        if (errMsg.indexOf('RESEND_API_KEY') !== -1 || errMsg.indexOf('não configurada') !== -1) {
+          fallbackMailto();
+          return;
+        }
         sending.style.display = 'none';
         error.style.display = '';
-        document.getElementById('errorMsg').textContent = 'Erro: ' + (err.message || 'falha de conexão');
+        document.getElementById('errorMsg').textContent = 'Erro: ' + errMsg;
+      }).catch(function(err) {
+        console.error(err);
+        // Erro de rede também tenta o fallback
+        fallbackMailto();
       });
+    }
+
+    function fallbackMailto() {
+      var TO = [
+        'laura@maracatumktdigital.com',
+        'marketing@maracatumktdigital.com',
+        'marketing2@maracatumktdigital.com',
+        'midias@maracatumktdigital.com',
+        'diogo@maracatumktdigital.com',
+        'contato@maracatumktdigital.com',
+        'joana@maracatumktdigital.com'
+      ];
+      var subject = 'Briefing: ' + (answers.empresa_nome || 'Sem nome');
+      var body = buildBriefingText();
+      var mailto = 'mailto:' + TO.join(',') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+      // Atualiza a tela de sucesso para o modo mailto
+      document.getElementById('sendingState').style.display = 'none';
+      var success = document.getElementById('successState');
+      success.style.display = '';
+      var h1 = success.querySelector('h1');
+      var p = success.querySelector('p');
+      if (h1) h1.innerHTML = 'Quase lá! ✉️';
+      if (p) p.innerHTML = 'Seu app de email vai abrir com o briefing pronto. <strong>Só conferir e clicar enviar.</strong><br/><br/>Se os arquivos não vieram juntos, anexa eles antes de enviar.';
+
+      // Tenta abrir o app de email
+      setTimeout(function() {
+        window.location.href = mailto;
+      }, 600);
+
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
     }
 
     // === DOWNLOAD / RETRY ===
