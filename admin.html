@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Painel — Maracatu Digital</title>
+<meta name="robots" content="noindex,nofollow,noarchive" />
+<link rel="icon" type="image/png" href="logo-symbol.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+<style>
+  :root {
+    --red: #EA4335;
+    --yellow: #FBBC04;
+    --green: #34A853;
+    --blue: #4285F4;
+    --ink: #0A0A0A;
+    --bg: #FAFAF7;
+    --card: #FFFFFF;
+    --muted: #6B7280;
+    --border: #ECECE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+  /* === HEADER === */
+  header.top {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+  .top-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+  }
+  .top-logo img { height: 64px; width: auto; display: block; }
+  .top-user {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; color: var(--muted);
+  }
+  .btn-logout {
+    background: transparent; border: 1px solid var(--border);
+    padding: 8px 14px; border-radius: 999px;
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    color: var(--ink); cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-logout:hover { border-color: var(--ink); background: #fafaf5; }
+
+  /* === LOGIN === */
+  .login-wrap {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .login-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px 44px;
+    width: 100%; max-width: 420px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+  }
+  .login-logo {
+    display: flex; justify-content: center; margin-bottom: 28px;
+  }
+  .login-logo img { height: 88px; width: auto; }
+  .login-card h1 {
+    font-size: 26px; font-weight: 800; letter-spacing: -0.8px;
+    text-align: center; margin-bottom: 8px;
+  }
+  .login-card .sub {
+    font-size: 14px; color: var(--muted);
+    text-align: center; margin-bottom: 28px;
+  }
+  .field { margin-bottom: 20px; }
+  .field label {
+    display: block; font-size: 13px; font-weight: 600;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    transition: border-color 0.2s;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none; border-color: var(--ink);
+  }
+  .field textarea { resize: vertical; min-height: 100px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 28px; border-radius: 999px;
+    font-family: inherit; font-weight: 700; font-size: 15px;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s, opacity 0.2s;
+  }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.18); }
+  .btn-primary:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-secondary {
+    background: #fff; color: var(--ink);
+    border: 2px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--ink); }
+  .btn-danger { background: var(--red); color: #fff; }
+  .btn-danger:hover { background: #c5331f; }
+  .btn-block { width: 100%; }
+
+  .alert {
+    padding: 12px 16px; border-radius: 10px;
+    font-size: 14px; font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .alert-error { background: rgba(234, 67, 53, 0.08); color: #b62b1d; }
+  .alert-success { background: rgba(52, 168, 83, 0.08); color: #1d6e34; }
+
+  /* === DASHBOARD === */
+  .dash {
+    padding: 40px 0 80px;
+  }
+  .dash-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 32px; gap: 16px; flex-wrap: wrap;
+  }
+  .dash-head h1 {
+    font-size: 36px; font-weight: 800; letter-spacing: -1.5px;
+    line-height: 1.1;
+  }
+  .dash-head .sub {
+    color: var(--muted); font-size: 15px; margin-top: 4px;
+  }
+
+  .posts-list {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .post-row {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 22px;
+    display: flex; align-items: center; gap: 16px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .post-row:hover { border-color: var(--ink); transform: translateX(2px); }
+  .post-row .thumb {
+    width: 64px; height: 64px; border-radius: 12px;
+    background: var(--bg);
+    flex-shrink: 0; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 22px;
+  }
+  .post-row .thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .post-row .info { flex: 1; min-width: 0; }
+  .post-row .info h3 {
+    font-size: 17px; font-weight: 700; letter-spacing: -0.3px;
+    margin-bottom: 4px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .post-row .meta {
+    font-size: 12px; color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .post-row .cat-chip {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    background: var(--bg); border: 1px solid var(--border);
+    font-size: 11px; font-weight: 600; color: var(--ink);
+  }
+  .post-row .actions {
+    display: flex; gap: 8px;
+  }
+  .icon-btn {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--bg); border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .icon-btn:hover { color: var(--ink); border-color: var(--ink); }
+  .icon-btn.danger:hover { color: var(--red); border-color: var(--red); }
+
+  .empty {
+    background: #fff;
+    border: 2px dashed var(--border);
+    border-radius: 20px;
+    padding: 60px 32px;
+    text-align: center;
+  }
+  .empty .icon {
+    font-size: 48px; margin-bottom: 12px;
+  }
+  .empty h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .empty p { color: var(--muted); margin-bottom: 24px; }
+
+  /* === EDITOR === */
+  .editor-wrap {
+    padding: 30px 0 80px;
+  }
+  .editor-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px; gap: 16px;
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--muted); text-decoration: none;
+    font-size: 14px; font-weight: 600;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--ink); }
+  .editor-actions { display: flex; gap: 10px; }
+
+  .editor-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+  }
+  .editor-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+  .field .req { color: var(--red); }
+  .cover-upload {
+    border: 2px dashed var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-upload:hover { border-color: var(--ink); background: #fafaf5; }
+  .cover-upload .placeholder {
+    color: var(--muted); font-size: 14px;
+  }
+  .cover-upload.has-image {
+    border-style: solid; border-color: var(--border);
+    padding: 0; aspect-ratio: 16/9;
+  }
+  .cover-upload.has-image img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .cover-upload .remove-cover {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(0,0,0,0.7); color: #fff;
+    border: none; border-radius: 50%;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cover-upload input[type="file"] { display: none; }
+
+  /* Quill overrides */
+  #quillEditor {
+    min-height: 360px;
+    font-family: inherit;
+    font-size: 16px;
+  }
+  .ql-editor { line-height: 1.65; min-height: 320px; padding: 18px; }
+  .ql-editor h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.8px; margin: 16px 0 10px; }
+  .ql-editor h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin: 14px 0 8px; }
+  .ql-editor h3 { font-size: 18px; font-weight: 700; margin: 12px 0 6px; }
+  .ql-editor p { margin-bottom: 12px; }
+  .ql-toolbar.ql-snow { border: 1px solid var(--border); border-radius: 12px 12px 0 0; background: #fafaf5; }
+  .ql-container.ql-snow { border: 1px solid var(--border); border-top: 0; border-radius: 0 0 12px 12px; background: #fff; }
+
+  .modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .modal {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px;
+    max-width: 420px; width: 100%;
+    text-align: center;
+  }
+  .modal h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+  .modal p { color: var(--muted); margin-bottom: 24px; }
+  .modal-actions { display: flex; gap: 10px; }
+  .modal-actions .btn { flex: 1; }
+
+  @media (max-width: 640px) {
+    .editor-grid { grid-template-columns: 1fr; }
+    .dash-head h1 { font-size: 26px; }
+    .login-card { padding: 32px 24px; }
+    .post-row .thumb { width: 48px; height: 48px; }
+    .editor-actions .btn { padding: 10px 16px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN VIEW -->
+<div id="loginView">
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-logo">
+        <img src="logo-symbol.png" alt="Maracatu" />
+      </div>
+      <h1>Painel do blog</h1>
+      <p class="sub">Acesso restrito da equipe da Maracatu.</p>
+      <div id="loginError" class="alert alert-error" style="display:none;"></div>
+      <form id="loginForm">
+        <div class="field">
+          <label>Senha</label>
+          <input type="password" id="loginPassword" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="loginBtn">Entrar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- AUTHENTICATED LAYOUT -->
+<div id="appView" style="display:none;">
+
+  <!-- HEADER -->
+  <header class="top">
+    <div class="container top-inner">
+      <a href="admin.html" class="top-logo">
+        <img src="Maracatu.png" alt="Maracatu" />
+      </a>
+      <div class="top-user">
+        <span>Painel da equipe</span>
+        <button class="btn-logout" id="logoutBtn">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DASHBOARD VIEW -->
+  <div id="dashboardView" class="dash">
+    <div class="container">
+      <div class="dash-head">
+        <div>
+          <h1>Posts do blog</h1>
+          <div class="sub" id="postsCount">Carregando…</div>
+        </div>
+        <button class="btn btn-primary" id="newPostBtn">+ Novo post</button>
+      </div>
+
+      <div id="postsList" class="posts-list"></div>
+
+      <div id="emptyState" class="empty" style="display:none;">
+        <div class="icon">📝</div>
+        <h3>Ainda não tem nenhum post.</h3>
+        <p>Cria o primeiro pra começar a alimentar o blog.</p>
+        <button class="btn btn-primary" onclick="document.getElementById('newPostBtn').click()">+ Criar primeiro post</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDITOR VIEW -->
+  <div id="editorView" class="editor-wrap" style="display:none;">
+    <div class="container">
+      <div class="editor-head">
+        <a href="#" class="back-link" id="backToDash">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Voltar
+        </a>
+        <div class="editor-actions">
+          <button class="btn btn-secondary" id="cancelBtn">Cancelar</button>
+          <button class="btn btn-primary" id="saveBtn">Salvar post</button>
+        </div>
+      </div>
+
+      <div id="editorError" class="alert alert-error" style="display:none;"></div>
+      <div id="editorSuccess" class="alert alert-success" style="display:none;"></div>
+
+      <div class="editor-card">
+        <div class="field">
+          <label>Imagem de capa</label>
+          <div class="cover-upload" id="coverUpload">
+            <input type="file" id="coverFile" accept="image/*" />
+            <div class="placeholder">📷 Clique para escolher uma imagem (max 5MB)</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Título <span class="req">*</span></label>
+          <input type="text" id="postTitle" placeholder="Ex: Como criar uma campanha de Google Ads que converte" />
+        </div>
+
+        <div class="editor-grid">
+          <div class="field" style="margin-bottom:0;">
+            <label>Categoria</label>
+            <select id="postCategory">
+              <option value="Performance">Performance</option>
+              <option value="SEO & GEO">SEO & GEO</option>
+              <option value="Branding">Branding</option>
+              <option value="Conteúdo">Conteúdo</option>
+              <option value="Estratégia">Estratégia</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label>Autor</label>
+            <input type="text" id="postAuthor" placeholder="Ex: Laura Alves" />
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:22px;">
+          <label>Resumo (aparece na lista do blog)</label>
+          <textarea id="postExcerpt" placeholder="Em uma ou duas frases, sobre o que é esse post."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Conteúdo <span class="req">*</span></label>
+          <div id="quillEditor"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div id="deleteModal" class="modal-bg" style="display:none;">
+  <div class="modal">
+    <h3>Apagar este post?</h3>
+    <p id="deleteText">Esta ação não pode ser desfeita.</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="cancelDelete">Cancelar</button>
+      <button class="btn btn-danger" id="confirmDelete">Apagar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<script>
+(function() {
+  const TOKEN_KEY = 'maracatu_admin_token';
+
+  // ===== STATE =====
+  let posts = [];
+  let editingPost = null; // null = new, object = editing existing
+  let coverImageUrl = '';
+  let quill = null;
+
+  // ===== HELPERS =====
+  function token() { return localStorage.getItem(TOKEN_KEY); }
+  function setToken(t) { localStorage.setItem(TOKEN_KEY, t); }
+  function clearToken() { localStorage.removeItem(TOKEN_KEY); }
+
+  function $(sel) { return document.querySelector(sel); }
+  function show(id) { $('#' + id).style.display = ''; }
+  function hide(id) { $('#' + id).style.display = 'none'; }
+
+  function fmtDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  function showErr(id, msg) {
+    const el = $('#' + id);
+    el.textContent = msg;
+    el.style.display = '';
+    setTimeout(() => { el.style.display = 'none'; }, 6000);
+  }
+  function showOk(id, msg) {
+    const el = $('#' + id);
+    el.textContent = msg;
+    el.style.display = '';
+    setTimeout(() => { el.style.display = 'none'; }, 4000);
+  }
+
+  // ===== AUTH =====
+  async function login(password) {
+    const r = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password })
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(data.error || 'Erro no login');
+    setToken(data.token);
+    return data.token;
+  }
+
+  function authHeaders(extra) {
+    return Object.assign({ 'Authorization': 'Bearer ' + token() }, extra || {});
+  }
+
+  // ===== POSTS API =====
+  async function loadPosts() {
+    const r = await fetch('/api/posts');
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.error || 'Erro');
+    posts = data.posts || [];
+    return posts;
+  }
+
+  async function savePost(payload, slug) {
+    const url = slug ? '/api/posts/' + encodeURIComponent(slug) : '/api/posts';
+    const method = slug ? 'PUT' : 'POST';
+    const r = await fetch(url, {
+      method,
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(payload)
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      if (r.status === 401) { clearToken(); render(); }
+      throw new Error(data.error || ('Erro ' + r.status));
+    }
+    return data.post;
+  }
+
+  async function deletePost(slug) {
+    const r = await fetch('/api/posts/' + encodeURIComponent(slug), {
+      method: 'DELETE',
+      headers: authHeaders()
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      if (r.status === 401) { clearToken(); render(); }
+      throw new Error(data.error || ('Erro ' + r.status));
+    }
+    return true;
+  }
+
+  async function uploadImage(file) {
+    const r = await fetch('/api/admin/upload', {
+      method: 'POST',
+      headers: authHeaders({
+        'Content-Type': file.type || 'application/octet-stream',
+        'X-Filename': file.name
+      }),
+      body: file
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      if (r.status === 401) { clearToken(); render(); }
+      throw new Error(data.error || ('Erro ' + r.status));
+    }
+    return data.url;
+  }
+
+  // ===== RENDER =====
+  async function render() {
+    if (!token()) {
+      show('loginView');
+      hide('appView');
+      return;
+    }
+    hide('loginView');
+    show('appView');
+    // Default to dashboard
+    showDashboard();
+  }
+
+  async function showDashboard() {
+    hide('editorView');
+    show('dashboardView');
+    $('#postsCount').textContent = 'Carregando…';
+    try {
+      await loadPosts();
+      renderPostList();
+    } catch (e) {
+      $('#postsCount').textContent = 'Erro ao carregar: ' + e.message;
+    }
+  }
+
+  function renderPostList() {
+    const list = $('#postsList');
+    list.innerHTML = '';
+    if (posts.length === 0) {
+      show('emptyState');
+      $('#postsCount').textContent = '0 posts';
+      return;
+    }
+    hide('emptyState');
+    $('#postsCount').textContent = posts.length + (posts.length === 1 ? ' post publicado' : ' posts publicados');
+
+    posts.forEach(p => {
+      const row = document.createElement('div');
+      row.className = 'post-row';
+      const thumb = p.coverImage
+        ? `<div class="thumb"><img src="${escapeAttr(p.coverImage)}" alt=""/></div>`
+        : `<div class="thumb">📝</div>`;
+      row.innerHTML = `
+        ${thumb}
+        <div class="info">
+          <h3>${escapeHTML(p.title)}</h3>
+          <div class="meta">
+            <span class="cat-chip">${escapeHTML(p.category)}</span>
+            <span>${fmtDate(p.publishedAt)}</span>
+            <span>·</span>
+            <span>${escapeHTML(p.author || '')}</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="icon-btn" data-action="view" data-slug="${escapeAttr(p.slug)}" title="Ver no site">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </button>
+          <button class="icon-btn" data-action="edit" data-slug="${escapeAttr(p.slug)}" title="Editar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="icon-btn danger" data-action="delete" data-slug="${escapeAttr(p.slug)}" data-title="${escapeAttr(p.title)}" title="Apagar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          </button>
+        </div>
+      `;
+      list.appendChild(row);
+    });
+  }
+
+  function escapeHTML(s) {
+    return (s || '').toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function escapeAttr(s) {
+    return escapeHTML(s).replace(/"/g, '&quot;');
+  }
+
+  // ===== EDITOR =====
+  function showEditor(post) {
+    editingPost = post || null;
+    hide('dashboardView');
+    show('editorView');
+
+    if (!quill) {
+      quill = new Quill('#quillEditor', {
+        theme: 'snow',
+        placeholder: 'Comece a escrever o post aqui…',
+        modules: {
+          toolbar: {
+            container: [
+              [{ header: [2, 3, false] }],
+              ['bold', 'italic', 'underline'],
+              ['link', 'image'],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              ['blockquote'],
+              ['clean']
+            ],
+            handlers: {
+              image: () => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = async () => {
+                  const file = input.files[0];
+                  if (!file) return;
+                  try {
+                    const url = await uploadImage(file);
+                    const range = quill.getSelection(true);
+                    quill.insertEmbed(range.index, 'image', url);
+                    quill.setSelection(range.index + 1);
+                  } catch (e) {
+                    alert('Erro ao subir imagem: ' + e.message);
+                  }
+                };
+                input.click();
+              }
+            }
+          }
+        }
+      });
+    }
+
+    if (post) {
+      $('#postTitle').value = post.title || '';
+      $('#postExcerpt').value = post.excerpt || '';
+      $('#postCategory').value = post.category || 'Estratégia';
+      $('#postAuthor').value = post.author || '';
+      quill.root.innerHTML = post.content || '';
+      setCover(post.coverImage || '');
+    } else {
+      $('#postTitle').value = '';
+      $('#postExcerpt').value = '';
+      $('#postCategory').value = 'Performance';
+      $('#postAuthor').value = '';
+      quill.setText('');
+      setCover('');
+    }
+
+    window.scrollTo(0, 0);
+  }
+
+  function setCover(url) {
+    coverImageUrl = url || '';
+    const up = $('#coverUpload');
+    if (url) {
+      up.classList.add('has-image');
+      up.innerHTML = `
+        <input type="file" id="coverFile" accept="image/*" />
+        <img src="${escapeAttr(url)}" alt="Capa" />
+        <button type="button" class="remove-cover" id="removeCover" aria-label="Remover">×</button>
+      `;
+      $('#removeCover').addEventListener('click', (e) => { e.stopPropagation(); setCover(''); });
+      $('#coverFile').addEventListener('change', handleCoverChange);
+    } else {
+      up.classList.remove('has-image');
+      up.innerHTML = `
+        <input type="file" id="coverFile" accept="image/*" />
+        <div class="placeholder">📷 Clique para escolher uma imagem (max 5MB)</div>
+      `;
+      $('#coverFile').addEventListener('change', handleCoverChange);
+    }
+  }
+
+  async function handleCoverChange(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const url = await uploadImage(file);
+      setCover(url);
+    } catch (err) {
+      alert('Erro ao subir capa: ' + err.message);
+    }
+  }
+
+  async function handleSave() {
+    const title = $('#postTitle').value.trim();
+    const content = quill.root.innerHTML;
+    const isEmpty = !content || content === '<p><br></p>';
+
+    if (!title) { showErr('editorError', 'Coloca um título.'); return; }
+    if (isEmpty) { showErr('editorError', 'Conteúdo está vazio.'); return; }
+
+    const payload = {
+      title,
+      content,
+      excerpt: $('#postExcerpt').value.trim(),
+      category: $('#postCategory').value,
+      author: $('#postAuthor').value.trim(),
+      coverImage: coverImageUrl
+    };
+
+    $('#saveBtn').disabled = true;
+    $('#saveBtn').textContent = 'Salvando…';
+    try {
+      await savePost(payload, editingPost ? editingPost.slug : null);
+      showOk('editorSuccess', editingPost ? 'Post atualizado!' : 'Post publicado!');
+      setTimeout(() => showDashboard(), 800);
+    } catch (e) {
+      showErr('editorError', e.message);
+    } finally {
+      $('#saveBtn').disabled = false;
+      $('#saveBtn').textContent = 'Salvar post';
+    }
+  }
+
+  // ===== EVENTS =====
+  $('#loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const pw = $('#loginPassword').value;
+    $('#loginBtn').disabled = true;
+    $('#loginBtn').textContent = 'Entrando…';
+    try {
+      await login(pw);
+      $('#loginPassword').value = '';
+      render();
+    } catch (err) {
+      showErr('loginError', err.message);
+    } finally {
+      $('#loginBtn').disabled = false;
+      $('#loginBtn').textContent = 'Entrar';
+    }
+  });
+
+  $('#logoutBtn').addEventListener('click', () => {
+    clearToken();
+    render();
+  });
+
+  $('#newPostBtn').addEventListener('click', () => showEditor(null));
+  $('#backToDash').addEventListener('click', (e) => { e.preventDefault(); showDashboard(); });
+  $('#cancelBtn').addEventListener('click', () => showDashboard());
+  $('#saveBtn').addEventListener('click', handleSave);
+
+  $('#postsList').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const slug = btn.getAttribute('data-slug');
+    const action = btn.getAttribute('data-action');
+    if (action === 'edit') {
+      const p = posts.find(x => x.slug === slug);
+      if (p) showEditor(p);
+    } else if (action === 'view') {
+      window.open('/post.html?slug=' + encodeURIComponent(slug), '_blank');
+    } else if (action === 'delete') {
+      const title = btn.getAttribute('data-title');
+      $('#deleteText').textContent = `O post "${title}" será removido permanentemente.`;
+      $('#deleteModal').style.display = '';
+      $('#confirmDelete').onclick = async () => {
+        $('#confirmDelete').disabled = true;
+        try {
+          await deletePost(slug);
+          $('#deleteModal').style.display = 'none';
+          showDashboard();
+        } catch (err) {
+          alert('Erro: ' + err.message);
+        } finally {
+          $('#confirmDelete').disabled = false;
+        }
+      };
+    }
+  });
+
+  $('#cancelDelete').addEventListener('click', () => { $('#deleteModal').style.display = 'none'; });
+
+  $('#coverUpload').addEventListener('click', () => $('#coverFile').click());
+  $('#coverFile').addEventListener('change', handleCoverChange);
+
+  // ===== BOOT =====
+  render();
+})();
+</script>
+
+</body>
+</html>

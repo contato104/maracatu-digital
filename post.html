@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Carregando… — Maracatu Digital</title>
+<meta name="description" content="" />
+<link rel="icon" type="image/png" href="logo-symbol.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #EA4335;
+    --yellow: #FBBC04;
+    --green: #34A853;
+    --blue: #4285F4;
+    --ink: #0A0A0A;
+    --bg: #FAFAF7;
+    --card: #FFFFFF;
+    --muted: #6B7280;
+    --border: #ECECE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .narrow { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  /* === HEADER === */
+  header.nav {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+    background: transparent;
+  }
+  header.nav.scrolled {
+    position: fixed;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 0;
+  }
+  .logo-link { display: flex; align-items: center; text-decoration: none; }
+  .logo-link img {
+    height: 104px; width: auto; display: block;
+    filter: brightness(0) invert(1);
+    transition: opacity 0.2s, height 0.3s;
+  }
+  header.nav.scrolled .logo-link img { height: 72px; }
+  .logo-link:hover img { opacity: 0.85; }
+  nav ul { display: flex; gap: 36px; list-style: none; }
+  nav a {
+    text-decoration: none; color: #fff;
+    font-size: 14px; font-weight: 500;
+    transition: opacity 0.2s;
+    letter-spacing: 0.2px;
+  }
+  nav a:hover { opacity: 0.65; }
+
+  /* === HERO === */
+  .post-hero {
+    position: relative;
+    padding: 200px 0 80px;
+    background: #000; color: #fff;
+    overflow: hidden;
+  }
+  .post-hero::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(234, 67, 53, 0.22), transparent 65%);
+    pointer-events: none;
+  }
+  .post-hero::after {
+    content: ''; position: absolute; bottom: -250px; left: -200px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(66, 133, 244, 0.18), transparent 65%);
+    pointer-events: none;
+  }
+  .grain {
+    position: absolute; inset: 0; opacity: 0.4; pointer-events: none;
+    background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.02) 1px, transparent 1px),
+                      radial-gradient(circle at 70% 80%, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px, 120px 120px;
+  }
+  .post-hero .container { position: relative; z-index: 1; }
+  .breadcrumb {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 20px;
+  }
+  .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: #fff; }
+  .breadcrumb .sep { opacity: 0.4; }
+  .post-cat-chip {
+    display: inline-block;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .post-hero h1 {
+    font-size: clamp(38px, 5.5vw, 64px);
+    font-weight: 800; letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 24px;
+    max-width: 880px;
+  }
+  .post-hero .excerpt {
+    font-size: 19px; color: rgba(255,255,255,0.75);
+    max-width: 720px; line-height: 1.55;
+    margin-bottom: 28px;
+  }
+  .post-hero .meta {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: rgba(255,255,255,0.6); font-size: 14px;
+  }
+  .post-hero .meta strong { color: #fff; font-weight: 600; }
+  .meta .dot-sep {
+    width: 3px; height: 3px; border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+  }
+
+  /* === COVER === */
+  .post-cover {
+    margin: -40px auto 0;
+    max-width: 960px;
+    padding: 0 24px;
+    position: relative; z-index: 2;
+  }
+  .post-cover img {
+    width: 100%; aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 28px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.18);
+    display: block;
+  }
+
+  /* === BODY === */
+  .post-body {
+    padding: 80px 0 100px;
+  }
+  .article {
+    font-size: 18px; line-height: 1.75;
+    color: var(--ink);
+  }
+  .article h1 { font-size: 38px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin: 56px 0 20px; }
+  .article h2 { font-size: 30px; font-weight: 800; letter-spacing: -1px; line-height: 1.15; margin: 48px 0 16px; }
+  .article h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.4px; margin: 36px 0 12px; }
+  .article p { margin-bottom: 22px; }
+  .article ul, .article ol { margin: 0 0 22px 22px; }
+  .article li { margin-bottom: 10px; }
+  .article a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+  .article a:hover { color: var(--red); }
+  .article blockquote {
+    border-left: 4px solid var(--ink);
+    margin: 32px 0; padding: 8px 0 8px 24px;
+    font-size: 22px; font-style: italic; color: var(--ink);
+    line-height: 1.5;
+  }
+  .article img {
+    max-width: 100%; height: auto;
+    border-radius: 16px;
+    margin: 32px 0;
+    display: block;
+  }
+  .article code {
+    background: var(--bg);
+    padding: 2px 6px; border-radius: 4px;
+    font-size: 15px; font-family: 'SF Mono', Consolas, monospace;
+  }
+  .article pre {
+    background: var(--ink); color: #fff;
+    padding: 20px; border-radius: 14px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  .article pre code { background: none; color: inherit; padding: 0; }
+  .article strong { font-weight: 700; }
+  .article em { font-style: italic; }
+
+  /* === BACK TO BLOG === */
+  .back-block {
+    border-top: 1px solid var(--border);
+    margin-top: 60px; padding-top: 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .back-block a {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--ink); text-decoration: none;
+    font-size: 15px; font-weight: 600;
+    padding: 12px 22px;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .back-block a:hover { background: var(--ink); color: #fff; }
+
+  /* === LOADING / 404 === */
+  .state {
+    min-height: 60vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 80px 24px;
+  }
+  .state h2 { font-size: 26px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .state p { color: var(--muted); margin-bottom: 24px; }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--ink); color: #fff;
+    padding: 60px 0 30px;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    color: rgba(255,255,255,0.5); font-size: 13px;
+  }
+  .footer-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.8); text-decoration: none;
+    font-size: 14px; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .footer-back:hover { color: var(--yellow); }
+
+  /* WhatsApp floating */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 12px 30px rgba(52, 168, 83, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; z-index: 100; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.08); box-shadow: 0 16px 40px rgba(52, 168, 83, 0.5); }
+
+  @media (max-width: 968px) {
+    nav ul { display: none; }
+    .post-hero { padding: 130px 0 60px; }
+    .post-hero h1 { font-size: clamp(32px, 8vw, 48px); }
+    .post-cover { margin-top: -30px; }
+    .post-body { padding: 50px 0 70px; }
+    .article { font-size: 17px; }
+    .article h1 { font-size: 30px; }
+    .article h2 { font-size: 24px; }
+    .wa-float { width: 52px; height: 52px; bottom: 18px; right: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="nav" id="siteNav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo-link">
+      <img src="Maracatu.png" alt="Maracatu Digital Intelligence" />
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html#servicos">Serviços</a></li>
+        <li><a href="index.html#processo">Como funciona</a></li>
+        <li><a href="index.html#clientes">Clientes</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- DYNAMIC HOST -->
+<div id="postHost">
+  <div class="state">
+    <p>Carregando…</p>
+  </div>
+</div>
+
+<!-- WhatsApp floating -->
+<a href="https://wa.me/5511966249876" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+  </svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-bottom">
+    <a href="blog.html" class="footer-back">← Voltar pro blog</a>
+    <div>© 2026 Maracatu Digital Intelligence. Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  // Sticky nav
+  var nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }, { passive: true });
+
+  function escapeHTML(s) {
+    return (s || '').toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function escapeAttr(s) { return escapeHTML(s).replace(/"/g, '&quot;'); }
+  function formatDate(iso) {
+    if (!iso) return '';
+    var d = new Date(iso);
+    var meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    return d.getDate() + ' de ' + meses[d.getMonth()] + ', ' + d.getFullYear();
+  }
+  function readingTime(html) {
+    var text = (html || '').replace(/<[^>]+>/g, ' ');
+    var words = text.trim().split(/\s+/).filter(Boolean).length;
+    return Math.max(1, Math.round(words / 200)) + ' min de leitura';
+  }
+
+  var params = new URLSearchParams(window.location.search);
+  var slug = params.get('slug');
+
+  if (!slug) {
+    renderNotFound();
+    return;
+  }
+
+  fetch('/api/posts/' + encodeURIComponent(slug))
+    .then(function(r) {
+      if (r.status === 404) throw new Error('not-found');
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) { renderPost(data.post); })
+    .catch(function(err) {
+      if (err.message === 'not-found') renderNotFound();
+      else renderError(err.message);
+    });
+
+  function renderPost(post) {
+    document.title = post.title + ' — Maracatu Digital';
+    document.querySelector('meta[name="description"]').setAttribute('content', post.excerpt || '');
+
+    var cover = post.coverImage
+      ? '<div class="post-cover"><img src="' + escapeAttr(post.coverImage) + '" alt=""/></div>'
+      : '';
+
+    var html = ''
+      + '<section class="post-hero">'
+      +   '<div class="grain"></div>'
+      +   '<div class="container">'
+      +     '<div class="breadcrumb"><a href="index.html">Início</a><span class="sep">·</span><a href="blog.html">Blog</a><span class="sep">·</span><span>' + escapeHTML(post.category) + '</span></div>'
+      +     '<div class="post-cat-chip">' + escapeHTML(post.category) + '</div>'
+      +     '<h1>' + escapeHTML(post.title) + '</h1>'
+      +     (post.excerpt ? '<p class="excerpt">' + escapeHTML(post.excerpt) + '</p>' : '')
+      +     '<div class="meta">'
+      +       '<strong>' + escapeHTML(post.author || 'Maracatu Digital') + '</strong>'
+      +       '<span class="dot-sep"></span>'
+      +       '<span>' + formatDate(post.publishedAt) + '</span>'
+      +       '<span class="dot-sep"></span>'
+      +       '<span>' + readingTime(post.content) + '</span>'
+      +     '</div>'
+      +   '</div>'
+      + '</section>'
+      + cover
+      + '<section class="post-body">'
+      +   '<div class="narrow">'
+      +     '<article class="article">' + (post.content || '') + '</article>'
+      +     '<div class="back-block">'
+      +       '<a href="blog.html">← Ver mais posts</a>'
+      +       '<span style="color: var(--muted); font-size: 14px;">' + formatDate(post.publishedAt) + '</span>'
+      +     '</div>'
+      +   '</div>'
+      + '</section>';
+
+    document.getElementById('postHost').innerHTML = html;
+  }
+
+  function renderNotFound() {
+    document.title = 'Post não encontrado — Maracatu Digital';
+    document.getElementById('postHost').innerHTML = ''
+      + '<section class="post-hero">'
+      +   '<div class="grain"></div>'
+      +   '<div class="container">'
+      +     '<h1>404 — Post não encontrado</h1>'
+      +     '<p class="excerpt">O post que você procura não existe ou foi removido.</p>'
+      +     '<a href="blog.html" style="display:inline-block;margin-top:12px;background:#fff;color:#000;padding:14px 28px;border-radius:999px;font-weight:700;text-decoration:none;">← Voltar pro blog</a>'
+      +   '</div>'
+      + '</section>';
+  }
+
+  function renderError(msg) {
+    document.getElementById('postHost').innerHTML = ''
+      + '<div class="state">'
+      +   '<h2>Não conseguimos carregar esse post.</h2>'
+      +   '<p>' + escapeHTML(msg) + '</p>'
+      +   '<a href="blog.html" style="background:var(--ink);color:#fff;padding:14px 28px;border-radius:999px;font-weight:700;text-decoration:none;">← Voltar pro blog</a>'
+      + '</div>';
+  }
+})();
+</script>
+
+</body>
+</html>

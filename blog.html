@@ -479,131 +479,23 @@
   </div>
 </div>
 
-<!-- FEATURED POST -->
-<section class="featured-section">
+<!-- FEATURED POST (dinâmico) -->
+<section class="featured-section" id="featuredSection" style="display:none;">
   <div class="container">
-    <a href="#" class="featured-post" data-cat="seo">
-      <div class="featured-visual">
-        <div class="big-letter">G</div>
-      </div>
-      <div class="featured-content">
-        <span class="post-cat">SEO & GEO · Destaque</span>
-        <h2>GEO: o novo SEO que já está redefinindo a busca em 2026</h2>
-        <p class="excerpt">A entrada da IA generativa nas buscas mudou o jogo. Não basta mais ranquear no Google — sua marca precisa ser citada pelos LLMs. Veja o que mudou e como adaptar sua estratégia.</p>
-        <div class="post-meta">
-          <span class="author">Maracatu Digital</span>
-          <span class="dot-sep"></span>
-          <span>15 de maio, 2026</span>
-          <span class="dot-sep"></span>
-          <span>8 min de leitura</span>
-        </div>
-      </div>
-    </a>
+    <div id="featuredHost"></div>
   </div>
 </section>
 
-<!-- POSTS GRID -->
+<!-- POSTS GRID (dinâmico) -->
 <section class="posts-section">
   <div class="container">
-    <div class="posts-grid">
-
-      <a href="#" class="post-card" data-cat="performance">
-        <div class="post-visual bg-red">
-          <div class="letter">P</div>
-        </div>
-        <div class="post-body">
-          <span class="post-cat cat-performance">Performance</span>
-          <h3>Como Google Ads + IA mudou a régua do ROI esse ano</h3>
-          <p class="excerpt">O que separa quem queima verba de quem multiplica retorno. Spoiler: não é mais sobre lance, é sobre dado.</p>
-          <div class="post-meta">
-            <span>08 de maio, 2026</span>
-            <span class="dot-sep"></span>
-            <span>6 min</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="post-card" data-cat="branding">
-        <div class="post-visual bg-yellow">
-          <div class="letter">B</div>
-        </div>
-        <div class="post-body">
-          <span class="post-cat cat-branding">Branding</span>
-          <h3>Branding em tempo de IA: por que sua marca importa mais</h3>
-          <p class="excerpt">Com tudo virando commodity, o que diferencia é identidade. Como construir uma marca que as pessoas reconhecem em segundos.</p>
-          <div class="post-meta">
-            <span>02 de maio, 2026</span>
-            <span class="dot-sep"></span>
-            <span>5 min</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="post-card" data-cat="performance">
-        <div class="post-visual bg-ink">
-          <div class="letter">5</div>
-        </div>
-        <div class="post-body">
-          <span class="post-cat cat-performance">Performance</span>
-          <h3>5 erros caros que vimos em campanhas de mídia paga em 2026</h3>
-          <p class="excerpt">A gente analisa 1.000+ campanhas por ano. Esses cinco padrões aparecem em quase todas que falham.</p>
-          <div class="post-meta">
-            <span>25 de abril, 2026</span>
-            <span class="dot-sep"></span>
-            <span>7 min</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="post-card" data-cat="conteudo">
-        <div class="post-visual bg-green">
-          <div class="letter">V</div>
-        </div>
-        <div class="post-body">
-          <span class="post-cat cat-conteudo">Conteúdo</span>
-          <h3>Vídeo curto: o formato que ninguém pode mais ignorar</h3>
-          <p class="excerpt">Reels, Shorts, TikToks. O que funciona em 2026, o que parou de funcionar e como adaptar seu time interno.</p>
-          <div class="post-meta">
-            <span>18 de abril, 2026</span>
-            <span class="dot-sep"></span>
-            <span>5 min</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="post-card" data-cat="estrategia">
-        <div class="post-visual bg-blue">
-          <div class="letter">L</div>
-        </div>
-        <div class="post-body">
-          <span class="post-cat cat-estrategia">Estratégia</span>
-          <h3>LGPD na prática: o que mudou na coleta de dados pra marketing</h3>
-          <p class="excerpt">Do consentimento ao cookie. O que você ainda pode fazer, o que precisa repensar e como ficar tranquilo.</p>
-          <div class="post-meta">
-            <span>10 de abril, 2026</span>
-            <span class="dot-sep"></span>
-            <span>9 min</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="post-card" data-cat="conteudo">
-        <div class="post-visual bg-mix">
-          <div class="letter">C</div>
-        </div>
-        <div class="post-body">
-          <span class="post-cat cat-conteudo">Conteúdo</span>
-          <h3>Conteúdo orgânico ainda funciona? Sim — mas diferente</h3>
-          <p class="excerpt">O alcance orgânico não morreu, só mudou de endereço. Onde apostar agora e como medir resultado real.</p>
-          <div class="post-meta">
-            <span>03 de abril, 2026</span>
-            <span class="dot-sep"></span>
-            <span>6 min</span>
-          </div>
-        </div>
-      </a>
-
+    <div class="posts-grid" id="postsGrid"></div>
+    <div id="postsEmpty" style="display:none; text-align:center; padding: 80px 24px; color: var(--muted);">
+      <div style="font-size: 56px; margin-bottom: 16px;">📝</div>
+      <h3 style="font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 8px;">Os primeiros posts estão chegando.</h3>
+      <p style="font-size: 16px;">A equipe da Maracatu está preparando o conteúdo. Volta logo.</p>
     </div>
+    <div id="postsLoading" style="text-align:center; padding: 80px 24px; color: var(--muted); font-size: 14px;">Carregando posts…</div>
   </div>
 </section>
 
@@ -637,25 +529,122 @@
     onScroll();
   })();
 
-  // Category filter
+  // Carrega e renderiza posts dinamicamente
   (function() {
-    var pills = document.querySelectorAll('.filter-pill');
-    var posts = document.querySelectorAll('[data-cat]');
-    pills.forEach(function(pill) {
-      pill.addEventListener('click', function() {
-        pills.forEach(function(p) { p.classList.remove('active'); });
-        pill.classList.add('active');
-        var cat = pill.getAttribute('data-cat');
-        posts.forEach(function(post) {
-          if (post.classList.contains('filter-pill')) return;
-          if (cat === 'all' || post.getAttribute('data-cat') === cat) {
-            post.style.display = '';
-          } else {
-            post.style.display = 'none';
-          }
+    // Mapeamento categoria → cor de fallback e data-cat
+    var CAT_MAP = {
+      'Performance':   { dataCat: 'performance', bg: 'bg-red',    catClass: 'cat-performance', initial: 'P' },
+      'SEO & GEO':     { dataCat: 'seo',         bg: 'bg-blue',   catClass: '',                 initial: 'G' },
+      'Branding':      { dataCat: 'branding',    bg: 'bg-yellow', catClass: 'cat-branding',     initial: 'B' },
+      'Conteúdo':      { dataCat: 'conteudo',    bg: 'bg-green',  catClass: 'cat-conteudo',     initial: 'C' },
+      'Estratégia':    { dataCat: 'estrategia',  bg: 'bg-ink',    catClass: 'cat-estrategia',   initial: 'E' }
+    };
+
+    function escapeHTML(s) {
+      return (s || '').toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function escapeAttr(s) { return escapeHTML(s).replace(/"/g, '&quot;'); }
+
+    function formatDate(iso) {
+      if (!iso) return '';
+      var d = new Date(iso);
+      var meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+      return d.getDate() + ' de ' + meses[d.getMonth()] + ', ' + d.getFullYear();
+    }
+
+    function readingTime(html) {
+      var text = (html || '').replace(/<[^>]+>/g, ' ');
+      var words = text.trim().split(/\s+/).filter(Boolean).length;
+      var mins = Math.max(1, Math.round(words / 200));
+      return mins + ' min';
+    }
+
+    function renderFeatured(post) {
+      var cat = CAT_MAP[post.category] || CAT_MAP['Estratégia'];
+      var hasImg = !!post.coverImage;
+      var visual = hasImg
+        ? '<div class="featured-visual" style="background:none;"><img src="' + escapeAttr(post.coverImage) + '" alt="" style="width:100%;height:100%;object-fit:cover;"/></div>'
+        : '<div class="featured-visual"><div class="big-letter">' + escapeHTML(cat.initial) + '</div></div>';
+
+      return '<a href="post.html?slug=' + encodeURIComponent(post.slug) + '" class="featured-post" data-cat="' + cat.dataCat + '">' +
+             visual +
+             '<div class="featured-content">' +
+               '<span class="post-cat">' + escapeHTML(post.category) + ' · Destaque</span>' +
+               '<h2>' + escapeHTML(post.title) + '</h2>' +
+               '<p class="excerpt">' + escapeHTML(post.excerpt || '') + '</p>' +
+               '<div class="post-meta">' +
+                 '<span class="author">' + escapeHTML(post.author || 'Maracatu Digital') + '</span>' +
+                 '<span class="dot-sep"></span>' +
+                 '<span>' + formatDate(post.publishedAt) + '</span>' +
+                 '<span class="dot-sep"></span>' +
+                 '<span>' + readingTime(post.content) + ' de leitura</span>' +
+               '</div>' +
+             '</div>' +
+           '</a>';
+    }
+
+    function renderCard(post) {
+      var cat = CAT_MAP[post.category] || CAT_MAP['Estratégia'];
+      var hasImg = !!post.coverImage;
+      var visual = hasImg
+        ? '<div class="post-visual" style="background:none;"><img src="' + escapeAttr(post.coverImage) + '" alt="" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"/></div>'
+        : '<div class="post-visual ' + cat.bg + '"><div class="letter">' + escapeHTML(cat.initial) + '</div></div>';
+
+      return '<a href="post.html?slug=' + encodeURIComponent(post.slug) + '" class="post-card" data-cat="' + cat.dataCat + '">' +
+             visual +
+             '<div class="post-body">' +
+               '<span class="post-cat ' + cat.catClass + '">' + escapeHTML(post.category) + '</span>' +
+               '<h3>' + escapeHTML(post.title) + '</h3>' +
+               '<p class="excerpt">' + escapeHTML(post.excerpt || '') + '</p>' +
+               '<div class="post-meta">' +
+                 '<span>' + formatDate(post.publishedAt) + '</span>' +
+                 '<span class="dot-sep"></span>' +
+                 '<span>' + readingTime(post.content) + '</span>' +
+               '</div>' +
+             '</div>' +
+           '</a>';
+    }
+
+    function attachFilter() {
+      var pills = document.querySelectorAll('.filter-pill');
+      var items = document.querySelectorAll('.featured-post, .post-card');
+      pills.forEach(function(pill) {
+        pill.addEventListener('click', function() {
+          pills.forEach(function(p) { p.classList.remove('active'); });
+          pill.classList.add('active');
+          var cat = pill.getAttribute('data-cat');
+          items.forEach(function(item) {
+            if (cat === 'all' || item.getAttribute('data-cat') === cat) item.style.display = '';
+            else item.style.display = 'none';
+          });
         });
       });
-    });
+    }
+
+    fetch('/api/posts')
+      .then(function(r) { return r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)); })
+      .then(function(data) {
+        var posts = (data.posts || []).slice();
+        document.getElementById('postsLoading').style.display = 'none';
+
+        if (posts.length === 0) {
+          document.getElementById('postsEmpty').style.display = '';
+          return;
+        }
+
+        var featured = posts.shift();
+        document.getElementById('featuredHost').innerHTML = renderFeatured(featured);
+        document.getElementById('featuredSection').style.display = '';
+
+        var gridHTML = posts.map(renderCard).join('');
+        document.getElementById('postsGrid').innerHTML = gridHTML;
+
+        attachFilter();
+      })
+      .catch(function(err) {
+        document.getElementById('postsLoading').textContent = 'Não foi possível carregar os posts agora.';
+        console.error(err);
+      });
   })();
 
 </script>
