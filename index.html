@@ -32,16 +32,88 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Cores da logo Maracatu (estilo Google) */
-    --red: #EA4335;
-    --yellow: #FBBC04;
-    --green: #34A853;
-    --blue: #4285F4;
-    --ink: #0A0A0A;
-    --bg: #FAFAF7;
-    --card: #FFFFFF;
-    --muted: #6B7280;
-    --border: #ECECE6;
+    /* ============ PRIMITIVOS ============
+       Escalas tonais por cor da marca (50 = mais claro · 900 = mais escuro) */
+
+    /* Vermelho — usado em destaque, hover, ações */
+    --red-50:  #FEF1F0;
+    --red-100: #FBDAD6;
+    --red-300: #F58E83;
+    --red-500: #EA4335;
+    --red-700: #B0291D;
+    --red-900: #6F140C;
+
+    /* Amarelo — destaque, highlight, "ouro" */
+    --yellow-50:  #FFF8E0;
+    --yellow-100: #FEEDB0;
+    --yellow-300: #FDD968;
+    --yellow-500: #FBBC04;
+    --yellow-700: #B58702;
+    --yellow-900: #6E5101;
+
+    /* Verde — sucesso, garantia, OK */
+    --green-50:  #EAF6EE;
+    --green-100: #C7E6D1;
+    --green-300: #74C18C;
+    --green-500: #34A853;
+    --green-700: #1F7A3A;
+    --green-900: #0F4720;
+
+    /* Azul — informação, links, calmaria */
+    --blue-50:  #EEF3FE;
+    --blue-100: #CDDDFC;
+    --blue-300: #82A8F8;
+    --blue-500: #4285F4;
+    --blue-700: #1B5DC5;
+    --blue-900: #0C3478;
+
+    /* Neutros (warm sand, no Nubank style) */
+    --cream-50:  #FCFBF6;  /* quase branco quente */
+    --cream-100: #FAFAF7;  /* bg base */
+    --cream-200: #F2EFE6;  /* bg muted */
+    --cream-300: #ECECE6;  /* border subtle */
+    --ink-100:   #DDDDD8;
+    --ink-300:   #A5A5A0;
+    --ink-500:   #6B7280;
+    --ink-700:   #2A2A2A;
+    --ink-900:   #0A0A0A;
+
+    /* ============ SEMÂNTICOS ============ */
+
+    /* Backgrounds */
+    --bg-base:      var(--cream-100);   /* fundo padrão da página */
+    --bg-elevated:  #FFFFFF;            /* cards em cima do base */
+    --bg-muted:     var(--cream-200);   /* zonas calmas */
+    --bg-inverse:   var(--ink-900);     /* seções escuras */
+
+    /* Textos */
+    --text-primary:   var(--ink-900);
+    --text-secondary: var(--ink-700);
+    --text-muted:     var(--ink-500);
+    --text-inverse:   var(--cream-50);
+
+    /* Bordas */
+    --border-base:   var(--cream-300);
+    --border-strong: var(--ink-300);
+
+    /* Acentos semânticos */
+    --accent-action:    var(--red-500);
+    --accent-action-bg: var(--red-50);
+    --accent-success:   var(--green-500);
+    --accent-info:      var(--blue-500);
+    --accent-highlight: var(--yellow-500);
+
+    /* ============ ALIASES (compat) ============
+       Mantém as variáveis curtas pra não quebrar todo o CSS existente */
+    --red:    var(--red-500);
+    --yellow: var(--yellow-500);
+    --green:  var(--green-500);
+    --blue:   var(--blue-500);
+    --ink:    var(--ink-900);
+    --bg:     var(--bg-base);
+    --card:   var(--bg-elevated);
+    --muted:  var(--text-muted);
+    --border: var(--border-base);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -247,9 +319,9 @@
 
   /* === GOOGLE PARTNER === */
   .gpartner-section {
-    background: #fff;
-    padding: 100px 0;
-    border-bottom: 1px solid var(--border);
+    background: var(--blue-50);
+    padding: 110px 0;
+    border-bottom: 1px solid var(--border-base);
     position: relative;
     overflow: hidden;
   }
@@ -301,10 +373,9 @@
 
   /* === STATS === */
   .stats {
-    padding: 60px 0;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: #fff;
+    padding: 70px 0;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-base);
   }
   .stats-grid {
     display: grid; grid-template-columns: repeat(4, 1fr);
@@ -344,8 +415,8 @@
     gap: 20px;
   }
   .service-card {
-    background: #fff; border: 1px solid var(--border);
-    border-radius: 24px; padding: 36px 32px;
+    background: var(--bg-elevated); border: 1px solid var(--border-base);
+    border-radius: 20px; padding: 36px 32px;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     position: relative; overflow: hidden;
   }
@@ -478,7 +549,7 @@
   /* === VIDEO SECTION === */
   .video-section {
     padding: 120px 0;
-    background: var(--bg);
+    background: var(--red-50);
     position: relative;
     overflow: hidden;
   }
@@ -643,9 +714,9 @@
 
   /* === CLIENTS === */
   .clients {
-    padding: 100px 0; background: var(--bg);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    padding: 100px 0; background: var(--green-50);
+    border-top: 1px solid var(--border-base);
+    border-bottom: 1px solid var(--border-base);
   }
   .clients h4 {
     text-align: center; font-size: 13px; font-weight: 600;
@@ -663,9 +734,9 @@
   .client-logo {
     display: flex; align-items: center; justify-content: center;
     height: 110px;
-    background: #fff;
+    background: var(--bg-elevated);
     border-radius: 16px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-base);
     padding: 14px 20px;
     transition: transform 0.3s, box-shadow 0.3s;
     overflow: hidden;
