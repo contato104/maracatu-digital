@@ -42,6 +42,8 @@
     --blue-700: #1B5DC5;
     --blue-900: #0C3478;
 
+    --yellow: #FBBC04;
+
     --cream-50:  #FCFBF6;
     --cream-100: #FAFAF7;
     --cream-200: #F2EFE6;
@@ -121,13 +123,13 @@
   }
   .top-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45); }
 
-  /* ============ HERO ============ */
+  /* ============ HERO (centrado, como estava) ============ */
   .hero {
     position: relative;
     min-height: 100vh;
     display: flex; align-items: center;
     overflow: hidden;
-    padding: 110px 0 90px;
+    padding: 100px 0 60px;
     background: #000;
   }
   .hero-bg {
@@ -140,158 +142,118 @@
   .hero-overlay {
     position: absolute; inset: 0;
     background:
-      linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.35) 35%, rgba(0,0,0,0.9) 100%),
-      linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.5) 100%);
+      linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.85) 100%),
+      linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.55) 100%);
     z-index: 1;
   }
   .hero-content {
     position: relative; z-index: 2;
     width: 100%;
+    text-align: center;
     color: #fff;
-  }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-    align-items: center;
-  }
-  @media (min-width: 968px) {
-    .hero-grid { grid-template-columns: 1.2fr 1fr; }
   }
 
   .hero-pill {
     display: inline-flex; align-items: center; gap: 10px;
-    padding: 8px 16px; border-radius: 999px;
-    background: rgba(234, 67, 53, 0.12);
-    border: 1px solid rgba(234, 67, 53, 0.35);
-    color: var(--red-300);
+    padding: 8px 18px; border-radius: 999px;
+    background: rgba(251, 188, 4, 0.12);
+    border: 1px solid rgba(251, 188, 4, 0.35);
+    color: var(--yellow);
     font-size: 12px; font-weight: 700;
     text-transform: uppercase; letter-spacing: 2px;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
     backdrop-filter: blur(10px);
   }
   .hero-pill .pulse {
-    width: 7px; height: 7px; background: var(--red-500); border-radius: 50%;
-    animation: pulseRed 2s infinite;
+    width: 7px; height: 7px; background: var(--yellow); border-radius: 50%;
+    animation: pulseYellow 2s infinite;
   }
-  @keyframes pulseRed {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(234, 67, 53, 0.7); }
-    70% { box-shadow: 0 0 0 12px rgba(234, 67, 53, 0); }
+  @keyframes pulseYellow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(251, 188, 4, 0.7); }
+    70% { box-shadow: 0 0 0 12px rgba(251, 188, 4, 0); }
   }
 
   .hero h1 {
-    font-size: clamp(40px, 6vw, 80px);
+    font-size: clamp(44px, 7.5vw, 104px);
     font-weight: 800;
-    line-height: 1; letter-spacing: -2.5px;
-    margin-bottom: 24px;
-    max-width: 720px;
+    line-height: 0.98; letter-spacing: -3.5px;
+    margin-bottom: 32px;
+    max-width: 1000px; margin-left: auto; margin-right: auto;
   }
-  .hero h1 .price-accent {
-    color: var(--red-300);
+  .hero h1 .price {
+    color: var(--yellow);
     display: inline-block;
   }
   .hero h1 .serif { font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; }
+  .hero h1 small {
+    font-size: 0.3em; font-weight: 700; opacity: 0.6; vertical-align: super;
+  }
+
+  .hero .strike {
+    display: inline-flex; align-items: center; gap: 14px;
+    margin-bottom: 24px;
+    font-size: 17px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 600;
+  }
+  .hero .strike .old {
+    text-decoration: line-through;
+    text-decoration-color: var(--red-500);
+    text-decoration-thickness: 2.5px;
+  }
+  .hero .strike .savings {
+    background: var(--red-500); color: #fff;
+    padding: 4px 10px; border-radius: 6px;
+    font-size: 13px; font-weight: 800;
+    letter-spacing: 0.5px;
+  }
 
   .hero p.lead {
-    font-size: 18px; color: rgba(255,255,255,0.85);
-    max-width: 540px; margin-bottom: 36px; line-height: 1.55;
+    font-size: 20px; color: rgba(255,255,255,0.85);
+    max-width: 640px; margin: 0 auto 44px; line-height: 1.5;
+    font-weight: 400;
   }
   .hero p.lead strong { color: #fff; font-weight: 700; }
 
-  /* ===== INPUT SINGLE-FIELD (estilo Nubank CPF) ===== */
-  .quick-form {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 16px;
-    padding: 8px;
-    display: flex;
-    gap: 8px;
-    max-width: 480px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    transition: border-color 0.2s;
+  .hero-cta {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 16px;
+    margin-bottom: 0;
   }
-  .quick-form:focus-within { border-color: var(--red-300); }
-  .quick-form input {
-    flex: 1;
-    background: transparent;
-    border: 0;
-    color: #fff;
-    padding: 16px 14px;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 500;
-    outline: none;
-    min-width: 0;
-  }
-  .quick-form input::placeholder { color: rgba(255,255,255,0.5); }
-  .quick-form button {
+
+  .btn-wa-hero {
+    display: inline-flex; align-items: center; gap: 12px;
     background: var(--wa); color: #fff;
-    border: 0;
-    padding: 16px 28px; border-radius: 12px;
-    font-family: inherit; font-weight: 800; font-size: 14px;
-    cursor: pointer;
+    padding: 22px 44px; border-radius: 999px;
+    font-weight: 800; font-size: 17px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+    position: relative;
+    font-family: inherit;
+    box-shadow: 0 24px 48px rgba(37, 211, 102, 0.35);
+    letter-spacing: 0.2px;
+  }
+  .btn-wa-hero:hover { transform: translateY(-3px); box-shadow: 0 30px 60px rgba(37, 211, 102, 0.5); background: #1eb955; }
+  .btn-wa-hero::after {
+    content: ''; position: absolute; inset: 0;
+    border-radius: 999px;
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55);
+    animation: ringPulse 2.5s infinite;
+    pointer-events: none;
+  }
+
+  .hero-cta .sub-cta {
     display: inline-flex; align-items: center; gap: 8px;
-    transition: background 0.2s, transform 0.2s;
-    white-space: nowrap;
-  }
-  .quick-form button:hover { background: #1eb955; transform: translateY(-1px); }
-
-  .hero-finer {
-    margin-top: 18px;
-    font-size: 13px; color: rgba(255,255,255,0.6);
-  }
-  .hero-finer strong { color: #fff; font-weight: 600; }
-
-  /* Hero pricing card (right side) */
-  .hero-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 20px;
-    padding: 32px;
-    backdrop-filter: blur(20px);
-    color: #fff;
-  }
-  .hero-card .label {
-    font-size: 12px; font-weight: 700; letter-spacing: 2.5px;
-    text-transform: uppercase; color: var(--red-300);
-    margin-bottom: 14px;
-  }
-  .hero-card .price-old {
-    font-size: 16px; color: rgba(255,255,255,0.5);
-    text-decoration: line-through;
-    text-decoration-color: var(--red-500);
-    text-decoration-thickness: 2px;
-    margin-bottom: 4px;
-    font-weight: 600;
-  }
-  .hero-card .price-new {
-    font-size: 72px; font-weight: 900; line-height: 1; letter-spacing: -3px;
-    margin-bottom: 10px;
-  }
-  .hero-card .price-new .currency {
-    font-size: 0.4em; vertical-align: super; font-weight: 700;
-    color: var(--red-300);
-  }
-  .hero-card .price-install {
-    font-size: 14px; color: rgba(255,255,255,0.75); margin-bottom: 20px;
+    font-size: 13px; color: rgba(255,255,255,0.65);
     font-weight: 500;
+    letter-spacing: 0.3px;
   }
-  .hero-card .price-install strong { color: #fff; font-weight: 700; }
-  .hero-card .delivery {
-    display: flex; align-items: center; gap: 10px;
-    padding: 14px 16px; border-radius: 12px;
-    background: rgba(37, 211, 102, 0.12);
-    border: 1px solid rgba(37, 211, 102, 0.35);
-    font-size: 13px; font-weight: 600;
-  }
-  .hero-card .delivery .dot {
-    width: 8px; height: 8px; background: var(--wa); border-radius: 50%;
-    animation: pulseGreen 2s infinite;
-  }
-  @keyframes pulseGreen {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
-    70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+  .hero-cta .sub-cta strong { color: #fff; font-weight: 700; }
+  .hero-cta .sub-cta .card-ico {
+    width: 28px; height: 18px; border-radius: 4px;
+    background: linear-gradient(135deg, var(--yellow), var(--red-500));
+    display: inline-block;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   }
 
   /* ============ 3 CARDS HORIZONTAIS (Nubank-style) ============ */
@@ -851,44 +813,34 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="container">
-      <div class="hero-grid">
-        <div>
-          <div class="hero-pill" data-aos="fade-down">
-            <span class="pulse"></span>
-            Promoção · Vagas para este mês
-          </div>
-          <h1 data-aos="fade-up">
-            Seu site no ar<br/>
-            em <span class="serif price-accent">3 dias.</span>
-          </h1>
-          <p class="lead" data-aos="fade-up" data-aos-delay="100">
-            Site profissional, responsivo e integrado ao WhatsApp por <strong>R$499</strong>. Sem mensalidade escondida, hospedagem inclusa no 1º ano.
-          </p>
+      <div class="hero-pill" data-aos="fade-down">
+        <span class="pulse"></span>
+        Promoção · Vagas limitadas
+      </div>
 
-          <form class="quick-form" data-aos="fade-up" data-aos-delay="200" onsubmit="return startWA(event)">
-            <input type="tel" id="phoneInput" placeholder="Seu WhatsApp (DDD + número)" required />
-            <button type="submit">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-              Quero meu site
-            </button>
-          </form>
-          <p class="hero-finer" data-aos="fade-up" data-aos-delay="300">
-            <strong>Resposta em até 5 minutos.</strong> Sem reunião, tudo pelo WhatsApp.
-          </p>
-        </div>
+      <h1 data-aos="fade-up" data-aos-delay="100">
+        Seu site <span class="serif">profissional</span><br/>
+        por <span class="price">R$499<small>*</small></span>
+      </h1>
 
-        <div data-aos="fade-left" data-aos-delay="200">
-          <div class="hero-card">
-            <div class="label">Oferta deste mês</div>
-            <div class="price-old">de R$ 1.500</div>
-            <div class="price-new"><span class="currency">R$</span>499</div>
-            <div class="price-install">ou <strong>12x de R$ 49,16</strong> sem juros</div>
-            <div class="delivery">
-              <span class="dot"></span>
-              <span><strong>No ar em 3 dias úteis</strong></span>
-            </div>
-          </div>
-        </div>
+      <div class="strike" data-aos="fade-up" data-aos-delay="200">
+        <span class="old">R$ 1.500</span>
+        <span class="savings">Você economiza R$ 1.001</span>
+      </div>
+
+      <p class="lead" data-aos="fade-up" data-aos-delay="300">
+        Site responsivo, integrado ao WhatsApp e <strong>no ar em 3 dias</strong>. Hospedagem inclusa no 1º ano. Sem mensalidade escondida.
+      </p>
+
+      <div class="hero-cta" data-aos="fade-up" data-aos-delay="400">
+        <a href="https://wa.me/5511966249876?text=Ol%C3%A1!%20Quero%20garantir%20meu%20site%20por%20R%24%20499.%20Como%20funciona%3F" class="btn-wa-hero" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Quero garantir meu site
+        </a>
+        <span class="sub-cta">
+          <span class="card-ico"></span>
+          Em <strong>12x sem juros</strong> no cartão
+        </span>
       </div>
     </div>
   </div>
