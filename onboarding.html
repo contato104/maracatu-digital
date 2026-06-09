@@ -218,6 +218,36 @@
     background: var(--green); color: #fff;
   }
   .file-btn.has-file .file-name { color: var(--ink); font-weight: 600; }
+  .file-btn.is-uploading {
+    border-style: solid;
+    border-color: var(--blue);
+    background: rgba(66, 133, 244, 0.04);
+    pointer-events: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .file-btn.is-uploading .file-icon {
+    background: var(--blue); color: #fff;
+    animation: pulse-upload 1.2s ease-in-out infinite;
+  }
+  .file-btn.is-uploading .file-name {
+    color: var(--blue); font-weight: 600;
+  }
+  .file-btn.is-uploading::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    height: 3px; width: 30%;
+    background: var(--blue);
+    animation: upload-bar 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse-upload {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.7; }
+  }
+  @keyframes upload-bar {
+    0% { left: -30%; }
+    100% { left: 100%; }
+  }
   .file-clear {
     background: transparent; border: none;
     color: var(--muted); cursor: pointer;
@@ -830,6 +860,13 @@
   </div>
 </div>
 
+<!-- Vercel Blob client SDK para upload direto do browser (contorna limite de 4.5MB) -->
+<script type="module">
+  import { upload } from 'https://esm.sh/@vercel/blob@0.27.3/client';
+  window.__blobUpload = upload;
+  window.dispatchEvent(new Event('blob-sdk-ready'));
+</script>
+
 <script>
   (function() {
     var STORAGE_KEY = 'maracatu_briefing_v1';
@@ -890,12 +927,17 @@
 
     // === STORAGE ===
     var savedStep = 0; // Etapa salva da última sessão (se existir)
+    var pendingFileStore = null; // Backup do fileStore enquanto a pagina carrega
     function load() {
       try {
         var raw = localStorage.getItem(STORAGE_KEY);
         if (raw) {
           var data = JSON.parse(raw);
           answers = data.answers || {};
+          // Arquivos sao guardados como URL (metadata pequena, seguro pro localStorage)
+          if (data.files && typeof data.files === 'object') {
+            pendingFileStore = data.files;
+          }
           if (typeof data.step === 'number' && data.step > 0 && data.step < 10) {
             savedStep = data.step;
           }
@@ -906,7 +948,22 @@
     }
     var saveTimer = null;
     function save() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers: answers, step: current }));
+      // Persiste tambem o fileStore — agora que e so URL+metadata, cabe no localStorage.
+      // Isso protege o cliente de perder os arquivos por um F5 acidental.
+      var safeFiles = {};
+      try {
+        Object.keys(fileStore || {}).forEach(function(k) {
+          var f = fileStore[k];
+          if (f && f.url) {
+            safeFiles[k] = { name: f.name, type: f.type, size: f.size, url: f.url };
+          }
+        });
+      } catch(e) {}
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        answers: answers,
+        step: current,
+        files: safeFiles,
+      }));
       var counter = document.getElementById('stepCounter');
       counter.classList.add('saving');
       clearTimeout(saveTimer);
@@ -959,8 +1016,17 @@
       save();
     }
 
-    // File storage (in-memory, not in localStorage since base64 is too big)
+    // File storage. Agora guarda apenas { name, type, size, url } — sem binario.
+    // Por isso pode ser persistido no localStorage (sobrevive a um F5 do cliente).
     var fileStore = {};
+    if (pendingFileStore && typeof pendingFileStore === 'object') {
+      Object.keys(pendingFileStore).forEach(function(k) {
+        var f = pendingFileStore[k];
+        if (f && f.url && f.name) {
+          fileStore[k] = { name: f.name, type: f.type || '', size: f.size || 0, url: f.url };
+        }
+      });
+    }
 
     // === RESTORE INPUTS ===
     function restoreInputs() {
@@ -1011,49 +1077,110 @@
     });
 
     // === FILE INPUT HANDLERS ===
+    // Upload direto pro Vercel Blob (contorna limite de 4.5MB do Vercel serverless).
+    // Aceita ate 100MB por arquivo. O briefing chega no email com link clicavel.
+    var MAX_UPLOAD = 100 * 1024 * 1024; // 100MB
+
+    function waitForBlobSDK() {
+      return new Promise(function(resolve, reject) {
+        if (window.__blobUpload) return resolve(window.__blobUpload);
+        var tries = 0;
+        var iv = setInterval(function() {
+          tries++;
+          if (window.__blobUpload) {
+            clearInterval(iv);
+            resolve(window.__blobUpload);
+          } else if (tries > 80) {
+            clearInterval(iv);
+            reject(new Error('SDK de upload nao carregou. Verifique sua conexao.'));
+          }
+        }, 100);
+      });
+    }
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes/1024).toFixed(0) + ' KB';
+      return (bytes/1024/1024).toFixed(1) + ' MB';
+    }
+
+    function attachClearButton(btn, input, key) {
+      if (btn.querySelector('.file-clear')) return;
+      var clearBtn = document.createElement('button');
+      clearBtn.type = 'button';
+      clearBtn.className = 'file-clear';
+      clearBtn.setAttribute('aria-label', 'Remover arquivo');
+      clearBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+      clearBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        delete fileStore[key];
+        input.value = '';
+        btn.classList.remove('has-file');
+        btn.classList.remove('is-uploading');
+        btn.querySelector('.file-name').textContent = 'Anexar arquivo';
+        clearBtn.remove();
+      });
+      btn.appendChild(clearBtn);
+    }
+
     document.querySelectorAll('input[type="file"][data-file]').forEach(function(input) {
       var key = input.getAttribute('data-file');
       var btn = document.getElementById('filebtn_' + key);
-      input.addEventListener('change', function() {
+
+      // Se restauramos um arquivo do localStorage, ja marca o botao como "has-file"
+      if (fileStore[key] && fileStore[key].url) {
+        var f = fileStore[key];
+        btn.classList.add('has-file');
+        btn.querySelector('.file-name').textContent = f.name + ' (' + formatSize(f.size || 0) + ')';
+        attachClearButton(btn, input, key);
+      }
+
+      input.addEventListener('change', async function() {
         var file = input.files[0];
         if (!file) return;
-        if (file.size > 1.5 * 1024 * 1024) {
-          alert('Arquivo muito grande (limite 1,5 MB para anexo direto). Cole o link do Google Drive no campo abaixo.');
+        if (file.size > MAX_UPLOAD) {
+          alert('Arquivo muito grande (limite 100MB). Comprima ou cole o link do Google Drive no campo abaixo.');
           input.value = '';
           return;
         }
-        // Read to base64
-        var reader = new FileReader();
-        reader.onload = function() {
+
+        // UI: mostrar estado de upload
+        btn.classList.add('is-uploading');
+        var nameEl = btn.querySelector('.file-name');
+        var originalText = nameEl.textContent;
+        nameEl.textContent = 'Enviando ' + formatSize(file.size) + '...';
+
+        try {
+          var uploadFn = await waitForBlobSDK();
+          var safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+          var pathname = 'onboarding/' + Date.now() + '-' + safeName;
+
+          var blob = await uploadFn(pathname, file, {
+            access: 'public',
+            handleUploadUrl: '/api/onboarding-upload',
+            contentType: file.type || 'application/octet-stream',
+          });
+
           fileStore[key] = {
             name: file.name,
             type: file.type,
             size: file.size,
-            data: reader.result.split(',')[1]
+            url: blob.url
           };
-          // Update UI
+
+          btn.classList.remove('is-uploading');
           btn.classList.add('has-file');
-          btn.querySelector('.file-name').textContent = file.name;
-          // Add a clear button if not already
-          if (!btn.querySelector('.file-clear')) {
-            var clearBtn = document.createElement('button');
-            clearBtn.type = 'button';
-            clearBtn.className = 'file-clear';
-            clearBtn.setAttribute('aria-label', 'Remover arquivo');
-            clearBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
-            clearBtn.addEventListener('click', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              delete fileStore[key];
-              input.value = '';
-              btn.classList.remove('has-file');
-              btn.querySelector('.file-name').textContent = 'Anexar arquivo';
-              clearBtn.remove();
-            });
-            btn.appendChild(clearBtn);
-          }
-        };
-        reader.readAsDataURL(file);
+          nameEl.textContent = file.name + ' (' + formatSize(file.size) + ')';
+          attachClearButton(btn, input, key);
+          save();
+        } catch (err) {
+          console.error('Upload falhou:', err);
+          btn.classList.remove('is-uploading');
+          nameEl.textContent = originalText;
+          input.value = '';
+          alert('Erro ao enviar arquivo: ' + (err && err.message ? err.message : 'tente de novo') + '. Voce tambem pode colar um link do Google Drive no campo abaixo.');
+        }
       });
     });
 
@@ -1152,7 +1279,14 @@
           if (Array.isArray(ans)) ans = ans.join(', ');
           var hasFile = item.fileKey && fileStore[item.fileKey];
           var parts = [];
-          if (hasFile) parts.push('[Arquivo anexado: ' + fileStore[item.fileKey].name + ']');
+          if (hasFile) {
+            var f = fileStore[item.fileKey];
+            if (f.url) {
+              parts.push('[Arquivo: ' + f.name + ' — ' + f.url + ']');
+            } else {
+              parts.push('[Arquivo anexado: ' + f.name + ']');
+            }
+          }
           if (ans) parts.push(ans);
           var display = parts.length ? parts.join('\n') : '(em branco)';
           out += '\n' + item.label + ':\n' + display + '\n';
@@ -1162,9 +1296,15 @@
       // List attached files
       var fileKeys = Object.keys(fileStore);
       if (fileKeys.length > 0) {
-        out += '\n--- ARQUIVOS ANEXADOS ---\n';
+        out += '\n--- ARQUIVOS ENVIADOS ---\n';
         fileKeys.forEach(function(k) {
-          out += '\n• ' + fileStore[k].name + ' (' + (fileStore[k].size/1024).toFixed(0) + ' KB)\n';
+          var f = fileStore[k];
+          var sizeStr = f.size < 1024*1024 ? (f.size/1024).toFixed(0)+' KB' : (f.size/1024/1024).toFixed(1)+' MB';
+          if (f.url) {
+            out += '\n• ' + f.name + ' (' + sizeStr + ')\n  ' + f.url + '\n';
+          } else {
+            out += '\n• ' + f.name + ' (' + sizeStr + ')\n';
+          }
         });
       }
       return out;
@@ -1188,24 +1328,38 @@
           var ans = answers[item.q];
           if (Array.isArray(ans)) ans = ans.join(', ');
           var hasFile = item.fileKey && fileStore[item.fileKey];
-          var parts = [];
-          if (hasFile) parts.push('📎 ' + fileStore[item.fileKey].name);
-          if (ans) parts.push(ans);
-          var display = parts.join('\n');
-          var empty = !display;
-          if (empty) display = '(em branco)';
+          var hasAns = !!ans;
+          var empty = !hasFile && !hasAns;
+
           html += '<div style="margin:12px 0;padding:10px 0;border-bottom:1px dashed #ECECE6;">';
           html += '<div style="font-size:12px;color:#6B7280;margin-bottom:4px;">' + item.label + '</div>';
-          html += '<div style="font-size:15px;line-height:1.5;color:' + (empty ? '#bbb' : '#0a0a0a') + ';white-space:pre-wrap;">' + escapeHTML(display) + '</div>';
-          html += '</div>';
+          html += '<div style="font-size:15px;line-height:1.5;color:' + (empty ? '#bbb' : '#0a0a0a') + ';white-space:pre-wrap;">';
+          if (hasFile) {
+            var f = fileStore[item.fileKey];
+            if (f.url) {
+              html += '📎 <a href="' + escapeHTML(f.url) + '" target="_blank" rel="noopener" style="color:#4285F4;text-decoration:underline;font-weight:600;">' + escapeHTML(f.name) + '</a>';
+            } else {
+              html += '📎 ' + escapeHTML(f.name);
+            }
+            if (hasAns) html += '<br>';
+          }
+          if (hasAns) html += escapeHTML(ans);
+          if (empty) html += '(em branco)';
+          html += '</div></div>';
         });
       });
       var fileKeys = Object.keys(fileStore);
       if (fileKeys.length > 0) {
         html += '<div style="margin-top:24px;padding:16px;background:#FAFAF7;border-radius:12px;">';
-        html += '<div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#0a0a0a;margin-bottom:10px;">Arquivos anexados</div>';
+        html += '<div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#0a0a0a;margin-bottom:10px;">Arquivos enviados</div>';
         fileKeys.forEach(function(k) {
-          html += '<div style="font-size:14px;margin:4px 0;">📎 ' + escapeHTML(fileStore[k].name) + ' <span style="color:#6B7280;">(' + (fileStore[k].size/1024).toFixed(0) + ' KB)</span></div>';
+          var f = fileStore[k];
+          var sizeStr = f.size < 1024*1024 ? (f.size/1024).toFixed(0)+' KB' : (f.size/1024/1024).toFixed(1)+' MB';
+          if (f.url) {
+            html += '<div style="font-size:14px;margin:6px 0;">📎 <a href="' + escapeHTML(f.url) + '" target="_blank" rel="noopener" style="color:#4285F4;text-decoration:underline;font-weight:600;">' + escapeHTML(f.name) + '</a> <span style="color:#6B7280;">(' + sizeStr + ')</span></div>';
+          } else {
+            html += '<div style="font-size:14px;margin:6px 0;">📎 ' + escapeHTML(f.name) + ' <span style="color:#6B7280;">(' + sizeStr + ')</span></div>';
+          }
         });
         html += '</div>';
       }
@@ -1222,13 +1376,19 @@
       success.style.display = 'none';
       error.style.display = 'none';
 
-      var attachments = Object.keys(fileStore).map(function(k) {
-        return {
-          filename: fileStore[k].name,
-          content: fileStore[k].data,
-          type: fileStore[k].type
-        };
-      });
+      // Arquivos sao subidos pro Vercel Blob no momento da selecao.
+      // O briefing chega no email com links clicaveis pros arquivos — nao precisa
+      // mais mandar o binario junto. Isso libera arquivos ate 100MB.
+      var fileLinks = Object.keys(fileStore)
+        .filter(function(k) { return fileStore[k].url; })
+        .map(function(k) {
+          return {
+            filename: fileStore[k].name,
+            url: fileStore[k].url,
+            size: fileStore[k].size,
+            type: fileStore[k].type,
+          };
+        });
 
       var payload = {
         empresa: answers.empresa_nome || 'Sem nome',
@@ -1236,7 +1396,8 @@
         answers: answers,
         html: buildBriefingHTML(),
         text: buildBriefingText(),
-        attachments: attachments
+        attachments: [],
+        fileLinks: fileLinks
       };
 
       fetch('/api/submit-briefing', {
