@@ -8,6 +8,8 @@
 //   1. Cliente pede token: { type: 'blob.generate-client-token', payload: {...} }
 //   2. Vercel notifica conclusao: { type: 'blob.upload-completed', payload: {...} }
 
+// Forca inclusao do pacote no bundle do Vercel (nft as vezes nao rastreia subpaths)
+import '@vercel/blob';
 import { handleUpload } from '@vercel/blob/client';
 
 const ALLOWED_TYPES = [
