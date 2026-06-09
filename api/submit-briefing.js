@@ -6,14 +6,21 @@
 //   RESEND_FROM     = remetente (opcional). Ex: "Maracatu Briefings <briefings@maracatumktdigital.com>"
 //                     Se não definir, usa o domínio de testes da Resend.
 
+// Enquanto o dominio nao esta verificado no Resend (depende de MX em subdominio,
+// que o Wix nao suporta), o Resend so deixa enviar para o email que cadastrou a
+// conta: contato@maracatumktdigital.com. O Gmail desse endereco faz forwarding
+// automatico para os demais membros da equipe (laura@, marketing@, etc).
+//
+// Quando migrarmos o DNS pra Cloudflare e o dominio for verificado, descomentar
+// os outros emails abaixo e remover o forwarding do Gmail.
 const TO_EMAILS = [
-  'laura@maracatumktdigital.com',
-  'marketing@maracatumktdigital.com',
-  'marketing2@maracatumktdigital.com',
-  'midias@maracatumktdigital.com',
-  'diogo@maracatumktdigital.com',
   'contato@maracatumktdigital.com',
-  'joana@maracatumktdigital.com',
+  // 'laura@maracatumktdigital.com',
+  // 'marketing@maracatumktdigital.com',
+  // 'marketing2@maracatumktdigital.com',
+  // 'midias@maracatumktdigital.com',
+  // 'diogo@maracatumktdigital.com',
+  // 'joana@maracatumktdigital.com',
 ];
 
 export default async function handler(req, res) {
