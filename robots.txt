@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Crawlers de IA — explicitamente permitidos pra GEO
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Páginas internas (admin, briefing) — não indexar
+Disallow: /admin.html
+Disallow: /onboarding.html
+
+Sitemap: https://maracatumktdigital.com/sitemap.xml
