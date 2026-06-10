@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "installCommand": "npm install --no-package-lock --force",
   "functions": {
     "api/onboarding-upload.js": {

@@ -18,7 +18,9 @@ User-agent: anthropic-ai
 Allow: /
 
 # Páginas internas (admin, briefing) — não indexar
+Disallow: /admin
 Disallow: /admin.html
+Disallow: /onboarding
 Disallow: /onboarding.html
 
 Sitemap: https://maracatumktdigital.com/sitemap.xml
