@@ -54,6 +54,16 @@ export default async function handler(req, res) {
       }
 
       const now = new Date().toISOString();
+      // publishedAt customizado opcional — usado pra publicar posts com data passada
+      // ou agendar pra datas futuras (visivel ao publico imediatamente, mas com
+      // a data exibida sendo a definida).
+      let publishedAt = now;
+      if (body.publishedAt) {
+        const candidate = new Date(body.publishedAt);
+        if (!isNaN(candidate.getTime())) {
+          publishedAt = candidate.toISOString();
+        }
+      }
       const post = {
         id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
         slug,
@@ -63,7 +73,7 @@ export default async function handler(req, res) {
         category: (body.category || 'Estratégia').toString(),
         coverImage: (body.coverImage || '').toString(),
         author: (body.author || 'Maracatu Digital').toString(),
-        publishedAt: now,
+        publishedAt,
         updatedAt: now,
       };
 
