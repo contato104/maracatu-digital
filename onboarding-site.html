@@ -235,9 +235,19 @@
         </div>
 
         <div class="mb-6">
-          <label class="field-label">Seus 3 a 5 principais produtos/serviços <span class="text-vermelho">*</span></label>
-          <p class="field-hint">Para cada um: <strong>nome</strong> + uma linha do <strong>que é e como ajuda</strong> o cliente.</p>
+          <label class="field-label">Quais os produtos ou serviços que você oferece? <span class="text-vermelho">*</span></label>
+          <p class="field-hint">Liste todos. Para cada um: <strong>nome</strong> + uma linha do <strong>que é e como ajuda</strong> o cliente.</p>
           <textarea class="inp" name="principais" required style="min-height:170px" placeholder="1. Clareamento dental, deixa o sorriso branco em uma sessão, sem sensibilidade.&#10;2. Implantes, repõe dentes perdidos com aparência natural.&#10;3. ..."></textarea>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">O que torna seus produtos ou serviços diferentes dos concorrentes? <span class="text-vermelho">*</span></label>
+          <p class="field-hint">Qualidade, preço, processo, tecnologia, atendimento, prazo. O que destaca o seu na hora da decisão.</p>
+          <textarea class="inp" name="diferencial_produto" required placeholder="Ex.: usamos material importado certificado, atendimento em 1 dia, garantia de 5 anos..."></textarea>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Para quais setores ou perfis de cliente seus produtos ou serviços entregam mais valor? <span class="text-vermelho">*</span></label>
+          <p class="field-hint">Que tipo de pessoa ou negócio mais se beneficia. Pode ser por segmento (saúde, varejo, construção), porte (PME, grande empresa), perfil (família, casal jovem, idoso) ou situação (quem está abrindo o negócio, quem já tem operação rodando).</p>
+          <textarea class="inp" name="segmentos" required placeholder="Ex.: famílias com crianças pequenas, idosos com plano de saúde, empresas do setor industrial em fase de expansão..."></textarea>
         </div>
         <div class="mb-6">
           <label class="field-label">Qual a transformação que o cliente sente no fim? <span class="text-ink/40 font-normal">(opcional)</span></label>
@@ -524,7 +534,9 @@ DIFERENCIAIS
         ]},
         { titulo: 'O que você oferece', cor: '#2D5BD6', campos: [
           ['tipo', 'Tipo (produto/serviço/os dois)'],
-          ['principais', 'Principais produtos/serviços'],
+          ['principais', 'Produtos ou serviços oferecidos'],
+          ['diferencial_produto', 'Diferencial dos produtos/serviços'],
+          ['segmentos', 'Setores/perfis que mais se beneficiam'],
           ['beneficio', 'Transformação que o cliente sente'],
           ['mostrar_preco', 'Mostrar preços no site'],
         ]},
