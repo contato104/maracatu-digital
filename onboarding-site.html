@@ -306,9 +306,23 @@
           <label class="field-label">Números de impacto <span class="text-ink/40 font-normal">(opcional)</span></label>
           <input class="inp" name="numeros" placeholder="Ex.: +500 clientes, 10 anos, 98% de satisfação" />
         </div>
-        <div class="mb-2">
+        <div class="mb-6">
           <label class="field-label">Certificações, prêmios ou parcerias <span class="text-ink/40 font-normal">(opcional)</span></label>
           <input class="inp" name="certificacoes" placeholder="Ex.: certificado pela ANVISA, parceiro oficial X" />
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Quer mostrar uma seção com empresas ou clientes que usam sua solução? <span class="text-vermelho">*</span></label>
+          <p class="field-hint">Aquela faixa de logos que aparece em muitos sites ("Quem confia na gente"). Bom pra credibilidade, mas só faz sentido se você tem autorização das marcas.</p>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <label class="opt"><input type="radio" name="quer_clientes" value="Sim, quero mostrar" required> Sim, quero mostrar</label>
+            <label class="opt"><input type="radio" name="quer_clientes" value="Ainda não tenho clientes pra mostrar"> Ainda não tenho</label>
+            <label class="opt"><input type="radio" name="quer_clientes" value="Não quero essa seção"> Não quero essa seção</label>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="field-label">Se sim, quais empresas ou clientes você quer destacar? <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <p class="field-hint">Liste os nomes. A gente entra em contato com você pra pegar as logos em alta resolução depois.</p>
+          <textarea class="inp" name="clientes_destaque" placeholder="Ex.: Hospital São Lucas, Padaria Doce Sabor, Clínica Vida & Sorriso..."></textarea>
         </div>
       </section>
 
@@ -388,6 +402,15 @@ DIFERENCIAIS
             <label class="opt"><input type="radio" name="fotos" value="Algumas"> Algumas</label>
           </div>
           <p class="field-hint mt-2">Fotos e logo você envia pelo WhatsApp ou por um link (Google Drive).</p>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Quer ter um espaço de blog no site? <span class="text-vermelho">*</span></label>
+          <p class="field-hint">Útil pra publicar artigos, novidades, dicas. Ajuda no SEO. Só faz sentido se você ou alguém da equipe vai produzir conteúdo com frequência.</p>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <label class="opt"><input type="radio" name="quer_blog" value="Sim, desde o lançamento" required> Sim, no lançamento</label>
+            <label class="opt"><input type="radio" name="quer_blog" value="Sim, mas adicionar depois"> Sim, mas depois</label>
+            <label class="opt"><input type="radio" name="quer_blog" value="Não preciso de blog"> Não preciso</label>
+          </div>
         </div>
         <div class="mb-6">
           <label class="field-label">Link com seus materiais (fotos, logo, catálogo) <span class="text-ink/40 font-normal">(opcional)</span></label>
@@ -551,6 +574,8 @@ DIFERENCIAIS
           ['depoimentos', 'Depoimentos de clientes'],
           ['numeros', 'Números de impacto'],
           ['certificacoes', 'Certificações/prêmios'],
+          ['quer_clientes', 'Quer seção de clientes/empresas que usam'],
+          ['clientes_destaque', 'Clientes a destacar (logos)'],
         ]},
         { titulo: 'O que o site deve fazer', cor: '#F4B400', campos: [
           ['acao_principal', 'Ação principal do visitante'],
@@ -561,8 +586,9 @@ DIFERENCIAIS
           ['redes', 'Redes sociais'],
         ]},
         { titulo: 'Últimos detalhes', cor: '#2D5BD6', campos: [
-          ['textos', 'Tem textos prontos'],
+          ['textos', 'Textos do site (escritos pelo cliente)'],
           ['fotos', 'Tem fotos próprias'],
+          ['quer_blog', 'Quer espaço de blog'],
           ['link_materiais', 'Link de materiais'],
           ['dominio', 'Domínio próprio'],
           ['hospedagem', 'Onde hospeda hoje'],
