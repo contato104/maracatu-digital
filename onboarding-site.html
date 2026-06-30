@@ -210,9 +210,11 @@
           </div>
         </div>
         <div class="mb-2">
-          <label class="field-label">Tem alguma marca cujo jeito de comunicar você admira? <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <p class="field-hint">Pode citar a marca e o que te chama atenção (humor, autoridade, simplicidade, etc).</p>
-          <input class="inp" name="referencia_comunicacao" placeholder="Ex.: Nubank pelo jeito leve, Apple pela clareza" />
+          <label class="field-label">Indique 2 sites com design que você acha atrativo <span class="text-vermelho">*</span></label>
+          <p class="field-hint">Pode ser de qualquer setor. O que importa é o que te chama atenção visualmente (estilo, cores, organização, sensação). Se quiser, conta o porquê de cada um.</p>
+          <textarea class="inp" name="referencias_design" required style="min-height:110px" placeholder="Ex.:
+1. nubank.com.br, pelo jeito limpo e os blocos coloridos
+2. apple.com, pela clareza e respiro do layout"></textarea>
         </div>
       </section>
 
@@ -553,7 +555,7 @@ DIFERENCIAIS
           ['evitar', 'Coisas a evitar'],
           ['tratamento', 'Tratamento (você/vocês/tu)'],
           ['estilo_comunicacao', 'Estilo de comunicação'],
-          ['referencia_comunicacao', 'Marca que admira'],
+          ['referencias_design', 'Sites de referência de design'],
         ]},
         { titulo: 'O que você oferece', cor: '#2D5BD6', campos: [
           ['tipo', 'Tipo (produto/serviço/os dois)'],
