@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Onboarding do seu site | Maracatu Digital</title>
+  <meta name="description" content="Questionário de briefing para construção do seu site com a Maracatu Digital." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Schibsted Grotesk"', 'sans-serif'],
+            display: ['Anton', 'sans-serif'],
+            serif: ['Fraunces', 'serif'],
+          },
+          colors: {
+            ink: '#1A1712',
+            paper: '#FFFFFF',
+            sand: '#F7F6F3',
+            verde: '#1E9E4A',
+            vermelho: '#E03A2F',
+            amarelo: '#F4B400',
+            azul: '#2D5BD6',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html { -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Schibsted Grotesk', sans-serif; color: #1A1712; background-color: #F7F6F3; }
+    .font-display { font-family: 'Anton', sans-serif; letter-spacing: .01em; font-weight: 400; }
+    .font-serif  { font-family: 'Fraunces', serif; }
+    .kicker { font-weight:600; text-transform:uppercase; letter-spacing:.2em; font-size:.72rem; }
+
+    .card { border: 1px solid rgba(26,23,18,.12); border-radius: 1.5rem; background: #FFFFFF; box-shadow: 0 1px 2px rgba(26,23,18,.05); }
+    .ribbon-rule{ height:5px; background:linear-gradient(90deg,#1E9E4A 0 25%,#E03A2F 0 50%,#F4B400 0 75%,#2D5BD6 0 100%); }
+    @keyframes flow { to { background-position: 200% 0; } }
+    .ribbon-flow{ background:linear-gradient(90deg,#1E9E4A,#E03A2F,#F4B400,#2D5BD6,#1E9E4A,#E03A2F,#F4B400,#2D5BD6); background-size:200% 100%; animation:flow 9s linear infinite; }
+    @media (prefers-reduced-motion: reduce){ .ribbon-flow{ animation:none !important; } }
+
+    .field-label { font-weight:600; font-size:1.05rem; display:block; margin-bottom:.5rem; }
+    .field-hint { color: rgba(26,23,18,.5); font-size:.9rem; margin-bottom:.65rem; }
+    .inp, textarea.inp { width:100%; border:1px solid rgba(26,23,18,.18); border-radius:.85rem; background:#fff; padding:.8rem 1rem; font-size:1rem; color:#1A1712; transition:border-color .2s ease, box-shadow .2s ease; }
+    .inp:focus, textarea.inp:focus { outline:none; border-color:#1E9E4A; box-shadow:0 0 0 3px rgba(30,158,74,.15); }
+    textarea.inp { min-height:110px; resize:vertical; }
+    .opt { display:flex; align-items:center; gap:.7rem; border:1px solid rgba(26,23,18,.18); border-radius:.85rem; padding:.75rem 1rem; cursor:pointer; transition:border-color .15s ease, background .15s ease; }
+    .opt:hover { border-color:rgba(26,23,18,.35); }
+    .opt input { accent-color:#1E9E4A; width:1.1rem; height:1.1rem; }
+    .opt:has(input:checked) { border-color:#1E9E4A; background:rgba(30,158,74,.06); }
+
+    .step { display:none; }
+    .step.active { display:block; animation:fade .35s ease; }
+    @keyframes fade { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:.6rem; font-weight:600; border-radius:9999px; padding:.85rem 1.6rem; transition:transform .15s ease, background .2s ease, opacity .2s ease; }
+    .btn-primary { background:#1E9E4A; color:#fff; }
+    .btn-primary:hover { background:rgba(30,158,74,.9); }
+    .btn-ghost { background:transparent; color:rgba(26,23,18,.6); }
+    .btn-ghost:hover { color:#1A1712; }
+    .btn-dark { background:#1A1712; color:#fff; }
+    .btn-dark:hover { background:rgba(26,23,18,.85); }
+    .btn[disabled] { opacity:.45; pointer-events:none; }
+  </style>
+</head>
+
+<body>
+  <div class="ribbon-flow h-1.5 w-full fixed top-0 inset-x-0 z-50"></div>
+
+  <div class="max-w-2xl mx-auto px-5 sm:px-8 pt-12 pb-24">
+
+    <header class="flex items-center gap-3 mb-8">
+      <img src="/favicon.png" alt="Maracatu Digital" class="h-10 w-auto" />
+      <span class="font-display text-2xl leading-none">Maracatu<span class="text-vermelho"> Digital</span></span>
+    </header>
+
+    <!-- Intro -->
+    <div id="intro">
+      <p class="kicker text-verde">Onboarding · Criação de site</p>
+      <h1 class="font-display text-[clamp(2.2rem,6vw,3.4rem)] leading-[1.02] mt-3">Vamos construir o seu site.</h1>
+      <p class="mt-5 text-lg text-ink/65 leading-relaxed">
+        Esse questionário leva <strong class="text-ink">5 a 10 minutos</strong> e é o que nos permite entregar um site
+        feito sob medida pra sua empresa. Quanto mais detalhe, melhor o resultado.
+        Campos marcados como <em>(opcional)</em> você pode pular.
+      </p>
+      <button type="button" id="startBtn" class="btn btn-primary mt-8 text-lg">Começar</button>
+    </div>
+
+    <!-- Formulário -->
+    <form id="form" class="hidden" novalidate>
+      <!-- Progresso -->
+      <div class="mb-7">
+        <div class="flex items-center justify-between text-sm text-ink/55 mb-2">
+          <span id="stepLabel">Etapa 1 de 7</span>
+          <span id="stepPct">14%</span>
+        </div>
+        <div class="h-2 rounded-full bg-ink/10 overflow-hidden">
+          <div id="bar" class="h-full ribbon-flow transition-all duration-300" style="width:14%"></div>
+        </div>
+      </div>
+
+      <!-- ETAPA 1 · Sua empresa -->
+      <section class="step active" data-step="0">
+        <p class="kicker text-vermelho">Sua empresa</p>
+        <h2 class="font-display text-3xl mt-2 mb-6">Quem é você</h2>
+
+        <div class="mb-6">
+          <label class="field-label">Nome da empresa / marca <span class="text-vermelho">*</span></label>
+          <input class="inp" name="empresa" required placeholder="Ex.: Clínica Sorriso, Padaria do João..." />
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Em uma frase, o que a empresa faz? <span class="text-vermelho">*</span></label>
+          <p class="field-hint">Como você explicaria pra alguém em 10 segundos.</p>
+          <input class="inp" name="resumo" required placeholder="Ex.: Cuidamos do sorriso de toda a família." />
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Há quanto tempo está no mercado? <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <input class="inp" name="tempo_mercado" placeholder="Ex.: 8 anos" />
+        </div>
+
+        <div class="rounded-xl bg-verde/5 border border-verde/20 px-4 py-3 mb-6">
+          <p class="text-sm text-ink/70"><strong class="text-verde">Seção "Sobre Nós"</strong>, as próximas respostas viram o texto que apresenta sua empresa no site.</p>
+        </div>
+
+        <div class="mb-6">
+          <label class="field-label">Conte a história da empresa <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <p class="field-hint">Como começou, o "porquê", um momento marcante. É o que cria conexão com o cliente.</p>
+          <textarea class="inp" name="historia" placeholder="Ex.: A clínica nasceu em 2015 do sonho de..."></textarea>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Missão, valores ou jeito de trabalhar <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <p class="field-hint">No que você acredita e como gosta de atender. Pode ser em tópicos.</p>
+          <textarea class="inp" name="missao_valores" placeholder="Ex.: atendimento humano, pontualidade, transparência nos preços..."></textarea>
+        </div>
+        <div class="mb-2">
+          <label class="field-label">Quem está por trás? <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <p class="field-hint">Sócios, fundador ou equipe, se quiser dar um rosto à empresa.</p>
+          <input class="inp" name="equipe" placeholder="Ex.: Dra. Ana Lima, fundadora · equipe de 6 pessoas" />
+        </div>
+      </section>
+
+      <!-- ETAPA 2 · Marca -->
+      <section class="step" data-step="1">
+        <p class="kicker text-vermelho">Identidade visual</p>
+        <h2 class="font-display text-3xl mt-2 mb-6">A cara da marca</h2>
+
+        <div class="mb-6">
+          <label class="field-label">Você já tem logo? <span class="text-vermelho">*</span></label>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <label class="opt"><input type="radio" name="tem_logo" value="Sim, tenho logo" required> Sim, tenho</label>
+            <label class="opt"><input type="radio" name="tem_logo" value="Não tenho ainda"> Não tenho</label>
+            <label class="opt"><input type="radio" name="tem_logo" value="Tenho, mas quero refazer"> Quero refazer</label>
+          </div>
+          <p class="field-hint mt-2">Se já tem logo e arquivos da marca, envie pra gente pelo WhatsApp depois.</p>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Cores ou estilo que combinam com a marca <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <input class="inp" name="cores" placeholder="Ex.: tons de azul, visual clean e moderno" />
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Tem algo que você NÃO quer de jeito nenhum? <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <input class="inp" name="evitar" placeholder="Ex.: nada de preto, sem fundo escuro" />
+        </div>
+
+        <div class="rounded-xl bg-amarelo/10 border border-amarelo/30 px-4 py-3 mb-6">
+          <p class="text-sm text-ink/70"><strong class="text-ink">Tom de voz</strong>, como sua marca conversa com o cliente nos textos do site.</p>
+        </div>
+
+        <div class="mb-6">
+          <label class="field-label">Sua marca trata o cliente por: <span class="text-vermelho">*</span></label>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <label class="opt"><input type="radio" name="tratamento" value="Você" required> Você</label>
+            <label class="opt"><input type="radio" name="tratamento" value="Vocês"> Vocês</label>
+            <label class="opt"><input type="radio" name="tratamento" value="Tu"> Tu</label>
+          </div>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Estilo de comunicação <span class="text-vermelho">*</span></label>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <label class="opt"><input type="radio" name="estilo_comunicacao" value="Formal e profissional" required> Formal e profissional</label>
+            <label class="opt"><input type="radio" name="estilo_comunicacao" value="Descontraído e próximo"> Descontraído e próximo</label>
+            <label class="opt"><input type="radio" name="estilo_comunicacao" value="Técnico e direto"> Técnico e direto</label>
+            <label class="opt"><input type="radio" name="estilo_comunicacao" value="Divertido e bem-humorado"> Divertido e bem-humorado</label>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="field-label">Tem alguma marca cujo jeito de comunicar você admira? <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <p class="field-hint">Pode citar a marca e o que te chama atenção (humor, autoridade, simplicidade, etc).</p>
+          <input class="inp" name="referencia_comunicacao" placeholder="Ex.: Nubank pelo jeito leve, Apple pela clareza" />
+        </div>
+      </section>
+
+      <!-- ETAPA 3 · O que vende -->
+      <section class="step" data-step="2">
+        <p class="kicker text-vermelho">Produto ou serviço</p>
+        <h2 class="font-display text-3xl mt-2 mb-6">O que você oferece</h2>
+
+        <div class="mb-6">
+          <label class="field-label">Você vende principalmente: <span class="text-vermelho">*</span></label>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <label class="opt"><input type="radio" name="tipo" value="Produto" required> Produto</label>
+            <label class="opt"><input type="radio" name="tipo" value="Serviço"> Serviço</label>
+            <label class="opt"><input type="radio" name="tipo" value="Os dois"> Os dois</label>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-azul/5 border border-azul/20 px-4 py-3 mb-6">
+          <p class="text-sm text-ink/70"><strong class="text-azul">Seção "Soluções"</strong>, descreva cada produto/serviço aqui pra montarmos os cards de soluções do site.</p>
+        </div>
+
+        <div class="mb-6">
+          <label class="field-label">Seus 3 a 5 principais produtos/serviços <span class="text-vermelho">*</span></label>
+          <p class="field-hint">Para cada um: <strong>nome</strong> + uma linha do <strong>que é e como ajuda</strong> o cliente.</p>
+          <textarea class="inp" name="principais" required style="min-height:170px" placeholder="1. Clareamento dental, deixa o sorriso branco em uma sessão, sem sensibilidade.&#10;2. Implantes, repõe dentes perdidos com aparência natural.&#10;3. ..."></textarea>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Qual a transformação que o cliente sente no fim? <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <p class="field-hint">O resultado/benefício maior, o que muda na vida dele depois de te contratar.</p>
+          <textarea class="inp" name="beneficio" placeholder="Ex.: o cliente volta a sorrir com confiança e sem dor."></textarea>
+        </div>
+        <div class="mb-2">
+          <label class="field-label">Quer mostrar preços no site? <span class="text-vermelho">*</span></label>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <label class="opt"><input type="radio" name="mostrar_preco" value="Sim, mostrar preços" required> Sim</label>
+            <label class="opt"><input type="radio" name="mostrar_preco" value="Não, só orçamento"> Só orçamento</label>
+            <label class="opt"><input type="radio" name="mostrar_preco" value="Alguns sim, outros não"> Depende</label>
+          </div>
+        </div>
+      </section>
+
+      <!-- ETAPA 4 · Cliente e diferencial -->
+      <section class="step" data-step="3">
+        <p class="kicker text-vermelho">Público e diferencial</p>
+        <h2 class="font-display text-3xl mt-2 mb-6">Pra quem e por quê</h2>
+
+        <div class="mb-6">
+          <label class="field-label">Quem é o seu cliente ideal? <span class="text-vermelho">*</span></label>
+          <p class="field-hint">Idade, perfil, se é pessoa física ou empresa.</p>
+          <input class="inp" name="cliente_ideal" required placeholder="Ex.: famílias da região, 30 a 50 anos" />
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Qual problema você resolve pra esse cliente? <span class="text-vermelho">*</span></label>
+          <textarea class="inp" name="problema" required placeholder="O que melhora na vida do cliente quando ele te contrata?"></textarea>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Onde você atende? <span class="text-vermelho">*</span></label>
+          <input class="inp" name="atuacao" required placeholder="Ex.: Cabo de Santo Agostinho e região / Brasil todo / online" />
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Por que o cliente deve escolher VOCÊ e não o concorrente? <span class="text-vermelho">*</span></label>
+          <textarea class="inp" name="diferencial" required placeholder="Seus diferenciais reais."></textarea>
+        </div>
+        <div class="mb-2">
+          <label class="field-label">Concorrentes ou sites de referência <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <input class="inp" name="concorrentes" placeholder="Nomes ou links" />
+        </div>
+      </section>
+
+      <!-- ETAPA 5 · Prova social -->
+      <section class="step" data-step="4">
+        <p class="kicker text-vermelho">Credibilidade</p>
+        <h2 class="font-display text-3xl mt-2 mb-6">O que prova seu valor</h2>
+
+        <div class="mb-6">
+          <label class="field-label">Tem depoimentos de clientes? <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <p class="field-hint">Cole aqui ou diga que vai enviar prints depois.</p>
+          <textarea class="inp" name="depoimentos" placeholder="Ex.: 'Atendimento excelente!', Maria S."></textarea>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Números de impacto <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <input class="inp" name="numeros" placeholder="Ex.: +500 clientes, 10 anos, 98% de satisfação" />
+        </div>
+        <div class="mb-2">
+          <label class="field-label">Certificações, prêmios ou parcerias <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <input class="inp" name="certificacoes" placeholder="Ex.: certificado pela ANVISA, parceiro oficial X" />
+        </div>
+      </section>
+
+      <!-- ETAPA 6 · Objetivo e contato -->
+      <section class="step" data-step="5">
+        <p class="kicker text-vermelho">Objetivo e contato</p>
+        <h2 class="font-display text-3xl mt-2 mb-6">O que o site deve fazer</h2>
+
+        <div class="mb-6">
+          <label class="field-label">Qual a ação principal que o visitante deve tomar? <span class="text-vermelho">*</span></label>
+          <select class="inp" name="acao_principal" required>
+            <option value="">Selecione...</option>
+            <option>Chamar no WhatsApp</option>
+            <option>Preencher formulário de contato</option>
+            <option>Ligar por telefone</option>
+            <option>Comprar / fazer pedido</option>
+            <option>Agendar horário</option>
+          </select>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">WhatsApp para os botões do site <span class="text-vermelho">*</span></label>
+          <input class="inp" name="whatsapp" required placeholder="(81) 9 9999-9999" />
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label class="field-label">Telefone / fixo <span class="text-ink/40 font-normal">(opcional)</span></label>
+            <input class="inp" name="telefone" placeholder="(81) 3333-3333" />
+          </div>
+          <div>
+            <label class="field-label">E-mail <span class="text-ink/40 font-normal">(opcional)</span></label>
+            <input class="inp" name="email_contato" placeholder="contato@suaempresa.com.br" />
+          </div>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Endereço e horário de atendimento <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <input class="inp" name="endereco" placeholder="Rua... , bairro · Seg a Sex 8h-18h" />
+        </div>
+        <div class="mb-2">
+          <label class="field-label">Redes sociais <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <input class="inp" name="redes" placeholder="@instagram, facebook, etc." />
+        </div>
+      </section>
+
+      <!-- ETAPA 7 · Conteúdo e técnico -->
+      <section class="step" data-step="6">
+        <p class="kicker text-vermelho">Conteúdo e técnico</p>
+        <h2 class="font-display text-3xl mt-2 mb-6">Últimos detalhes</h2>
+
+        <div class="mb-6">
+          <label class="field-label">Você tem textos prontos ou prefere que a gente escreva? <span class="text-vermelho">*</span></label>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <label class="opt"><input type="radio" name="textos" value="Tenho textos prontos" required> Tenho prontos</label>
+            <label class="opt"><input type="radio" name="textos" value="A Maracatu escreve"> Vocês escrevem</label>
+            <label class="opt"><input type="radio" name="textos" value="Misto"> Um pouco de cada</label>
+          </div>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Tem fotos próprias de boa qualidade? <span class="text-vermelho">*</span></label>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <label class="opt"><input type="radio" name="fotos" value="Sim, tenho fotos" required> Sim</label>
+            <label class="opt"><input type="radio" name="fotos" value="Não, usar banco de imagens"> Não, usar banco</label>
+            <label class="opt"><input type="radio" name="fotos" value="Algumas"> Algumas</label>
+          </div>
+          <p class="field-hint mt-2">Fotos e logo você envia pelo WhatsApp ou por um link (Google Drive).</p>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Link com seus materiais (fotos, logo, catálogo) <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <input class="inp" name="link_materiais" placeholder="Cole um link do Google Drive / Dropbox, se tiver" />
+        </div>
+        <div class="rounded-xl bg-azul/5 border border-azul/20 px-4 py-3 mb-6">
+          <p class="text-sm text-ink/70"><strong class="text-azul">Domínio e email profissional</strong>, pra gente saber se já tem o endereço próprio (`seuendereco.com.br`) e onde está hospedado hoje.</p>
+        </div>
+
+        <div class="mb-6">
+          <label class="field-label">Já tem domínio registrado? <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <input class="inp" name="dominio" placeholder="Ex.: suaempresa.com.br, ou deixe em branco se ainda não tem" />
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Se tem, com qual empresa? <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <p class="field-hint">Quem hospeda hoje. Ajuda a gente planejar a migração.</p>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <label class="opt"><input type="radio" name="hospedagem" value="Wix"> Wix</label>
+            <label class="opt"><input type="radio" name="hospedagem" value="GoDaddy"> GoDaddy</label>
+            <label class="opt"><input type="radio" name="hospedagem" value="Hostgator"> Hostgator</label>
+            <label class="opt"><input type="radio" name="hospedagem" value="Locaweb"> Locaweb</label>
+            <label class="opt"><input type="radio" name="hospedagem" value="Registro.br"> Registro.br</label>
+            <label class="opt"><input type="radio" name="hospedagem" value="Não sei"> Não sei</label>
+          </div>
+        </div>
+        <div class="mb-6">
+          <label class="field-label">Tem email profissional? <span class="text-vermelho">*</span></label>
+          <p class="field-hint">Tipo <em>contato@suaempresa.com.br</em>, ou ainda usa Gmail/Hotmail comum?</p>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <label class="opt"><input type="radio" name="email_profissional" value="Sim, tenho email no meu domínio" required> Sim, no meu domínio</label>
+            <label class="opt"><input type="radio" name="email_profissional" value="Não, uso Gmail/Hotmail comum"> Não, uso Gmail/Hotmail</label>
+            <label class="opt"><input type="radio" name="email_profissional" value="Quero configurar com vocês"> Quero configurar com vocês</label>
+            <label class="opt"><input type="radio" name="email_profissional" value="Não sei"> Não sei</label>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="field-label">Que palavras um cliente digitaria no Google pra te achar? <span class="text-ink/40 font-normal">(opcional)</span></label>
+          <p class="field-hint">Ajuda no SEO.</p>
+          <input class="inp" name="palavras_seo" placeholder="Ex.: dentista no Cabo, padaria em Suape" />
+        </div>
+      </section>
+
+      <!-- Navegação -->
+      <div class="flex items-center justify-between mt-9 pt-6 border-t border-ink/10">
+        <button type="button" id="prevBtn" class="btn btn-ghost" style="visibility:hidden">← Voltar</button>
+        <button type="button" id="nextBtn" class="btn btn-primary">Próximo →</button>
+        <button type="submit" id="submitBtn" class="btn btn-dark hidden">Enviar respostas</button>
+      </div>
+      <p id="errMsg" class="text-vermelho text-sm mt-4 hidden">Preencha os campos obrigatórios desta etapa antes de continuar.</p>
+    </form>
+
+    <!-- Tela de sucesso -->
+    <div id="done" class="hidden text-center py-10">
+      <div class="w-16 h-16 rounded-full bg-verde flex items-center justify-center mx-auto">
+        <svg width="30" height="30" fill="none" stroke="#fff" stroke-width="3"><path d="M6 15l6 6 12-14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2 class="font-display text-4xl mt-6">Recebemos!</h2>
+      <p class="mt-4 text-lg text-ink/65 max-w-md mx-auto">
+        Suas respostas foram enviadas pra equipe da Maracatu Digital. Agora é com a gente, seu site começa a ser construído.
+      </p>
+      <a id="waReminder" href="#" target="_blank" rel="noopener"
+         class="btn btn-primary mt-8 text-lg">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.788-.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        Avisar no WhatsApp que respondi
+      </a>
+      <p class="text-sm text-ink/40 mt-4">Opcional, só pra agilizar o contato.</p>
+    </div>
+
+  </div>
+
+  <div class="ribbon-rule fixed bottom-0 inset-x-0"></div>
+
+  <script>
+    // ====== CONFIG ======
+    // Briefings caem no mesmo backend do /onboarding (Railway da Maracatu),
+    // marcados com tipo:"site" pra distinguir do briefing geral.
+    const BACKEND_URL = "https://som-backend-production-01d8.up.railway.app/api/onboarding";
+    const TIPO = "site";
+    // WhatsApp da Maracatu (só dígitos, com DDI 55).
+    const WHATSAPP = "5511966249876";
+    // =====================
+
+    const form = document.getElementById('form');
+    const intro = document.getElementById('intro');
+    const done = document.getElementById('done');
+    const steps = [...form.querySelectorAll('.step')];
+    const total = steps.length;
+    let cur = 0;
+
+    const bar = document.getElementById('bar');
+    const stepLabel = document.getElementById('stepLabel');
+    const stepPct = document.getElementById('stepPct');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const errMsg = document.getElementById('errMsg');
+
+    document.getElementById('startBtn').addEventListener('click', () => {
+      intro.classList.add('hidden');
+      form.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    function render() {
+      steps.forEach((s, i) => s.classList.toggle('active', i === cur));
+      const pct = Math.round(((cur + 1) / total) * 100);
+      bar.style.width = pct + '%';
+      stepPct.textContent = pct + '%';
+      stepLabel.textContent = `Etapa ${cur + 1} de ${total}`;
+      prevBtn.style.visibility = cur === 0 ? 'hidden' : 'visible';
+      const last = cur === total - 1;
+      nextBtn.classList.toggle('hidden', last);
+      submitBtn.classList.toggle('hidden', !last);
+      errMsg.classList.add('hidden');
+    }
+
+    function validateStep() {
+      const fields = steps[cur].querySelectorAll('[required]');
+      for (const f of fields) {
+        if (!f.checkValidity()) { f.reportValidity(); return false; }
+      }
+      return true;
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (!validateStep()) { errMsg.classList.remove('hidden'); return; }
+      if (cur < total - 1) { cur++; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    });
+    prevBtn.addEventListener('click', () => {
+      if (cur > 0) { cur--; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    });
+
+    function escapeHTML(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function buildBriefingHTML(data) {
+      const sections = [
+        { titulo: 'Quem é você', cor: '#E03A2F', campos: [
+          ['empresa', 'Nome da empresa / marca'],
+          ['resumo', 'Em uma frase, o que a empresa faz'],
+          ['tempo_mercado', 'Tempo no mercado'],
+          ['historia', 'História da empresa'],
+          ['missao_valores', 'Missão, valores ou jeito de trabalhar'],
+          ['equipe', 'Quem está por trás'],
+        ]},
+        { titulo: 'A cara da marca', cor: '#F4B400', campos: [
+          ['tem_logo', 'Já tem logo'],
+          ['cores', 'Cores ou estilo'],
+          ['evitar', 'Coisas a evitar'],
+          ['tratamento', 'Tratamento (você/vocês/tu)'],
+          ['estilo_comunicacao', 'Estilo de comunicação'],
+          ['referencia_comunicacao', 'Marca que admira'],
+        ]},
+        { titulo: 'O que você oferece', cor: '#2D5BD6', campos: [
+          ['tipo', 'Tipo (produto/serviço/os dois)'],
+          ['principais', 'Principais produtos/serviços'],
+          ['beneficio', 'Transformação que o cliente sente'],
+          ['mostrar_preco', 'Mostrar preços no site'],
+        ]},
+        { titulo: 'Pra quem e por quê', cor: '#1E9E4A', campos: [
+          ['cliente_ideal', 'Cliente ideal'],
+          ['problema', 'Problema que resolve'],
+          ['atuacao', 'Onde atende'],
+          ['diferencial', 'Diferencial vs concorrente'],
+          ['concorrentes', 'Concorrentes ou referências'],
+        ]},
+        { titulo: 'O que prova seu valor', cor: '#E03A2F', campos: [
+          ['depoimentos', 'Depoimentos de clientes'],
+          ['numeros', 'Números de impacto'],
+          ['certificacoes', 'Certificações/prêmios'],
+        ]},
+        { titulo: 'O que o site deve fazer', cor: '#F4B400', campos: [
+          ['acao_principal', 'Ação principal do visitante'],
+          ['whatsapp', 'WhatsApp para os botões'],
+          ['telefone', 'Telefone fixo'],
+          ['email_contato', 'E-mail'],
+          ['endereco', 'Endereço e horário'],
+          ['redes', 'Redes sociais'],
+        ]},
+        { titulo: 'Últimos detalhes', cor: '#2D5BD6', campos: [
+          ['textos', 'Tem textos prontos'],
+          ['fotos', 'Tem fotos próprias'],
+          ['link_materiais', 'Link de materiais'],
+          ['dominio', 'Domínio próprio'],
+          ['hospedagem', 'Onde hospeda hoje'],
+          ['email_profissional', 'Email profissional'],
+          ['palavras_seo', 'Palavras-chave SEO'],
+        ]},
+      ];
+      const empresa = data.empresa || 'Sem nome';
+      let html = '<div style="font-family:Inter,Arial,sans-serif;max-width:680px;margin:0 auto;color:#1A1712;">';
+      html += '<div style="background:#1A1712;padding:32px;border-radius:16px 16px 0 0;color:#fff;">';
+      html += '<div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#F4B400;margin-bottom:8px;">Briefing de site novo</div>';
+      html += '<h1 style="font-size:28px;margin:0;letter-spacing:-1px;">' + escapeHTML(empresa) + '</h1>';
+      html += '<div style="margin-top:8px;color:rgba(255,255,255,0.7);font-size:13px;">Enviado em ' + new Date().toLocaleString('pt-BR') + '</div>';
+      html += '</div>';
+      html += '<div style="background:#fff;padding:24px 32px;border:1px solid #ECECE6;border-top:none;border-radius:0 0 16px 16px;">';
+      sections.forEach(function(sec) {
+        html += '<div style="margin:24px 0 12px;padding-top:20px;border-top:1px solid #ECECE6;">';
+        html += '<div style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + sec.cor + ';margin-right:8px;vertical-align:middle;"></div>';
+        html += '<span style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#1A1712;vertical-align:middle;">' + sec.titulo + '</span>';
+        html += '</div>';
+        sec.campos.forEach(function(c) {
+          var k = c[0], label = c[1];
+          var v = data[k];
+          var empty = !v;
+          html += '<div style="margin:12px 0;padding:10px 0;border-bottom:1px dashed #ECECE6;">';
+          html += '<div style="font-size:12px;color:#6B7280;margin-bottom:4px;">' + label + '</div>';
+          html += '<div style="font-size:15px;line-height:1.5;color:' + (empty ? '#bbb' : '#1A1712') + ';white-space:pre-wrap;">' + escapeHTML(empty ? '(em branco)' : v) + '</div>';
+          html += '</div>';
+        });
+      });
+      html += '</div></div>';
+      return html;
+    }
+
+    function buildBriefingText(data) {
+      var out = 'BRIEFING DE SITE NOVO, MARACATU DIGITAL\n';
+      out += '========================================\n\n';
+      out += 'Empresa: ' + (data.empresa || 'Sem nome') + '\n';
+      out += 'Enviado em: ' + new Date().toLocaleString('pt-BR') + '\n\n';
+      Object.keys(data).forEach(function(k) {
+        out += k + ': ' + (data[k] || '(em branco)') + '\n';
+      });
+      return out;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validateStep()) { errMsg.classList.remove('hidden'); return; }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      const empresa = data.empresa || 'Cliente';
+
+      const payload = {
+        tipo: TIPO,
+        empresa: empresa,
+        answers: data,
+        html: buildBriefingHTML(data),
+        text: buildBriefingText(data),
+        attachments: [],
+      };
+
+      try {
+        const res = await fetch(BACKEND_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const out = await res.json().catch(function() { return {}; });
+        if (!res.ok || (out && out.ok === false)) throw new Error(out.message || 'Falha no envio');
+
+        const msg = 'Olá! Acabei de responder o briefing de criação de site (' + empresa + '). Pode seguir!';
+        document.getElementById('waReminder').href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg);
+
+        form.classList.add('hidden');
+        done.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar respostas';
+        errMsg.textContent = 'Ops, não conseguimos enviar agora. Confira sua conexão e tente de novo, ou nos chame no WhatsApp.';
+        errMsg.classList.remove('hidden');
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>
