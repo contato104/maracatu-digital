@@ -73,15 +73,23 @@
   </style>
 </head>
 
-<body>
-  <div class="ribbon-flow h-1.5 w-full fixed top-0 inset-x-0 z-50"></div>
+<body class="min-h-screen flex flex-col">
+  <!-- TOP BAR (igual /onboarding) -->
+  <div class="sticky top-0 z-50 bg-sand/95 border-b border-ink/10" style="backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
+    <div class="max-w-[1100px] mx-auto px-6 py-4 flex items-center justify-between gap-6">
+      <div class="top-logo">
+        <img src="/assets/logo-horizontal.png" alt="Maracatu Digital Intelligence" class="h-[104px] w-auto block max-[640px]:h-10" />
+      </div>
+      <div class="text-[13px] font-semibold text-ink/55 tracking-wide">
+        Etapa <strong id="stepLabel" class="text-ink font-bold">1</strong> de <strong class="text-ink font-bold">7</strong>
+      </div>
+    </div>
+    <div class="h-[3px] w-full bg-ink/10 overflow-hidden">
+      <div id="bar" class="h-full transition-all duration-500" style="width:14%; background: linear-gradient(90deg, #E03A2F 0%, #F4B400 33%, #1E9E4A 66%, #2D5BD6 100%);"></div>
+    </div>
+  </div>
 
-  <div class="max-w-2xl mx-auto px-5 sm:px-8 pt-12 pb-24">
-
-    <header class="flex items-center gap-3 mb-8">
-      <img src="/favicon.png" alt="Maracatu Digital" class="h-10 w-auto" />
-      <span class="font-display text-2xl leading-none">Maracatu<span class="text-vermelho"> Digital</span></span>
-    </header>
+  <div class="max-w-2xl mx-auto px-5 sm:px-8 pt-10 pb-24">
 
     <!-- Intro -->
     <div id="intro" class="text-center pt-6">
@@ -116,16 +124,6 @@
 
     <!-- Formulário -->
     <form id="form" class="hidden" novalidate>
-      <!-- Progresso -->
-      <div class="mb-7">
-        <div class="flex items-center justify-between text-sm text-ink/55 mb-2">
-          <span id="stepLabel">Etapa 1 de 7</span>
-          <span id="stepPct">14%</span>
-        </div>
-        <div class="h-2 rounded-full bg-ink/10 overflow-hidden">
-          <div id="bar" class="h-full ribbon-flow transition-all duration-300" style="width:14%"></div>
-        </div>
-      </div>
 
       <!-- ETAPA 1 · Sua empresa -->
       <section class="step active" data-step="0">
@@ -461,7 +459,6 @@ DIFERENCIAIS
 
     const bar = document.getElementById('bar');
     const stepLabel = document.getElementById('stepLabel');
-    const stepPct = document.getElementById('stepPct');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const submitBtn = document.getElementById('submitBtn');
@@ -477,8 +474,7 @@ DIFERENCIAIS
       steps.forEach((s, i) => s.classList.toggle('active', i === cur));
       const pct = Math.round(((cur + 1) / total) * 100);
       bar.style.width = pct + '%';
-      stepPct.textContent = pct + '%';
-      stepLabel.textContent = `Etapa ${cur + 1} de ${total}`;
+      stepLabel.textContent = cur + 1;
       prevBtn.style.visibility = cur === 0 ? 'hidden' : 'visible';
       const last = cur === total - 1;
       nextBtn.classList.toggle('hidden', last);
