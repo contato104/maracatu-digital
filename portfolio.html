@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portfólio — Maracatu Digital Intelligence</title>
+<meta name="description" content="Portfólio da Maracatu Digital Intelligence: peças de social media, sites, blogs e conteúdo audiovisual produzidos para nossos clientes." />
+<link rel="icon" type="image/png" href="/favicon.png?v=2" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #EA4335;
+    --yellow: #FBBC04;
+    --green: #34A853;
+    --blue: #4285F4;
+    --ink: #0A0A0A;
+    --bg: #FAFAF7;
+    --card: #FFFFFF;
+    --muted: #6B7280;
+    --border: #ECECE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+  /* ==== HEADER ==== */
+  header {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(250,250,247,0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 0;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo img { height: 44px; width: auto; }
+  .logo-txt { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
+  .logo-txt em { color: var(--muted); font-weight: 500; font-style: normal; }
+  nav ul { display: flex; gap: 28px; list-style: none; }
+  nav a {
+    font-size: 14px; font-weight: 500; color: var(--muted);
+    transition: color .2s;
+  }
+  nav a:hover { color: var(--ink); }
+
+  /* ==== HERO ==== */
+  .hero {
+    padding: 100px 0 64px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--bg), transparent);
+  }
+  .hero .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 7px 16px; border-radius: 999px;
+    background: #fff; border: 1px solid var(--border);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero .eyebrow .dots { display: flex; gap: 4px; }
+  .hero .eyebrow .dots span { width: 6px; height: 6px; border-radius: 50%; }
+  .hero .eyebrow .dots span:nth-child(1) { background: var(--red); }
+  .hero .eyebrow .dots span:nth-child(2) { background: var(--yellow); }
+  .hero .eyebrow .dots span:nth-child(3) { background: var(--green); }
+  .hero .eyebrow .dots span:nth-child(4) { background: var(--blue); }
+  .hero h1 {
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 0.95; letter-spacing: -3.5px;
+    font-weight: 800; margin-bottom: 24px;
+  }
+  .hero h1 .accent {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400; font-style: italic;
+    color: var(--muted);
+  }
+  .hero p {
+    font-size: 19px; color: var(--muted);
+    max-width: 620px; margin: 0 auto;
+    line-height: 1.55;
+  }
+
+  /* ==== TABS ==== */
+  .tabs-wrap {
+    position: sticky; top: 76px; z-index: 30;
+    background: rgba(250,250,247,0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+  }
+  .tabs {
+    display: flex; gap: 8px; justify-content: center;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 10px 22px; border-radius: 999px;
+    background: transparent; border: 1px solid var(--border);
+    font-size: 14px; font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .tab:hover { color: var(--ink); border-color: var(--ink); }
+  .tab.active {
+    background: var(--ink); color: #fff; border-color: var(--ink);
+  }
+
+  /* ==== GRID ==== */
+  main { padding: 40px 0 120px; }
+  .grid {
+    columns: 4;
+    column-gap: 16px;
+    display: none;
+  }
+  .grid.active { display: block; }
+  .portfolio-item {
+    display: inline-block; width: 100%;
+    margin-bottom: 16px;
+    cursor: pointer;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+    transition: transform .3s cubic-bezier(0.2,0.8,0.2,1);
+    break-inside: avoid;
+  }
+  .portfolio-item:hover { transform: translateY(-4px); }
+  .portfolio-item img, .portfolio-item video {
+    width: 100%; height: auto; display: block;
+    transition: transform .5s;
+  }
+  .portfolio-item:hover img { transform: scale(1.02); }
+  .portfolio-item.video { cursor: pointer; }
+  .portfolio-item.video video { pointer-events: none; }
+  .portfolio-item .play-badge {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,0.95);
+    border-radius: 50%;
+    padding: 18px;
+    color: var(--ink);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    transition: transform .3s;
+  }
+  .portfolio-item.video:hover .play-badge {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  /* ==== LIGHTBOX ==== */
+  .lightbox {
+    display: none;
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(0,0,0,0.92);
+    align-items: center; justify-content: center;
+    padding: 40px;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img, .lightbox video {
+    max-width: 100%; max-height: 100%;
+    border-radius: 8px;
+  }
+  .lightbox .close {
+    position: absolute; top: 20px; right: 24px;
+    background: rgba(255,255,255,0.15);
+    border: none; color: #fff;
+    width: 44px; height: 44px; border-radius: 50%;
+    font-size: 20px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s;
+  }
+  .lightbox .close:hover { background: rgba(255,255,255,0.3); }
+
+  /* ==== CTA ==== */
+  .cta-wrap {
+    background: var(--ink); color: #fff;
+    padding: 80px 24px;
+    text-align: center;
+    border-radius: 32px;
+    margin: 40px auto 0;
+    max-width: 1200px;
+    position: relative; overflow: hidden;
+  }
+  .cta-wrap::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(251,188,4,0.2), transparent 70%);
+  }
+  .cta-wrap::after {
+    content: ''; position: absolute; bottom: -100px; left: -100px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(66,133,244,0.2), transparent 70%);
+  }
+  .cta-wrap h2 {
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.1; letter-spacing: -1.5px;
+    font-weight: 800; margin-bottom: 20px;
+    position: relative;
+  }
+  .cta-wrap p {
+    font-size: 18px; color: rgba(255,255,255,0.7);
+    max-width: 520px; margin: 0 auto 32px;
+    position: relative;
+  }
+  .cta-wrap a {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #fff; color: var(--ink);
+    padding: 14px 30px; border-radius: 999px;
+    font-size: 15px; font-weight: 700;
+    transition: transform .2s;
+    position: relative;
+  }
+  .cta-wrap a:hover { transform: translateY(-2px); }
+
+  /* ==== FOOTER ==== */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.65);
+    padding: 40px 0; margin-top: 60px;
+    font-size: 13px; text-align: center;
+  }
+  footer a { color: rgba(255,255,255,0.85); }
+
+  /* ==== RESPONSIVO ==== */
+  @media (max-width: 1024px) {
+    .grid { columns: 3; }
+  }
+  @media (max-width: 720px) {
+    .grid { columns: 2; column-gap: 12px; }
+    .portfolio-item { margin-bottom: 12px; }
+    .tabs-wrap { top: 68px; }
+    nav ul { display: none; }
+  }
+  @media (max-width: 480px) {
+    .grid { columns: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <img src="/assets/logo-horizontal.png" alt="Maracatu Digital Intelligence" />
+      </a>
+      <nav>
+        <ul>
+          <li><a href="/">Início</a></li>
+          <li><a href="/portfolio" style="color: var(--ink); font-weight: 700;">Portfólio</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/seu-site">Sites</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="dots"><span></span><span></span><span></span><span></span></span>
+      Nosso trabalho
+    </div>
+    <h1>Portfólio<br><span class="accent">em movimento.</span></h1>
+    <p>Cinco anos entregando estratégia, criativo e resultado pra empresas em Recife, Sorocaba e todo o Brasil. Esse é um recorte do que já rodou.</p>
+  </div>
+</section>
+
+<div class="tabs-wrap">
+  <div class="container">
+    <div class="tabs">
+      <button class="tab active" data-target="social">Social Media</button>
+      <button class="tab" data-target="sites">Sites & Blogs</button>
+      <button class="tab" data-target="audiovisual">Audiovisual</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="container">
+    <div class="grid active" id="grid-social">
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/02c19f5a2cfe43ad.png')">
+        <img src="/portfolio-assets/social/02c19f5a2cfe43ad.png" loading="lazy" alt="Portfolio social 1">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/0585a48a81124da3.png')">
+        <img src="/portfolio-assets/social/0585a48a81124da3.png" loading="lazy" alt="Portfolio social 2">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/06f331122ceb46c9.png')">
+        <img src="/portfolio-assets/social/06f331122ceb46c9.png" loading="lazy" alt="Portfolio social 3">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/0b85455c1a7b4879.png')">
+        <img src="/portfolio-assets/social/0b85455c1a7b4879.png" loading="lazy" alt="Portfolio social 4">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/1ca5026315d84e0a.png')">
+        <img src="/portfolio-assets/social/1ca5026315d84e0a.png" loading="lazy" alt="Portfolio social 5">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/266118aa26dc4268.png')">
+        <img src="/portfolio-assets/social/266118aa26dc4268.png" loading="lazy" alt="Portfolio social 6">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/2a898f82facb46a0.png')">
+        <img src="/portfolio-assets/social/2a898f82facb46a0.png" loading="lazy" alt="Portfolio social 7">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/2ac4c6a309404b1d.png')">
+        <img src="/portfolio-assets/social/2ac4c6a309404b1d.png" loading="lazy" alt="Portfolio social 8">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/3a872c1b25344e10.png')">
+        <img src="/portfolio-assets/social/3a872c1b25344e10.png" loading="lazy" alt="Portfolio social 9">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/3b5db2e585c543ae.png')">
+        <img src="/portfolio-assets/social/3b5db2e585c543ae.png" loading="lazy" alt="Portfolio social 10">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/3c9c770d9bb54d70.png')">
+        <img src="/portfolio-assets/social/3c9c770d9bb54d70.png" loading="lazy" alt="Portfolio social 11">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/3cab3a3adc6b4ccd.png')">
+        <img src="/portfolio-assets/social/3cab3a3adc6b4ccd.png" loading="lazy" alt="Portfolio social 12">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/3d9cbd23da284e84.png')">
+        <img src="/portfolio-assets/social/3d9cbd23da284e84.png" loading="lazy" alt="Portfolio social 13">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/442dda170ff849cb.png')">
+        <img src="/portfolio-assets/social/442dda170ff849cb.png" loading="lazy" alt="Portfolio social 14">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/46f2fbcbc4b04982.png')">
+        <img src="/portfolio-assets/social/46f2fbcbc4b04982.png" loading="lazy" alt="Portfolio social 15">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/4d38bc82407342dd.png')">
+        <img src="/portfolio-assets/social/4d38bc82407342dd.png" loading="lazy" alt="Portfolio social 16">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/4dc3e673d7e64bcc.png')">
+        <img src="/portfolio-assets/social/4dc3e673d7e64bcc.png" loading="lazy" alt="Portfolio social 17">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/4f5e4938df7a4672.png')">
+        <img src="/portfolio-assets/social/4f5e4938df7a4672.png" loading="lazy" alt="Portfolio social 18">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/5341aa50f0e84d39.png')">
+        <img src="/portfolio-assets/social/5341aa50f0e84d39.png" loading="lazy" alt="Portfolio social 19">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/581e0a31c23e4ac7.png')">
+        <img src="/portfolio-assets/social/581e0a31c23e4ac7.png" loading="lazy" alt="Portfolio social 20">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/614f040d36534b6e.png')">
+        <img src="/portfolio-assets/social/614f040d36534b6e.png" loading="lazy" alt="Portfolio social 21">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/65ac6e0b314a4826.png')">
+        <img src="/portfolio-assets/social/65ac6e0b314a4826.png" loading="lazy" alt="Portfolio social 22">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/65bfc795125b40cf.png')">
+        <img src="/portfolio-assets/social/65bfc795125b40cf.png" loading="lazy" alt="Portfolio social 23">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/6d03cb8d0cc34915.png')">
+        <img src="/portfolio-assets/social/6d03cb8d0cc34915.png" loading="lazy" alt="Portfolio social 24">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/6d8ef48fbdeb4cc0.png')">
+        <img src="/portfolio-assets/social/6d8ef48fbdeb4cc0.png" loading="lazy" alt="Portfolio social 25">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/72b10ec24fa545a0.png')">
+        <img src="/portfolio-assets/social/72b10ec24fa545a0.png" loading="lazy" alt="Portfolio social 26">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/7cef8272ab05405c.jpg')">
+        <img src="/portfolio-assets/social/7cef8272ab05405c.jpg" loading="lazy" alt="Portfolio social 27">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/8fcebb8059724fb3.png')">
+        <img src="/portfolio-assets/social/8fcebb8059724fb3.png" loading="lazy" alt="Portfolio social 28">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/91aba0d67eca4fb5.png')">
+        <img src="/portfolio-assets/social/91aba0d67eca4fb5.png" loading="lazy" alt="Portfolio social 29">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/97481c45b0d842c1.png')">
+        <img src="/portfolio-assets/social/97481c45b0d842c1.png" loading="lazy" alt="Portfolio social 30">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/9dae90ed38d74032.png')">
+        <img src="/portfolio-assets/social/9dae90ed38d74032.png" loading="lazy" alt="Portfolio social 31">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/9e5d373fb4734d00.png')">
+        <img src="/portfolio-assets/social/9e5d373fb4734d00.png" loading="lazy" alt="Portfolio social 32">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/a351caa1b68d4c86.png')">
+        <img src="/portfolio-assets/social/a351caa1b68d4c86.png" loading="lazy" alt="Portfolio social 33">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/a9d5807521a54801.png')">
+        <img src="/portfolio-assets/social/a9d5807521a54801.png" loading="lazy" alt="Portfolio social 34">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/ae447d949b2a4ab1.png')">
+        <img src="/portfolio-assets/social/ae447d949b2a4ab1.png" loading="lazy" alt="Portfolio social 35">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/b4e8ef6e71834fb4.png')">
+        <img src="/portfolio-assets/social/b4e8ef6e71834fb4.png" loading="lazy" alt="Portfolio social 36">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/bbfa891da63e4c81.png')">
+        <img src="/portfolio-assets/social/bbfa891da63e4c81.png" loading="lazy" alt="Portfolio social 37">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/bd949dcb5ca14841.png')">
+        <img src="/portfolio-assets/social/bd949dcb5ca14841.png" loading="lazy" alt="Portfolio social 38">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/c77d563745f6448f.png')">
+        <img src="/portfolio-assets/social/c77d563745f6448f.png" loading="lazy" alt="Portfolio social 39">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/cc2b21d14d814d92.png')">
+        <img src="/portfolio-assets/social/cc2b21d14d814d92.png" loading="lazy" alt="Portfolio social 40">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/cc9396fbe9cb4124.png')">
+        <img src="/portfolio-assets/social/cc9396fbe9cb4124.png" loading="lazy" alt="Portfolio social 41">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/d2997851259d476a.png')">
+        <img src="/portfolio-assets/social/d2997851259d476a.png" loading="lazy" alt="Portfolio social 42">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/d2cc83e291b244ca.png')">
+        <img src="/portfolio-assets/social/d2cc83e291b244ca.png" loading="lazy" alt="Portfolio social 43">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/dae4bd85a9084a0c.jpg')">
+        <img src="/portfolio-assets/social/dae4bd85a9084a0c.jpg" loading="lazy" alt="Portfolio social 44">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/ddb5ff1490f24edc.png')">
+        <img src="/portfolio-assets/social/ddb5ff1490f24edc.png" loading="lazy" alt="Portfolio social 45">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/e275378d134e43f6.png')">
+        <img src="/portfolio-assets/social/e275378d134e43f6.png" loading="lazy" alt="Portfolio social 46">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/eb76c4901e214522.png')">
+        <img src="/portfolio-assets/social/eb76c4901e214522.png" loading="lazy" alt="Portfolio social 47">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/f162b0f29ba24f61.png')">
+        <img src="/portfolio-assets/social/f162b0f29ba24f61.png" loading="lazy" alt="Portfolio social 48">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/f38ba2a35bca4198.png')">
+        <img src="/portfolio-assets/social/f38ba2a35bca4198.png" loading="lazy" alt="Portfolio social 49">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/f5f001f3afbe4687.png')">
+        <img src="/portfolio-assets/social/f5f001f3afbe4687.png" loading="lazy" alt="Portfolio social 50">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/fea2ed5fe4424016.png')">
+        <img src="/portfolio-assets/social/fea2ed5fe4424016.png" loading="lazy" alt="Portfolio social 51">
+      </div>
+    </div>
+    <div class="grid" id="grid-sites">
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/0162e861e4444240.png')">
+        <img src="/portfolio-assets/sites/0162e861e4444240.png" loading="lazy" alt="Portfolio sites 1">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/50ce042aa8744f0c.png')">
+        <img src="/portfolio-assets/sites/50ce042aa8744f0c.png" loading="lazy" alt="Portfolio sites 2">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/561dccb89af24463.png')">
+        <img src="/portfolio-assets/sites/561dccb89af24463.png" loading="lazy" alt="Portfolio sites 3">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/6fb03a3c7153441a.jpeg')">
+        <img src="/portfolio-assets/sites/6fb03a3c7153441a.jpeg" loading="lazy" alt="Portfolio sites 4">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/8cd619a91d974c8b.png')">
+        <img src="/portfolio-assets/sites/8cd619a91d974c8b.png" loading="lazy" alt="Portfolio sites 5">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/9d1e9c14653b4b51.png')">
+        <img src="/portfolio-assets/sites/9d1e9c14653b4b51.png" loading="lazy" alt="Portfolio sites 6">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/e0a7fa45ece4431d.png')">
+        <img src="/portfolio-assets/sites/e0a7fa45ece4431d.png" loading="lazy" alt="Portfolio sites 7">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/e85abbcd3c164d84.jpg')">
+        <img src="/portfolio-assets/sites/e85abbcd3c164d84.jpg" loading="lazy" alt="Portfolio sites 8">
+      </div>
+    </div>
+    <div class="grid" id="grid-audiovisual">
+      <div class="portfolio-item video" onclick="abrirVideo('/portfolio-assets/videos/aulas-corpo-livre-1080p.mp4')">
+        <video src="/portfolio-assets/videos/aulas-corpo-livre-1080p.mp4" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
+        <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/00a355fe592149f7.jpg')">
+        <img src="/portfolio-assets/audiovisual/00a355fe592149f7.jpg" loading="lazy" alt="Portfolio audiovisual 1">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/050e1a72156c4f64.jpg')">
+        <img src="/portfolio-assets/audiovisual/050e1a72156c4f64.jpg" loading="lazy" alt="Portfolio audiovisual 2">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/076075c7069e4d68.jpg')">
+        <img src="/portfolio-assets/audiovisual/076075c7069e4d68.jpg" loading="lazy" alt="Portfolio audiovisual 3">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/0ad129e44cca4a0d.jpg')">
+        <img src="/portfolio-assets/audiovisual/0ad129e44cca4a0d.jpg" loading="lazy" alt="Portfolio audiovisual 4">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/12d695323fc34e5d.jpg')">
+        <img src="/portfolio-assets/audiovisual/12d695323fc34e5d.jpg" loading="lazy" alt="Portfolio audiovisual 5">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/14ad19aab5eb4cd5.jpg')">
+        <img src="/portfolio-assets/audiovisual/14ad19aab5eb4cd5.jpg" loading="lazy" alt="Portfolio audiovisual 6">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/150db8e9343e4cd1.jpg')">
+        <img src="/portfolio-assets/audiovisual/150db8e9343e4cd1.jpg" loading="lazy" alt="Portfolio audiovisual 7">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/1677438b623c4c31.jpg')">
+        <img src="/portfolio-assets/audiovisual/1677438b623c4c31.jpg" loading="lazy" alt="Portfolio audiovisual 8">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/18db5a109f984aaf.jpg')">
+        <img src="/portfolio-assets/audiovisual/18db5a109f984aaf.jpg" loading="lazy" alt="Portfolio audiovisual 9">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/1f7584386aba49c9.jpg')">
+        <img src="/portfolio-assets/audiovisual/1f7584386aba49c9.jpg" loading="lazy" alt="Portfolio audiovisual 10">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/209ae98c3faf40c5.jpg')">
+        <img src="/portfolio-assets/audiovisual/209ae98c3faf40c5.jpg" loading="lazy" alt="Portfolio audiovisual 11">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/23ae6c1fc8264b5a.jpg')">
+        <img src="/portfolio-assets/audiovisual/23ae6c1fc8264b5a.jpg" loading="lazy" alt="Portfolio audiovisual 12">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/2422ee4ac51c4d10.jpg')">
+        <img src="/portfolio-assets/audiovisual/2422ee4ac51c4d10.jpg" loading="lazy" alt="Portfolio audiovisual 13">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/25ef4d33b0704995.jpg')">
+        <img src="/portfolio-assets/audiovisual/25ef4d33b0704995.jpg" loading="lazy" alt="Portfolio audiovisual 14">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/29e2e790f09c49bb.jpg')">
+        <img src="/portfolio-assets/audiovisual/29e2e790f09c49bb.jpg" loading="lazy" alt="Portfolio audiovisual 15">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/2ca2e5efad714365.jpg')">
+        <img src="/portfolio-assets/audiovisual/2ca2e5efad714365.jpg" loading="lazy" alt="Portfolio audiovisual 16">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/2f0041d1daad430c.jpg')">
+        <img src="/portfolio-assets/audiovisual/2f0041d1daad430c.jpg" loading="lazy" alt="Portfolio audiovisual 17">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/326aed08058c42a6.jpg')">
+        <img src="/portfolio-assets/audiovisual/326aed08058c42a6.jpg" loading="lazy" alt="Portfolio audiovisual 18">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/3903ee33fd9a4b68.jpg')">
+        <img src="/portfolio-assets/audiovisual/3903ee33fd9a4b68.jpg" loading="lazy" alt="Portfolio audiovisual 19">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/3d9638279cc841c2.jpg')">
+        <img src="/portfolio-assets/audiovisual/3d9638279cc841c2.jpg" loading="lazy" alt="Portfolio audiovisual 20">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/429cc2c266344a1b.jpg')">
+        <img src="/portfolio-assets/audiovisual/429cc2c266344a1b.jpg" loading="lazy" alt="Portfolio audiovisual 21">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/4469ec2b16fa4f92.jpg')">
+        <img src="/portfolio-assets/audiovisual/4469ec2b16fa4f92.jpg" loading="lazy" alt="Portfolio audiovisual 22">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/44d648d8d2914e3a.jpg')">
+        <img src="/portfolio-assets/audiovisual/44d648d8d2914e3a.jpg" loading="lazy" alt="Portfolio audiovisual 23">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/4ea95df79903497d.jpg')">
+        <img src="/portfolio-assets/audiovisual/4ea95df79903497d.jpg" loading="lazy" alt="Portfolio audiovisual 24">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/4f04ba07dbbf4ee3.jpg')">
+        <img src="/portfolio-assets/audiovisual/4f04ba07dbbf4ee3.jpg" loading="lazy" alt="Portfolio audiovisual 25">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/570bb9a0d0724546.jpg')">
+        <img src="/portfolio-assets/audiovisual/570bb9a0d0724546.jpg" loading="lazy" alt="Portfolio audiovisual 26">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/5a1a470d85e54260.jpg')">
+        <img src="/portfolio-assets/audiovisual/5a1a470d85e54260.jpg" loading="lazy" alt="Portfolio audiovisual 27">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/5cbbe1ac81724ea5.jpg')">
+        <img src="/portfolio-assets/audiovisual/5cbbe1ac81724ea5.jpg" loading="lazy" alt="Portfolio audiovisual 28">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/5fc37e4292284338.jpg')">
+        <img src="/portfolio-assets/audiovisual/5fc37e4292284338.jpg" loading="lazy" alt="Portfolio audiovisual 29">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/659239be064d4149.jpg')">
+        <img src="/portfolio-assets/audiovisual/659239be064d4149.jpg" loading="lazy" alt="Portfolio audiovisual 30">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/76481b96add24f98.jpg')">
+        <img src="/portfolio-assets/audiovisual/76481b96add24f98.jpg" loading="lazy" alt="Portfolio audiovisual 31">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/791a9bc8bc8940b8.jpg')">
+        <img src="/portfolio-assets/audiovisual/791a9bc8bc8940b8.jpg" loading="lazy" alt="Portfolio audiovisual 32">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/7c5336815a784427.jpg')">
+        <img src="/portfolio-assets/audiovisual/7c5336815a784427.jpg" loading="lazy" alt="Portfolio audiovisual 33">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/7d77d8ec9f144e28.jpg')">
+        <img src="/portfolio-assets/audiovisual/7d77d8ec9f144e28.jpg" loading="lazy" alt="Portfolio audiovisual 34">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/7dbb46b47a5348a5.jpg')">
+        <img src="/portfolio-assets/audiovisual/7dbb46b47a5348a5.jpg" loading="lazy" alt="Portfolio audiovisual 35">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/804c1550d1354334.jpg')">
+        <img src="/portfolio-assets/audiovisual/804c1550d1354334.jpg" loading="lazy" alt="Portfolio audiovisual 36">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/805520a1a9e54eff.jpg')">
+        <img src="/portfolio-assets/audiovisual/805520a1a9e54eff.jpg" loading="lazy" alt="Portfolio audiovisual 37">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/85d1e29867734d2c.jpg')">
+        <img src="/portfolio-assets/audiovisual/85d1e29867734d2c.jpg" loading="lazy" alt="Portfolio audiovisual 38">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/8701c3cb64414fab.jpg')">
+        <img src="/portfolio-assets/audiovisual/8701c3cb64414fab.jpg" loading="lazy" alt="Portfolio audiovisual 39">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/877aec62ac46440d.jpg')">
+        <img src="/portfolio-assets/audiovisual/877aec62ac46440d.jpg" loading="lazy" alt="Portfolio audiovisual 40">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/8abb48239c9a41bb.jpg')">
+        <img src="/portfolio-assets/audiovisual/8abb48239c9a41bb.jpg" loading="lazy" alt="Portfolio audiovisual 41">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/964e4c6e25004c2c.jpg')">
+        <img src="/portfolio-assets/audiovisual/964e4c6e25004c2c.jpg" loading="lazy" alt="Portfolio audiovisual 42">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/9cf33db0f28141a9.jpg')">
+        <img src="/portfolio-assets/audiovisual/9cf33db0f28141a9.jpg" loading="lazy" alt="Portfolio audiovisual 43">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/a217fd708e834bf8.jpg')">
+        <img src="/portfolio-assets/audiovisual/a217fd708e834bf8.jpg" loading="lazy" alt="Portfolio audiovisual 44">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/a4754fb02380408a.jpg')">
+        <img src="/portfolio-assets/audiovisual/a4754fb02380408a.jpg" loading="lazy" alt="Portfolio audiovisual 45">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/aca25d47b87b4611.jpg')">
+        <img src="/portfolio-assets/audiovisual/aca25d47b87b4611.jpg" loading="lazy" alt="Portfolio audiovisual 46">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/b1d22765cf1347ee.jpg')">
+        <img src="/portfolio-assets/audiovisual/b1d22765cf1347ee.jpg" loading="lazy" alt="Portfolio audiovisual 47">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/b20d6864a4394bc0.jpg')">
+        <img src="/portfolio-assets/audiovisual/b20d6864a4394bc0.jpg" loading="lazy" alt="Portfolio audiovisual 48">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/b2f7990c52ca4910.jpg')">
+        <img src="/portfolio-assets/audiovisual/b2f7990c52ca4910.jpg" loading="lazy" alt="Portfolio audiovisual 49">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/c1be9acd37044872.jpg')">
+        <img src="/portfolio-assets/audiovisual/c1be9acd37044872.jpg" loading="lazy" alt="Portfolio audiovisual 50">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/c6312d800ece4d90.jpg')">
+        <img src="/portfolio-assets/audiovisual/c6312d800ece4d90.jpg" loading="lazy" alt="Portfolio audiovisual 51">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/c892960858b84ff9.jpg')">
+        <img src="/portfolio-assets/audiovisual/c892960858b84ff9.jpg" loading="lazy" alt="Portfolio audiovisual 52">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/c930f4063b5f4e1a.jpg')">
+        <img src="/portfolio-assets/audiovisual/c930f4063b5f4e1a.jpg" loading="lazy" alt="Portfolio audiovisual 53">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/d5c1b8c9523b4d7c.jpg')">
+        <img src="/portfolio-assets/audiovisual/d5c1b8c9523b4d7c.jpg" loading="lazy" alt="Portfolio audiovisual 54">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/de475cb69d7b4b7d.jpg')">
+        <img src="/portfolio-assets/audiovisual/de475cb69d7b4b7d.jpg" loading="lazy" alt="Portfolio audiovisual 55">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/e2b22eef2ca64dca.jpg')">
+        <img src="/portfolio-assets/audiovisual/e2b22eef2ca64dca.jpg" loading="lazy" alt="Portfolio audiovisual 56">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/eae65971961748a2.jpg')">
+        <img src="/portfolio-assets/audiovisual/eae65971961748a2.jpg" loading="lazy" alt="Portfolio audiovisual 57">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/ec9cfa316a7849fa.jpg')">
+        <img src="/portfolio-assets/audiovisual/ec9cfa316a7849fa.jpg" loading="lazy" alt="Portfolio audiovisual 58">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/f14179811fbc4343.jpg')">
+        <img src="/portfolio-assets/audiovisual/f14179811fbc4343.jpg" loading="lazy" alt="Portfolio audiovisual 59">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/f6678f56df8b4d27.jpg')">
+        <img src="/portfolio-assets/audiovisual/f6678f56df8b4d27.jpg" loading="lazy" alt="Portfolio audiovisual 60">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/fbec69050a674304.jpg')">
+        <img src="/portfolio-assets/audiovisual/fbec69050a674304.jpg" loading="lazy" alt="Portfolio audiovisual 61">
+      </div>
+      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/fd0aef5e9b9247e2.jpg')">
+        <img src="/portfolio-assets/audiovisual/fd0aef5e9b9247e2.jpg" loading="lazy" alt="Portfolio audiovisual 62">
+      </div>
+    </div>
+
+    <div class="cta-wrap">
+      <h2>Quer o próximo case aqui?</h2>
+      <p>Se você tá procurando uma agência que entende de estratégia, criativo e execução, bora conversar.</p>
+      <a href="https://wa.me/5581999306212?text=Ol%C3%A1!%20Vi%20o%20portf%C3%B3lio%20da%20Maracatu%20e%20quero%20conversar." target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.868-2.031-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
+        Falar no WhatsApp
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    Maracatu Digital Intelligence · Av. A, 4165, Paiva, Cabo de Santo Agostinho — PE · <a href="mailto:contato@maracatumktdigital.com">contato@maracatumktdigital.com</a>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="close" onclick="fecharLightbox()">×</button>
+  <div id="lightbox-content"></div>
+</div>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.grid').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById('grid-' + t.dataset.target).classList.add('active');
+    });
+  });
+
+  // Lightbox
+  function abrirImagem(src) {
+    const c = document.getElementById('lightbox-content');
+    c.innerHTML = '<img src="' + src + '" alt="" />';
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function abrirVideo(src) {
+    const c = document.getElementById('lightbox-content');
+    c.innerHTML = '<video src="' + src + '" controls autoplay style="max-width:90vw;max-height:90vh;"></video>';
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function fecharLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.getElementById('lightbox-content').innerHTML = '';
+    document.body.style.overflow = '';
+  }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) fecharLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') fecharLightbox();
+  });
+</script>
+
+</body>
+</html>
