@@ -552,6 +552,17 @@
   </div>
 
   <div class="field">
+    <label>CNPJ <span class="req">*</span></label>
+    <input type="text" data-q="empresa_cnpj" data-required="true" inputmode="numeric" id="cnpjInput" placeholder="00.000.000/0000-00" />
+    <p class="hint" id="cnpjStatus">Ao digitar o CNPJ, buscamos a razão social na Receita.</p>
+  </div>
+
+  <div class="field">
+    <label>Razão social</label>
+    <input type="text" data-q="empresa_razao" id="cnpjRazao" placeholder="Preenche sozinho pelo CNPJ" readonly style="background:#f6f6f3;color:#555" />
+  </div>
+
+  <div class="field">
     <label>Sua empresa tem site? Informa o endereço, se houver.</label>
     <input type="url" data-q="empresa_site" placeholder="https://www.suaempresa.com.br" />
   </div>
@@ -876,6 +887,8 @@
     var QUESTIONS = [
       { section: 'Sua empresa', step: 1, items: [
         { q: 'empresa_nome', label: 'Nome da empresa' },
+        { q: 'empresa_cnpj', label: 'CNPJ' },
+        { q: 'empresa_razao', label: 'Razão social' },
         { q: 'empresa_site', label: 'Site' },
         { q: 'empresa_slogan', label: 'Slogan' },
         { q: 'empresa_gmn', label: 'Google Meu Negócio' },
@@ -1498,5 +1511,27 @@
   })();
 </script>
 
+<script>
+(function(){
+  var inp=document.getElementById('cnpjInput'), st=document.getElementById('cnpjStatus'), rz=document.getElementById('cnpjRazao');
+  if(!inp||!rz) return;
+  var t=null, last='';
+  function setRazao(v){ rz.value=v; rz.dispatchEvent(new Event('input',{bubbles:true})); }
+  inp.addEventListener('input', function(){
+    var raw=(inp.value||'').replace(/\D/g,'');
+    if(raw.length!==14){ if(rz.value) setRazao(''); if(st) st.textContent='Ao digitar o CNPJ, buscamos a razão social na Receita.'; last=''; return; }
+    if(raw===last) return; last=raw;
+    clearTimeout(t);
+    t=setTimeout(function(){
+      if(st) st.textContent='Buscando razão social na Receita…';
+      fetch('https://brasilapi.com.br/api/cnpj/v1/'+raw).then(function(r){return r.ok?r.json():Promise.reject(r.status);}).then(function(d){
+        var nome=d.razao_social||d.nome_fantasia||'';
+        if(nome){ setRazao(nome); if(st) st.textContent='\u2713 '+nome; }
+        else { if(st) st.textContent='CNPJ não encontrado — confira o número.'; }
+      }).catch(function(){ if(st) st.textContent='Não deu pra consultar agora — pode seguir; a gente confere depois.'; });
+    }, 500);
+  });
+})();
+</script>
 </body>
 </html>

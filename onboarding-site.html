@@ -1,683 +1,1605 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Onboarding do seu site | Maracatu Digital</title>
-  <meta name="description" content="Questionário de briefing para construção do seu site com a Maracatu Digital." />
-  <link rel="icon" type="image/png" href="/favicon.png" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Briefing de Site — Maracatu Digital Intelligence</title>
+<meta name="description" content="Vamos construir o site perfeito pra sua marca." />
+<meta name="robots" content="noindex,nofollow,noarchive" />
+<link rel="icon" type="image/png" href="assets/favicon.png?v=6" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #EA4335;
+    --yellow: #FBBC04;
+    --green: #34A853;
+    --blue: #4285F4;
+    --ink: #0A0A0A;
+    --bg: #FAFAF7;
+    --card: #FFFFFF;
+    --muted: #6B7280;
+    --border: #ECECE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  /* === TOP BAR === */
+  .top-bar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(250, 250, 247, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .top-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 18px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .top-logo img { height: 104px; width: auto; display: block; }
+  .step-counter {
+    font-size: 13px; font-weight: 600;
+    color: var(--muted); letter-spacing: 0.3px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .step-counter strong { color: var(--ink); font-weight: 700; }
+  .step-counter .save-indicator {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--green);
+    font-weight: 500;
+    opacity: 0; transition: opacity 0.4s;
+    margin-left: 6px;
+  }
+  .step-counter.saving .save-indicator { opacity: 1; }
+  .save-indicator .check {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--green); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px;
+  }
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Schibsted Grotesk"', 'sans-serif'],
-            display: ['Anton', 'sans-serif'],
-            serif: ['Fraunces', 'serif'],
-          },
-          colors: {
-            ink: '#1A1712',
-            paper: '#FFFFFF',
-            sand: '#F7F6F3',
-            verde: '#1E9E4A',
-            vermelho: '#E03A2F',
-            amarelo: '#F4B400',
-            azul: '#2D5BD6',
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    html { -webkit-font-smoothing: antialiased; }
-    body { font-family: 'Schibsted Grotesk', sans-serif; color: #1A1712; background-color: #F7F6F3; }
-    .font-display { font-family: 'Anton', sans-serif; letter-spacing: .01em; font-weight: 400; }
-    .font-serif  { font-family: 'Fraunces', serif; }
-    .kicker { font-weight:600; text-transform:uppercase; letter-spacing:.2em; font-size:.72rem; }
+  /* === PROGRESS BAR === */
+  .progress {
+    height: 3px; width: 100%;
+    background: var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--red) 0%, var(--yellow) 33%, var(--green) 66%, var(--blue) 100%);
+    background-size: 200% 100%;
+    transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: shine 4s linear infinite;
+  }
+  @keyframes shine {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+  }
 
-    .card { border: 1px solid rgba(26,23,18,.12); border-radius: 1.5rem; background: #FFFFFF; box-shadow: 0 1px 2px rgba(26,23,18,.05); }
-    .ribbon-rule{ height:5px; background:linear-gradient(90deg,#1E9E4A 0 25%,#E03A2F 0 50%,#F4B400 0 75%,#2D5BD6 0 100%); }
-    @keyframes flow { to { background-position: 200% 0; } }
-    .ribbon-flow{ background:linear-gradient(90deg,#1E9E4A,#E03A2F,#F4B400,#2D5BD6,#1E9E4A,#E03A2F,#F4B400,#2D5BD6); background-size:200% 100%; animation:flow 9s linear infinite; }
-    @media (prefers-reduced-motion: reduce){ .ribbon-flow{ animation:none !important; } }
+  /* === MAIN === */
+  main {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 60px 24px;
+    position: relative;
+  }
+  .step {
+    width: 100%; max-width: 640px;
+    display: none;
+    animation: fadeUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .step.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-    .field-label { font-weight:600; font-size:1.05rem; display:block; margin-bottom:.5rem; }
-    .field-hint { color: rgba(26,23,18,.5); font-size:.9rem; margin-bottom:.65rem; }
-    .inp, textarea.inp { width:100%; border:1px solid rgba(26,23,18,.18); border-radius:.85rem; background:#fff; padding:.8rem 1rem; font-size:1rem; color:#1A1712; transition:border-color .2s ease, box-shadow .2s ease; }
-    .inp:focus, textarea.inp:focus { outline:none; border-color:#1E9E4A; box-shadow:0 0 0 3px rgba(30,158,74,.15); }
-    textarea.inp { min-height:110px; resize:vertical; }
-    .opt { display:flex; align-items:center; gap:.7rem; border:1px solid rgba(26,23,18,.18); border-radius:.85rem; padding:.75rem 1rem; cursor:pointer; transition:border-color .15s ease, background .15s ease; }
-    .opt:hover { border-color:rgba(26,23,18,.35); }
-    .opt input { accent-color:#1E9E4A; width:1.1rem; height:1.1rem; }
-    .opt:has(input:checked) { border-color:#1E9E4A; background:rgba(30,158,74,.06); }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(10,10,10,0.04);
+    border: 1px solid var(--border);
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+  .step[data-section="empresa"] .eyebrow .dot { background: var(--red); }
+  .step[data-section="materiais"] .eyebrow .dot { background: var(--yellow); }
+  .step[data-section="publico"] .eyebrow .dot { background: var(--green); }
+  .step[data-section="negocio"] .eyebrow .dot { background: var(--blue); }
+  .step[data-section="historico"] .eyebrow .dot { background: var(--red); }
+  .step[data-section="estrategia"] .eyebrow .dot { background: var(--yellow); }
+  .step[data-section="criacao"] .eyebrow .dot { background: var(--green); }
+  .step[data-section="palavras"] .eyebrow .dot { background: var(--blue); }
 
-    .step { display:none; }
-    .step.active { display:block; animation:fade .35s ease; }
-    @keyframes fade { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+  .step h1 {
+    font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+    letter-spacing: -1.2px; line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .step h1 .req { color: var(--red); font-weight: 800; }
+  .step h1 .accent { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .step p.lead {
+    font-size: 17px; color: var(--muted);
+    line-height: 1.55; margin-bottom: 36px;
+  }
+  .step p.hint {
+    font-size: 13px; color: var(--muted);
+    margin-top: 8px;
+  }
 
-    .btn { display:inline-flex; align-items:center; justify-content:center; gap:.6rem; font-weight:600; border-radius:9999px; padding:.85rem 1.6rem; transition:transform .15s ease, background .2s ease, opacity .2s ease; }
-    .btn-primary { background:#1E9E4A; color:#fff; }
-    .btn-primary:hover { background:rgba(30,158,74,.9); }
-    .btn-ghost { background:transparent; color:rgba(26,23,18,.6); }
-    .btn-ghost:hover { color:#1A1712; }
-    .btn-dark { background:#1A1712; color:#fff; }
-    .btn-dark:hover { background:rgba(26,23,18,.85); }
-    .btn[disabled] { opacity:.45; pointer-events:none; }
-  </style>
+  /* === INPUTS === */
+  .field { margin-bottom: 28px; }
+  .field label {
+    display: block;
+    font-size: 15px; font-weight: 600;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .field label .req { color: var(--red); }
+  .field input[type="text"],
+  .field input[type="url"],
+  .field input[type="email"],
+  .field input[type="tel"],
+  .field textarea {
+    width: 100%;
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field input::placeholder, .field textarea::placeholder {
+    color: #b8b8b0;
+  }
+  .field input:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--ink);
+    box-shadow: 0 0 0 4px rgba(10,10,10,0.05);
+  }
+  .field textarea {
+    resize: vertical; min-height: 120px; line-height: 1.55;
+  }
+
+  /* === FILE UPLOAD === */
+  .file-row { margin-bottom: 10px; }
+  .file-input { display: none; }
+  .file-btn {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 20px;
+    border: 2px dashed var(--border);
+    border-radius: 14px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--ink);
+    font-size: 15px; font-weight: 600;
+  }
+  .file-btn:hover {
+    border-color: var(--ink);
+    background: #fafaf5;
+  }
+  .file-btn .file-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .file-btn .file-name {
+    flex: 1;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .file-btn.has-file {
+    border-style: solid;
+    border-color: var(--green);
+    background: rgba(52, 168, 83, 0.04);
+  }
+  .file-btn.has-file .file-icon {
+    background: var(--green); color: #fff;
+  }
+  .file-btn.has-file .file-name { color: var(--ink); font-weight: 600; }
+  .file-btn.is-uploading {
+    border-style: solid;
+    border-color: var(--blue);
+    background: rgba(66, 133, 244, 0.04);
+    pointer-events: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .file-btn.is-uploading .file-icon {
+    background: var(--blue); color: #fff;
+    animation: pulse-upload 1.2s ease-in-out infinite;
+  }
+  .file-btn.is-uploading .file-name {
+    color: var(--blue); font-weight: 600;
+  }
+  .file-btn.is-uploading::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    height: 3px; width: 30%;
+    background: var(--blue);
+    animation: upload-bar 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse-upload {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.7; }
+  }
+  @keyframes upload-bar {
+    0% { left: -30%; }
+    100% { left: 100%; }
+  }
+  .file-clear {
+    background: transparent; border: none;
+    color: var(--muted); cursor: pointer;
+    padding: 6px; border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .file-clear:hover { color: var(--red); background: rgba(234, 67, 53, 0.08); }
+  .file-divider {
+    text-align: center;
+    color: var(--muted); font-size: 12px;
+    margin: 8px 0;
+    text-transform: uppercase; letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  /* === CHOICE BUTTONS === */
+  .choices {
+    display: grid; gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+  .choice {
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    text-align: left;
+    font-family: inherit;
+    font-size: 15px; font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .choice:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .choice .marker {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .choice.selected {
+    border-color: var(--ink);
+    background: var(--ink); color: #fff;
+  }
+  .choice.selected .marker {
+    border-color: #fff; background: #fff;
+  }
+  .choice.selected .marker::after {
+    content: ''; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--ink);
+  }
+
+  /* === NAV === */
+  .nav-buttons {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 40px; gap: 16px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 28px; border-radius: 999px;
+    font-family: inherit; font-weight: 700; font-size: 15px;
+    border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.18); }
+  .btn-primary:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-back {
+    background: transparent; color: var(--muted);
+    padding: 14px 20px; font-weight: 600;
+  }
+  .btn-back:hover { color: var(--ink); }
+  .btn-back svg { transition: transform 0.2s; }
+  .btn-back:hover svg { transform: translateX(-3px); }
+  .btn-primary svg { transition: transform 0.2s; }
+  .btn-primary:hover svg { transform: translateX(3px); }
+  .btn-big {
+    padding: 18px 36px; font-size: 16px;
+  }
+
+  /* === WELCOME === */
+  .welcome {
+    text-align: center;
+  }
+  .welcome .welcome-icon {
+    margin: 0 auto 36px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .welcome .welcome-icon img { width: 150px; height: auto; display: block; }
+  .welcome h1 {
+    font-size: clamp(40px, 6vw, 64px);
+    letter-spacing: -2.5px;
+    margin-bottom: 20px;
+  }
+  .welcome p {
+    font-size: 19px; color: var(--muted);
+    line-height: 1.55; max-width: 520px;
+    margin: 0 auto 36px;
+  }
+  .welcome .perks {
+    display: flex; justify-content: center; gap: 28px;
+    flex-wrap: wrap; margin-bottom: 44px;
+    color: var(--muted); font-size: 14px;
+  }
+  .welcome .perk {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .welcome .perk .icon {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--green); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+  }
+
+  /* === MILESTONE === */
+  .milestone {
+    background: var(--ink); color: #fff;
+    border-radius: 24px;
+    padding: 36px;
+    text-align: center;
+    margin: 32px 0;
+    position: relative; overflow: hidden;
+  }
+  .milestone::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 250px; height: 250px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(251, 188, 4, 0.2), transparent 70%);
+  }
+  .milestone-emoji {
+    font-size: 48px; margin-bottom: 12px;
+    display: block;
+  }
+  .milestone h3 {
+    font-size: 22px; font-weight: 800; margin-bottom: 8px;
+    position: relative; z-index: 1;
+  }
+  .milestone p {
+    color: rgba(255,255,255,0.75); font-size: 15px;
+    position: relative; z-index: 1;
+  }
+
+  /* === REVIEW === */
+  .review-list {
+    display: flex; flex-direction: column; gap: 16px;
+    margin-bottom: 36px;
+  }
+  .review-section {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .review-section summary {
+    padding: 20px 24px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    list-style: none;
+    font-weight: 700; font-size: 16px;
+  }
+  .review-section summary::-webkit-details-marker { display: none; }
+  .review-section summary::after {
+    content: '+'; font-size: 22px; color: var(--muted);
+    transition: transform 0.3s;
+  }
+  .review-section[open] summary::after { content: '−'; }
+  .review-section .items {
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .review-item {
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .review-item:last-child { border-bottom: none; }
+  .review-item .q {
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .review-item .a {
+    font-size: 15px; color: var(--ink); font-weight: 500;
+    white-space: pre-wrap;
+  }
+  .review-item .a.empty { color: #c5c5bc; font-style: italic; font-weight: 400; }
+  .review-item .edit-link {
+    font-size: 12px; color: var(--blue);
+    text-decoration: none; font-weight: 600;
+    margin-left: 8px;
+  }
+  .review-item .edit-link:hover { text-decoration: underline; }
+
+  /* === SUCCESS === */
+  .success {
+    text-align: center;
+  }
+  .success-icon {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: var(--green);
+    margin: 0 auto 32px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    box-shadow: 0 20px 50px rgba(52, 168, 83, 0.3);
+    animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes pop {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  .success h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    letter-spacing: -2px; margin-bottom: 16px;
+  }
+  .success p {
+    font-size: 18px; color: var(--muted);
+    max-width: 480px; margin: 0 auto 36px;
+    line-height: 1.55;
+  }
+  .success-actions {
+    display: flex; flex-direction: column; gap: 10px;
+    max-width: 360px; margin: 0 auto;
+  }
+  .success-actions .btn {
+    width: 100%; justify-content: center;
+  }
+  .btn-whatsapp {
+    background: var(--green); color: #fff;
+  }
+  .btn-whatsapp:hover { background: #2a8c44; }
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    border: 2px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .top-logo img { height: 40px; }
+    main { padding: 30px 20px; }
+    .step h1 { font-size: 26px; }
+    .step p.lead { font-size: 15px; margin-bottom: 24px; }
+    .field { margin-bottom: 22px; }
+    .nav-buttons { flex-direction: column-reverse; gap: 12px; align-items: stretch; }
+    .nav-buttons .btn { justify-content: center; width: 100%; }
+    .btn-back { padding: 12px; }
+    .welcome .welcome-icon { width: 72px; height: 72px; font-size: 32px; }
+    .welcome .perks { gap: 16px; }
+    .choices { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
+<body>
 
-<body class="min-h-screen flex flex-col">
-  <!-- TOP BAR (igual /onboarding) -->
-  <div class="sticky top-0 z-50 bg-sand/95 border-b border-ink/10" style="backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
-    <div class="max-w-[1100px] mx-auto px-6 py-4 flex items-center justify-between gap-6">
-      <div class="top-logo">
-        <img src="/assets/logo-horizontal.png" alt="Maracatu Digital Intelligence" class="h-[104px] w-auto block max-[640px]:h-10" />
-      </div>
-      <div class="text-[13px] font-semibold text-ink/55 tracking-wide">
-        Etapa <strong id="stepLabel" class="text-ink font-bold">1</strong> de <strong class="text-ink font-bold">7</strong>
-      </div>
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-inner">
+    <div class="top-logo">
+      <img src="assets/logo-horizontal.png" alt="Maracatu Digital Intelligence" />
     </div>
-    <div class="h-[3px] w-full bg-ink/10 overflow-hidden">
-      <div id="bar" class="h-full transition-all duration-500" style="width:14%; background: linear-gradient(90deg, #E03A2F 0%, #F4B400 33%, #1E9E4A 66%, #2D5BD6 100%);"></div>
+    <div class="step-counter" id="stepCounter">
+      Etapa <strong id="stepNow">1</strong> de <strong id="stepTotal">10</strong>
+      <span class="save-indicator"><span class="check">✓</span>salvo</span>
+    </div>
+  </div>
+  <div class="progress">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+</div>
+
+<main>
+
+<!-- STEP 0: WELCOME -->
+<section class="step active welcome" data-step="0">
+  <div class="welcome-icon">
+    <img src="assets/icon.png" alt="Maracatu" />
+  </div>
+  <h1>Bem-vindo à <span class="accent">Maracatu.</span></h1>
+  <p>Esse é o briefing pra gente entender o seu negócio a fundo e construir o site perfeito pra sua marca.</p>
+  <div class="perks">
+    <span class="perk"><span class="icon">⏱</span>~10 minutos</span>
+    <span class="perk"><span class="icon">💾</span>Salva sozinho</span>
+    <span class="perk"><span class="icon">📨</span>Direto pro nosso time</span>
+  </div>
+  <button class="btn btn-primary btn-big" data-action="start">
+    Começar
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </button>
+</section>
+
+<!-- STEP 1: SUA EMPRESA -->
+<section class="step" data-step="1" data-section="empresa">
+  <div class="eyebrow"><span class="dot"></span>Quem é você</div>
+  <h1>Vamos começar pela sua <span class="accent">empresa.</span></h1>
+  <p class="lead">Quem é você e o que a sua marca representa. Isso vai dar o tom do site inteiro.</p>
+
+  <div class="field">
+    <label>Nome da empresa ou marca <span class="req">*</span></label>
+    <input type="text" data-q="empresa_nome" data-required="true" placeholder="Ex: Doceria da Maria" />
+  </div>
+
+  <div class="field">
+    <label>CNPJ <span class="req">*</span></label>
+    <input type="text" data-q="empresa_cnpj" data-required="true" inputmode="numeric" id="cnpjInput" placeholder="00.000.000/0000-00" />
+    <p class="hint" id="cnpjStatus">Ao digitar o CNPJ, buscamos a razão social na Receita.</p>
+  </div>
+
+  <div class="field">
+    <label>Razão social</label>
+    <input type="text" data-q="empresa_razao" id="cnpjRazao" placeholder="Preenche sozinho pelo CNPJ" readonly style="background:#f6f6f3;color:#555" />
+  </div>
+
+  <div class="field">
+    <label>Em uma frase, o que a empresa faz? <span class="req">*</span></label>
+    <input type="text" data-q="empresa_frase" data-required="true" placeholder='Ex: "Bolos artesanais sob encomenda no Recife"' />
+  </div>
+
+  <div class="field">
+    <label>Há quanto tempo está no mercado?</label>
+    <input type="text" data-q="empresa_tempo" placeholder='Ex: "3 anos" / "Desde 2015"' />
+  </div>
+
+  <div class="field">
+    <label>Conte a história da empresa</label>
+    <textarea data-q="empresa_historia" placeholder="Como começou, por que existe, o que mudou no caminho..."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Missão, valores ou jeito de trabalhar</label>
+    <textarea data-q="empresa_missao" placeholder="No que você acredita e como gosta de atender."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Quem está por trás?</label>
+    <textarea data-q="empresa_quem" placeholder="Donos, sócios, equipe — quem você quer apresentar no site."></textarea>
+  </div>
+</section>
+
+<!-- STEP 2: IDENTIDADE VISUAL -->
+<section class="step" data-step="2" data-section="identidade">
+  <div class="eyebrow"><span class="dot"></span>A cara da marca</div>
+  <h1>Agora, a <span class="accent">identidade</span> da marca.</h1>
+  <p class="lead">Como sua marca se parece e como ela fala com o cliente.</p>
+
+  <div class="field">
+    <label>Você já tem logo? <span class="req">*</span></label>
+    <div class="choices" data-choice="id_logo" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Sim, tenho</button>
+      <button type="button" class="choice"><span class="marker"></span>Não tenho</button>
+      <button type="button" class="choice"><span class="marker"></span>Quero refazer</button>
     </div>
   </div>
 
-  <div class="max-w-2xl mx-auto px-5 sm:px-8 pt-10 pb-24">
+  <div class="field">
+    <label>Cores ou estilo que combinam com a marca</label>
+    <textarea data-q="id_cores" placeholder='Ex: "Tons de verde e dourado, visual elegante e clean"'></textarea>
+  </div>
 
-    <!-- Intro -->
-    <div id="intro" class="text-center pt-6">
-      <div class="flex justify-center mb-9">
-        <img src="/assets/icon.png" alt="Maracatu" class="w-[150px] h-auto" />
-      </div>
-      <h1 class="font-display text-[clamp(2.5rem,6.5vw,4rem)] leading-[1.02] tracking-[-0.04em] mb-5">
-        Bem-vindo à <span class="text-vermelho">Maracatu.</span>
-      </h1>
-      <p class="text-[19px] text-ink/55 leading-relaxed max-w-[520px] mx-auto mb-10">
-        Esse é o briefing pra gente entender o seu negócio a fundo e construir o site perfeito pra sua marca.
-      </p>
-      <div class="flex flex-wrap justify-center gap-7 text-sm text-ink/55 mb-11">
-        <span class="inline-flex items-center gap-2">
-          <span class="w-5 h-5 rounded-full bg-verde text-white flex items-center justify-center text-[11px]">⏱</span>
-          ~10 minutos
-        </span>
-        <span class="inline-flex items-center gap-2">
-          <span class="w-5 h-5 rounded-full bg-verde text-white flex items-center justify-center text-[11px]">📝</span>
-          7 etapas
-        </span>
-        <span class="inline-flex items-center gap-2">
-          <span class="w-5 h-5 rounded-full bg-verde text-white flex items-center justify-center text-[11px]">📨</span>
-          Direto pro nosso time
-        </span>
-      </div>
-      <button type="button" id="startBtn" class="btn btn-primary text-lg">
-        Começar
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  <div class="field">
+    <label>Tem algo que você NÃO quer no visual?</label>
+    <textarea data-q="id_evitar" placeholder='Ex: "Nada muito colorido nem infantil"'></textarea>
+  </div>
+
+  <div class="field">
+    <label>Sua marca trata o cliente por <span class="req">*</span></label>
+    <div class="choices" data-choice="id_tratamento" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Você</button>
+      <button type="button" class="choice"><span class="marker"></span>Vocês</button>
+      <button type="button" class="choice"><span class="marker"></span>Tu</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Estilo de comunicação <span class="req">*</span></label>
+    <div class="choices" data-choice="id_estilo" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Formal e profissional</button>
+      <button type="button" class="choice"><span class="marker"></span>Descontraído e próximo</button>
+      <button type="button" class="choice"><span class="marker"></span>Técnico e direto</button>
+      <button type="button" class="choice"><span class="marker"></span>Divertido e bem-humorado</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Indique 2 sites com design que você acha atrativo <span class="req">*</span></label>
+    <textarea data-q="id_referencias" data-required="true" placeholder="Cola os links. Pode ser de qualquer ramo — o que importa é o visual que te agrada."></textarea>
+  </div>
+</section>
+
+<!-- STEP 3: PRODUTO OU SERVIÇO -->
+<section class="step" data-step="3" data-section="produto">
+  <div class="eyebrow"><span class="dot"></span>O que você oferece</div>
+  <h1>O que você <span class="accent">vende?</span></h1>
+  <p class="lead">Pra montar as páginas certas, a gente precisa entender o que você oferece.</p>
+
+  <div class="field">
+    <label>Você vende principalmente <span class="req">*</span></label>
+    <div class="choices" data-choice="prod_tipo" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Produto</button>
+      <button type="button" class="choice"><span class="marker"></span>Serviço</button>
+      <button type="button" class="choice"><span class="marker"></span>Os dois</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Quais os produtos ou serviços? <span class="req">*</span></label>
+    <textarea data-q="prod_lista" data-required="true" placeholder="Liste os principais. Se forem muitos, agrupe por categoria."></textarea>
+  </div>
+
+  <div class="field">
+    <label>O que torna seus produtos diferentes? <span class="req">*</span></label>
+    <textarea data-q="prod_diferencial" data-required="true" placeholder="O que você faz melhor ou diferente da concorrência."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Para quais setores ou perfis de cliente? <span class="req">*</span></label>
+    <textarea data-q="prod_setores" data-required="true" placeholder='Ex: "Restaurantes, lojas de roupa, clínicas..."'></textarea>
+  </div>
+
+  <div class="field">
+    <label>Qual a transformação que o cliente sente?</label>
+    <textarea data-q="prod_transformacao" placeholder="O antes e depois de quem compra de você."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Quer mostrar preços no site? <span class="req">*</span></label>
+    <div class="choices" data-choice="prod_precos" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Sim</button>
+      <button type="button" class="choice"><span class="marker"></span>Só orçamento</button>
+      <button type="button" class="choice"><span class="marker"></span>Depende</button>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 4: PÚBLICO E DIFERENCIAL -->
+<section class="step" data-step="4" data-section="publico">
+  <div class="eyebrow"><span class="dot"></span>Pra quem e por quê</div>
+  <h1>Pra quem é o <span class="accent">site?</span></h1>
+  <p class="lead">Quanto mais claro o público, mais o site fala a língua de quem você quer atrair.</p>
+
+  <div class="field">
+    <label>Quem é o seu cliente ideal? <span class="req">*</span></label>
+    <textarea data-q="pub_ideal" data-required="true" placeholder="Idade, perfil, o que valoriza, como decide a compra..."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Qual problema você resolve? <span class="req">*</span></label>
+    <textarea data-q="pub_problema" data-required="true" placeholder="A dor ou necessidade que leva o cliente até você."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Onde você atende? <span class="req">*</span></label>
+    <textarea data-q="pub_atende" data-required="true" placeholder='Ex: "Recife e região" / "Todo o Brasil, online"'></textarea>
+  </div>
+
+  <div class="field">
+    <label>Por que o cliente deve escolher VOCÊ? <span class="req">*</span></label>
+    <textarea data-q="pub_porque" data-required="true" placeholder="O argumento que te faz ganhar do concorrente."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Concorrentes ou sites de referência</label>
+    <textarea data-q="pub_concorrentes" placeholder="Nome / @ do Instagram / site, se souber."></textarea>
+  </div>
+</section>
+
+<!-- STEP 5: CREDIBILIDADE -->
+<section class="step" data-step="5" data-section="credibilidade">
+  <div class="eyebrow"><span class="dot"></span>O que prova seu valor</div>
+  <h1>O que <span class="accent">prova</span> o seu valor?</h1>
+  <p class="lead">Provas reais geram confiança e ajudam o visitante a decidir.</p>
+
+  <div class="field">
+    <label>Tem depoimentos de clientes?</label>
+    <textarea data-q="cred_depoimentos" placeholder="Cola alguns aqui, ou diga onde a gente encontra (Google, Instagram...)."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Números de impacto</label>
+    <textarea data-q="cred_numeros" placeholder='Ex: "+500 clientes atendidos", "10 anos de mercado", "98% de satisfação"'></textarea>
+  </div>
+
+  <div class="field">
+    <label>Certificações, prêmios ou parcerias</label>
+    <textarea data-q="cred_certificacoes" placeholder="O que reforça sua autoridade no mercado."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Quer mostrar uma seção com empresas ou clientes? <span class="req">*</span></label>
+    <div class="choices" data-choice="cred_secao" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Sim, quero mostrar</button>
+      <button type="button" class="choice"><span class="marker"></span>Ainda não tenho</button>
+      <button type="button" class="choice"><span class="marker"></span>Não quero essa seção</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Quais empresas quer destacar?</label>
+    <textarea data-q="cred_empresas" placeholder="Logos ou nomes de clientes/parceiros que você pode mostrar."></textarea>
+  </div>
+</section>
+
+<!-- STEP 6: OBJETIVO E CONTATO -->
+<section class="step" data-step="6" data-section="objetivo">
+  <div class="eyebrow"><span class="dot"></span>O que o site deve fazer</div>
+  <h1>O que o site precisa <span class="accent">fazer?</span></h1>
+  <p class="lead">O objetivo principal e por onde o cliente vai falar com você.</p>
+
+  <div class="field">
+    <label>Qual a ação principal do visitante? <span class="req">*</span></label>
+    <div class="choices" data-choice="obj_acao" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Chamar no WhatsApp</button>
+      <button type="button" class="choice"><span class="marker"></span>Preencher formulário de contato</button>
+      <button type="button" class="choice"><span class="marker"></span>Ligar por telefone</button>
+      <button type="button" class="choice"><span class="marker"></span>Comprar / fazer pedido</button>
+      <button type="button" class="choice"><span class="marker"></span>Agendar horário</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>WhatsApp para os botões <span class="req">*</span></label>
+    <input type="text" data-q="obj_whatsapp" data-required="true" inputmode="tel" placeholder="(81) 90000-0000" />
+  </div>
+
+  <div class="field">
+    <label>Telefone / fixo <span class="req">*</span></label>
+    <input type="text" data-q="obj_telefone" data-required="true" inputmode="tel" placeholder="(81) 3000-0000" />
+  </div>
+
+  <div class="field">
+    <label>E-mail <span class="req">*</span></label>
+    <input type="email" data-q="obj_email" data-required="true" placeholder="contato@suaempresa.com.br" />
+  </div>
+
+  <div class="field">
+    <label>Endereço e horário de atendimento <span class="req">*</span></label>
+    <textarea data-q="obj_endereco" data-required="true" placeholder="Endereço completo (se atende presencial) e os horários."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Redes sociais <span class="req">*</span></label>
+    <textarea data-q="obj_redes" data-required="true" placeholder="@ do Instagram, Facebook, TikTok, LinkedIn... cola os links."></textarea>
+  </div>
+</section>
+
+<!-- STEP 7: CONTEÚDO E TÉCNICO -->
+<section class="step" data-step="7" data-section="tecnico">
+  <div class="eyebrow"><span class="dot"></span>Últimos detalhes</div>
+  <h1>Reta final: <span class="accent">conteúdo e técnico.</span></h1>
+  <p class="lead">Os últimos detalhes pra gente colocar o site no ar do jeito certo.</p>
+
+  <div class="field">
+    <label>Escreva o que quer no site <span class="req">*</span></label>
+    <textarea data-q="tec_conteudo" data-required="true" placeholder="Textos, seções, páginas que você quer (Home, Sobre, Serviços, Contato...). Pode escrever solto que a gente organiza."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Tem fotos próprias de boa qualidade? <span class="req">*</span></label>
+    <div class="choices" data-choice="tec_fotos" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Sim</button>
+      <button type="button" class="choice"><span class="marker"></span>Não, usar banco</button>
+      <button type="button" class="choice"><span class="marker"></span>Algumas</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Quer ter um espaço de blog? <span class="req">*</span></label>
+    <div class="choices" data-choice="tec_blog" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Sim, no lançamento</button>
+      <button type="button" class="choice"><span class="marker"></span>Sim, mas depois</button>
+      <button type="button" class="choice"><span class="marker"></span>Não preciso</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Link com seus materiais (fotos, textos, logo)</label>
+    <input type="url" data-q="tec_materiais" placeholder="https://drive.google.com/..." />
+    <p class="hint">Como fotos e vídeos costumam ser pesados, melhor compartilhar via link do Drive.</p>
+  </div>
+
+  <div class="field">
+    <label>Já tem domínio registrado? (ex: suaempresa.com.br)</label>
+    <input type="text" data-q="tec_dominio" placeholder='Ex: "suaempresa.com.br" / "Ainda não"' />
+  </div>
+
+  <div class="field">
+    <label>Com qual empresa o domínio está registrado?</label>
+    <input type="text" data-q="tec_dominio_empresa" placeholder='Ex: "Registro.br", "GoDaddy"...' />
+  </div>
+
+  <div class="field">
+    <label>Quem hospeda o site hoje (se já tiver)</label>
+    <div class="choices" data-choice="tec_hospedagem">
+      <button type="button" class="choice"><span class="marker"></span>Wix</button>
+      <button type="button" class="choice"><span class="marker"></span>GoDaddy</button>
+      <button type="button" class="choice"><span class="marker"></span>Hostgator</button>
+      <button type="button" class="choice"><span class="marker"></span>Locaweb</button>
+      <button type="button" class="choice"><span class="marker"></span>Registro.br</button>
+      <button type="button" class="choice"><span class="marker"></span>Não sei</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Palavras-chave do Google</label>
+    <textarea data-q="tec_palavras" placeholder='O que o cliente digita no Google pra te achar. Ex: "bolo de aniversário recife", "buffet infantil"'></textarea>
+  </div>
+</section>
+
+<!-- STEP 9: REVIEW -->
+<section class="step" data-step="8">
+  <div class="eyebrow"><span class="dot"></span>Quase lá</div>
+  <h1>Revisa suas respostas.</h1>
+  <p class="lead">Dá uma conferida no que você preencheu antes de enviar. Pode clicar em qualquer pergunta pra voltar e editar.</p>
+
+  <div class="review-list" id="reviewList"></div>
+</section>
+
+<!-- STEP 10: SENDING (loading) -->
+<section class="step success" data-step="9">
+  <div id="sendingState">
+    <div class="success-icon" style="background: var(--ink); animation: spin 1.2s linear infinite;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation: none;"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
+    </div>
+    <h1>Enviando seu briefing…</h1>
+    <p>Só um instante, tá indo direto pro nosso time.</p>
+  </div>
+
+  <div id="successState" style="display:none;">
+    <div class="success-icon">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h1>Briefing recebido. ✨</h1>
+    <p>Agradecemos pela confiança. Em até 24h alguém do nosso time entra em contato pra dar sequência ao trabalho.</p>
+    <div class="success-actions">
+      <button class="btn btn-secondary" id="downloadTxt">
+        Baixar uma cópia em PDF/TXT
       </button>
     </div>
-
-    <!-- Formulário -->
-    <form id="form" class="hidden" novalidate>
-
-      <!-- ETAPA 1 · Sua empresa -->
-      <section class="step active" data-step="0">
-        <p class="kicker text-vermelho">Sua empresa</p>
-        <h2 class="font-display text-3xl mt-2 mb-6">Quem é você</h2>
-
-        <div class="mb-6">
-          <label class="field-label">Nome da empresa / marca <span class="text-vermelho">*</span></label>
-          <input class="inp" name="empresa" required placeholder="Ex.: Clínica Sorriso, Padaria do João..." />
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Em uma frase, o que a empresa faz? <span class="text-vermelho">*</span></label>
-          <p class="field-hint">Como você explicaria pra alguém em 10 segundos.</p>
-          <input class="inp" name="resumo" required placeholder="Ex.: Cuidamos do sorriso de toda a família." />
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Há quanto tempo está no mercado? <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <input class="inp" name="tempo_mercado" placeholder="Ex.: 8 anos" />
-        </div>
-
-        <div class="rounded-xl bg-verde/5 border border-verde/20 px-4 py-3 mb-6">
-          <p class="text-sm text-ink/70"><strong class="text-verde">Seção "Sobre Nós"</strong>, as próximas respostas viram o texto que apresenta sua empresa no site.</p>
-        </div>
-
-        <div class="mb-6">
-          <label class="field-label">Conte a história da empresa <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <p class="field-hint">Como começou, o "porquê", um momento marcante. É o que cria conexão com o cliente.</p>
-          <textarea class="inp" name="historia" placeholder="Ex.: A clínica nasceu em 2015 do sonho de..."></textarea>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Missão, valores ou jeito de trabalhar <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <p class="field-hint">No que você acredita e como gosta de atender. Pode ser em tópicos.</p>
-          <textarea class="inp" name="missao_valores" placeholder="Ex.: atendimento humano, pontualidade, transparência nos preços..."></textarea>
-        </div>
-        <div class="mb-2">
-          <label class="field-label">Quem está por trás? <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <p class="field-hint">Sócios, fundador ou equipe, se quiser dar um rosto à empresa.</p>
-          <input class="inp" name="equipe" placeholder="Ex.: Dra. Ana Lima, fundadora · equipe de 6 pessoas" />
-        </div>
-      </section>
-
-      <!-- ETAPA 2 · Marca -->
-      <section class="step" data-step="1">
-        <p class="kicker text-vermelho">Identidade visual</p>
-        <h2 class="font-display text-3xl mt-2 mb-6">A cara da marca</h2>
-
-        <div class="mb-6">
-          <label class="field-label">Você já tem logo? <span class="text-vermelho">*</span></label>
-          <div class="grid sm:grid-cols-3 gap-3">
-            <label class="opt"><input type="radio" name="tem_logo" value="Sim, tenho logo" required> Sim, tenho</label>
-            <label class="opt"><input type="radio" name="tem_logo" value="Não tenho ainda"> Não tenho</label>
-            <label class="opt"><input type="radio" name="tem_logo" value="Tenho, mas quero refazer"> Quero refazer</label>
-          </div>
-          <p class="field-hint mt-2">Se já tem logo e arquivos da marca, envie pra gente pelo WhatsApp depois.</p>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Cores ou estilo que combinam com a marca <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <input class="inp" name="cores" placeholder="Ex.: tons de azul, visual clean e moderno" />
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Tem algo que você NÃO quer de jeito nenhum? <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <input class="inp" name="evitar" placeholder="Ex.: nada de preto, sem fundo escuro" />
-        </div>
-
-        <div class="rounded-xl bg-amarelo/10 border border-amarelo/30 px-4 py-3 mb-6">
-          <p class="text-sm text-ink/70"><strong class="text-ink">Tom de voz</strong>, como sua marca conversa com o cliente nos textos do site.</p>
-        </div>
-
-        <div class="mb-6">
-          <label class="field-label">Sua marca trata o cliente por: <span class="text-vermelho">*</span></label>
-          <div class="grid sm:grid-cols-3 gap-3">
-            <label class="opt"><input type="radio" name="tratamento" value="Você" required> Você</label>
-            <label class="opt"><input type="radio" name="tratamento" value="Vocês"> Vocês</label>
-            <label class="opt"><input type="radio" name="tratamento" value="Tu"> Tu</label>
-          </div>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Estilo de comunicação <span class="text-vermelho">*</span></label>
-          <div class="grid sm:grid-cols-2 gap-3">
-            <label class="opt"><input type="radio" name="estilo_comunicacao" value="Formal e profissional" required> Formal e profissional</label>
-            <label class="opt"><input type="radio" name="estilo_comunicacao" value="Descontraído e próximo"> Descontraído e próximo</label>
-            <label class="opt"><input type="radio" name="estilo_comunicacao" value="Técnico e direto"> Técnico e direto</label>
-            <label class="opt"><input type="radio" name="estilo_comunicacao" value="Divertido e bem-humorado"> Divertido e bem-humorado</label>
-          </div>
-        </div>
-        <div class="mb-2">
-          <label class="field-label">Indique 2 sites com design que você acha atrativo <span class="text-vermelho">*</span></label>
-          <p class="field-hint">Pode ser de qualquer setor. O que importa é o que te chama atenção visualmente (estilo, cores, organização, sensação). Se quiser, conta o porquê de cada um.</p>
-          <textarea class="inp" name="referencias_design" required style="min-height:110px" placeholder="Ex.:
-1. nubank.com.br, pelo jeito limpo e os blocos coloridos
-2. apple.com, pela clareza e respiro do layout"></textarea>
-        </div>
-      </section>
-
-      <!-- ETAPA 3 · O que vende -->
-      <section class="step" data-step="2">
-        <p class="kicker text-vermelho">Produto ou serviço</p>
-        <h2 class="font-display text-3xl mt-2 mb-6">O que você oferece</h2>
-
-        <div class="mb-6">
-          <label class="field-label">Você vende principalmente: <span class="text-vermelho">*</span></label>
-          <div class="grid sm:grid-cols-3 gap-3">
-            <label class="opt"><input type="radio" name="tipo" value="Produto" required> Produto</label>
-            <label class="opt"><input type="radio" name="tipo" value="Serviço"> Serviço</label>
-            <label class="opt"><input type="radio" name="tipo" value="Os dois"> Os dois</label>
-          </div>
-        </div>
-
-        <div class="rounded-xl bg-azul/5 border border-azul/20 px-4 py-3 mb-6">
-          <p class="text-sm text-ink/70"><strong class="text-azul">Seção "Soluções"</strong>, descreva cada produto/serviço aqui pra montarmos os cards de soluções do site.</p>
-        </div>
-
-        <div class="mb-6">
-          <label class="field-label">Quais os produtos ou serviços que você oferece? <span class="text-vermelho">*</span></label>
-          <p class="field-hint">Liste todos. Para cada um: <strong>nome</strong> + uma linha do <strong>que é e como ajuda</strong> o cliente.</p>
-          <textarea class="inp" name="principais" required style="min-height:170px" placeholder="1. Clareamento dental, deixa o sorriso branco em uma sessão, sem sensibilidade.&#10;2. Implantes, repõe dentes perdidos com aparência natural.&#10;3. ..."></textarea>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">O que torna seus produtos ou serviços diferentes dos concorrentes? <span class="text-vermelho">*</span></label>
-          <p class="field-hint">Qualidade, preço, processo, tecnologia, atendimento, prazo. O que destaca o seu na hora da decisão.</p>
-          <textarea class="inp" name="diferencial_produto" required placeholder="Ex.: usamos material importado certificado, atendimento em 1 dia, garantia de 5 anos..."></textarea>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Para quais setores ou perfis de cliente seus produtos ou serviços entregam mais valor? <span class="text-vermelho">*</span></label>
-          <p class="field-hint">Que tipo de pessoa ou negócio mais se beneficia. Pode ser por segmento (saúde, varejo, construção), porte (PME, grande empresa), perfil (família, casal jovem, idoso) ou situação (quem está abrindo o negócio, quem já tem operação rodando).</p>
-          <textarea class="inp" name="segmentos" required placeholder="Ex.: famílias com crianças pequenas, idosos com plano de saúde, empresas do setor industrial em fase de expansão..."></textarea>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Qual a transformação que o cliente sente no fim? <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <p class="field-hint">O resultado/benefício maior, o que muda na vida dele depois de te contratar.</p>
-          <textarea class="inp" name="beneficio" placeholder="Ex.: o cliente volta a sorrir com confiança e sem dor."></textarea>
-        </div>
-        <div class="mb-2">
-          <label class="field-label">Quer mostrar preços no site? <span class="text-vermelho">*</span></label>
-          <div class="grid sm:grid-cols-3 gap-3">
-            <label class="opt"><input type="radio" name="mostrar_preco" value="Sim, mostrar preços" required> Sim</label>
-            <label class="opt"><input type="radio" name="mostrar_preco" value="Não, só orçamento"> Só orçamento</label>
-            <label class="opt"><input type="radio" name="mostrar_preco" value="Alguns sim, outros não"> Depende</label>
-          </div>
-        </div>
-      </section>
-
-      <!-- ETAPA 4 · Cliente e diferencial -->
-      <section class="step" data-step="3">
-        <p class="kicker text-vermelho">Público e diferencial</p>
-        <h2 class="font-display text-3xl mt-2 mb-6">Pra quem e por quê</h2>
-
-        <div class="mb-6">
-          <label class="field-label">Quem é o seu cliente ideal? <span class="text-vermelho">*</span></label>
-          <p class="field-hint">Idade, perfil, se é pessoa física ou empresa.</p>
-          <input class="inp" name="cliente_ideal" required placeholder="Ex.: famílias da região, 30 a 50 anos" />
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Qual problema você resolve pra esse cliente? <span class="text-vermelho">*</span></label>
-          <textarea class="inp" name="problema" required placeholder="O que melhora na vida do cliente quando ele te contrata?"></textarea>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Onde você atende? <span class="text-vermelho">*</span></label>
-          <input class="inp" name="atuacao" required placeholder="Ex.: Cabo de Santo Agostinho e região / Brasil todo / online" />
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Por que o cliente deve escolher VOCÊ e não o concorrente? <span class="text-vermelho">*</span></label>
-          <textarea class="inp" name="diferencial" required placeholder="Seus diferenciais reais."></textarea>
-        </div>
-        <div class="mb-2">
-          <label class="field-label">Concorrentes ou sites de referência <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <input class="inp" name="concorrentes" placeholder="Nomes ou links" />
-        </div>
-      </section>
-
-      <!-- ETAPA 5 · Prova social -->
-      <section class="step" data-step="4">
-        <p class="kicker text-vermelho">Credibilidade</p>
-        <h2 class="font-display text-3xl mt-2 mb-6">O que prova seu valor</h2>
-
-        <div class="mb-6">
-          <label class="field-label">Tem depoimentos de clientes? <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <p class="field-hint">Cole aqui ou diga que vai enviar prints depois.</p>
-          <textarea class="inp" name="depoimentos" placeholder="Ex.: 'Atendimento excelente!', Maria S."></textarea>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Números de impacto <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <input class="inp" name="numeros" placeholder="Ex.: +500 clientes, 10 anos, 98% de satisfação" />
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Certificações, prêmios ou parcerias <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <input class="inp" name="certificacoes" placeholder="Ex.: certificado pela ANVISA, parceiro oficial X" />
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Quer mostrar uma seção com empresas ou clientes que usam sua solução? <span class="text-vermelho">*</span></label>
-          <p class="field-hint">Aquela faixa de logos que aparece em muitos sites ("Quem confia na gente"). Bom pra credibilidade, mas só faz sentido se você tem autorização das marcas.</p>
-          <div class="grid sm:grid-cols-3 gap-3">
-            <label class="opt"><input type="radio" name="quer_clientes" value="Sim, quero mostrar" required> Sim, quero mostrar</label>
-            <label class="opt"><input type="radio" name="quer_clientes" value="Ainda não tenho clientes pra mostrar"> Ainda não tenho</label>
-            <label class="opt"><input type="radio" name="quer_clientes" value="Não quero essa seção"> Não quero essa seção</label>
-          </div>
-        </div>
-        <div class="mb-2">
-          <label class="field-label">Se sim, quais empresas ou clientes você quer destacar? <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <p class="field-hint">Liste os nomes. A gente entra em contato com você pra pegar as logos em alta resolução depois.</p>
-          <textarea class="inp" name="clientes_destaque" placeholder="Ex.: Hospital São Lucas, Padaria Doce Sabor, Clínica Vida & Sorriso..."></textarea>
-        </div>
-      </section>
-
-      <!-- ETAPA 6 · Objetivo e contato -->
-      <section class="step" data-step="5">
-        <p class="kicker text-vermelho">Objetivo e contato</p>
-        <h2 class="font-display text-3xl mt-2 mb-6">O que o site deve fazer</h2>
-
-        <div class="mb-6">
-          <label class="field-label">Qual a ação principal que o visitante deve tomar? <span class="text-vermelho">*</span></label>
-          <select class="inp" name="acao_principal" required>
-            <option value="">Selecione...</option>
-            <option>Chamar no WhatsApp</option>
-            <option>Preencher formulário de contato</option>
-            <option>Ligar por telefone</option>
-            <option>Comprar / fazer pedido</option>
-            <option>Agendar horário</option>
-          </select>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">WhatsApp para os botões do site <span class="text-vermelho">*</span></label>
-          <input class="inp" name="whatsapp" required placeholder="(81) 9 9999-9999" />
-        </div>
-        <div class="grid sm:grid-cols-2 gap-4 mb-6">
-          <div>
-            <label class="field-label">Telefone / fixo <span class="text-vermelho">*</span></label>
-            <input class="inp" name="telefone" required placeholder="(81) 3333-3333" />
-          </div>
-          <div>
-            <label class="field-label">E-mail <span class="text-vermelho">*</span></label>
-            <input type="email" class="inp" name="email_contato" required placeholder="contato@suaempresa.com.br" />
-          </div>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Endereço e horário de atendimento <span class="text-vermelho">*</span></label>
-          <input class="inp" name="endereco" required placeholder="Rua... , bairro · Seg a Sex 8h-18h" />
-        </div>
-        <div class="mb-2">
-          <label class="field-label">Redes sociais <span class="text-vermelho">*</span></label>
-          <input class="inp" name="redes" required placeholder="@instagram, facebook, etc." />
-        </div>
-      </section>
-
-      <!-- ETAPA 7 · Conteúdo e técnico -->
-      <section class="step" data-step="6">
-        <p class="kicker text-vermelho">Conteúdo e técnico</p>
-        <h2 class="font-display text-3xl mt-2 mb-6">Últimos detalhes</h2>
-
-        <div class="rounded-xl bg-vermelho/5 border border-vermelho/20 px-4 py-3 mb-6">
-          <p class="text-sm text-ink/70"><strong class="text-vermelho">Importante:</strong> os textos do site vêm com você. A gente entrega a estrutura, o design e a parte técnica, mas quem conhece o seu negócio é você.</p>
-        </div>
-
-        <div class="mb-6">
-          <label class="field-label">Escreva o que você quer que apareça no site <span class="text-vermelho">*</span></label>
-          <p class="field-hint">Conta com suas palavras o que precisa estar em cada parte: apresentação, sobre, serviços, diferenciais, contato, etc. Pode ser em tópicos, parágrafos, do jeito que sair. A gente organiza depois.</p>
-          <textarea class="inp" name="textos" required style="min-height:220px" placeholder="Ex.:
-APRESENTAÇÃO (topo do site)
-Somos a Clínica Sorriso, especializada em odontologia familiar no Cabo de Santo Agostinho desde 2015...
-
-SOBRE NÓS
-Nossa missão é...
-
-SERVIÇOS
-1. Clareamento dental, deixa o sorriso branco em uma sessão...
-2. Implantes...
-
-DIFERENCIAIS
-- Atendimento humanizado
-- Preços transparentes
-- ..."></textarea>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Tem fotos próprias de boa qualidade? <span class="text-vermelho">*</span></label>
-          <div class="grid sm:grid-cols-3 gap-3">
-            <label class="opt"><input type="radio" name="fotos" value="Sim, tenho fotos" required> Sim</label>
-            <label class="opt"><input type="radio" name="fotos" value="Não, usar banco de imagens"> Não, usar banco</label>
-            <label class="opt"><input type="radio" name="fotos" value="Algumas"> Algumas</label>
-          </div>
-          <p class="field-hint mt-2">Fotos e logo você envia pelo WhatsApp ou por um link (Google Drive).</p>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Quer ter um espaço de blog no site? <span class="text-vermelho">*</span></label>
-          <p class="field-hint">Útil pra publicar artigos, novidades, dicas. Ajuda no SEO. Só faz sentido se você ou alguém da equipe vai produzir conteúdo com frequência.</p>
-          <div class="grid sm:grid-cols-3 gap-3">
-            <label class="opt"><input type="radio" name="quer_blog" value="Sim, desde o lançamento" required> Sim, no lançamento</label>
-            <label class="opt"><input type="radio" name="quer_blog" value="Sim, mas adicionar depois"> Sim, mas depois</label>
-            <label class="opt"><input type="radio" name="quer_blog" value="Não preciso de blog"> Não preciso</label>
-          </div>
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Link com seus materiais (fotos, logo, catálogo) <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <input class="inp" name="link_materiais" placeholder="Cole um link do Google Drive / Dropbox, se tiver" />
-        </div>
-        <div class="rounded-xl bg-azul/5 border border-azul/20 px-4 py-3 mb-6">
-          <p class="text-sm text-ink/70"><strong class="text-azul">Domínio e email profissional</strong>, pra gente saber se já tem o endereço próprio (`seuendereco.com.br`) e onde está hospedado hoje.</p>
-        </div>
-
-        <div class="mb-6">
-          <label class="field-label">Já tem domínio registrado? <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <input class="inp" name="dominio" placeholder="Ex.: suaempresa.com.br, ou deixe em branco se ainda não tem" />
-        </div>
-        <div class="mb-6">
-          <label class="field-label">Se tem, com qual empresa? <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <p class="field-hint">Quem hospeda hoje. Ajuda a gente planejar a migração.</p>
-          <div class="grid sm:grid-cols-3 gap-3">
-            <label class="opt"><input type="radio" name="hospedagem" value="Wix"> Wix</label>
-            <label class="opt"><input type="radio" name="hospedagem" value="GoDaddy"> GoDaddy</label>
-            <label class="opt"><input type="radio" name="hospedagem" value="Hostgator"> Hostgator</label>
-            <label class="opt"><input type="radio" name="hospedagem" value="Locaweb"> Locaweb</label>
-            <label class="opt"><input type="radio" name="hospedagem" value="Registro.br"> Registro.br</label>
-            <label class="opt"><input type="radio" name="hospedagem" value="Não sei"> Não sei</label>
-          </div>
-        </div>
-        <div class="mb-2">
-          <label class="field-label">Que palavras um cliente digitaria no Google pra te achar? <span class="text-ink/40 font-normal">(opcional)</span></label>
-          <p class="field-hint">Ajuda no SEO.</p>
-          <input class="inp" name="palavras_seo" placeholder="Ex.: dentista no Cabo, padaria em Suape" />
-        </div>
-      </section>
-
-      <!-- Navegação -->
-      <div class="flex items-center justify-between mt-9 pt-6 border-t border-ink/10">
-        <button type="button" id="prevBtn" class="btn btn-ghost" style="visibility:hidden">← Voltar</button>
-        <button type="button" id="nextBtn" class="btn btn-primary">Próximo →</button>
-        <button type="submit" id="submitBtn" class="btn btn-dark hidden">Enviar respostas</button>
-      </div>
-      <p id="errMsg" class="text-vermelho text-sm mt-4 hidden">Preencha os campos obrigatórios desta etapa antes de continuar.</p>
-    </form>
-
-    <!-- Tela de sucesso -->
-    <div id="done" class="hidden text-center py-10">
-      <div class="w-16 h-16 rounded-full bg-verde flex items-center justify-center mx-auto">
-        <svg width="30" height="30" fill="none" stroke="#fff" stroke-width="3"><path d="M6 15l6 6 12-14" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h2 class="font-display text-4xl mt-6">Recebemos!</h2>
-      <p class="mt-4 text-lg text-ink/65 max-w-md mx-auto">
-        Suas respostas foram enviadas pra equipe da Maracatu Digital. Agora é com a gente, seu site começa a ser construído.
-      </p>
-      <a id="waReminder" href="#" target="_blank" rel="noopener"
-         class="btn btn-primary mt-8 text-lg">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.788-.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        Avisar no WhatsApp que respondi
-      </a>
-      <p class="text-sm text-ink/40 mt-4">Opcional, só pra agilizar o contato.</p>
-    </div>
-
   </div>
 
-  <div class="ribbon-rule fixed bottom-0 inset-x-0"></div>
+  <div id="errorState" style="display:none;">
+    <div class="success-icon" style="background: var(--red);">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+    <h1>Tivemos um problema.</h1>
+    <p id="errorMsg" style="color: var(--red); margin-bottom: 12px;">Erro no envio.</p>
+    <p>Mas suas respostas estão salvas. Pode tentar de novo ou baixar uma cópia e enviar pra gente pelo WhatsApp.</p>
+    <div class="success-actions">
+      <button class="btn btn-primary" id="retrySend">Tentar novamente</button>
+      <button class="btn btn-secondary" id="downloadTxtError">Baixar cópia</button>
+    </div>
+  </div>
+</section>
 
-  <script>
-    // ====== CONFIG ======
-    // Briefings caem no mesmo backend do /onboarding (Railway da Maracatu),
-    // marcados com tipo:"site" pra distinguir do briefing geral.
-    const BACKEND_URL = "https://som-backend-production-01d8.up.railway.app/api/onboarding";
-    const TIPO = "site";
-    // WhatsApp da Maracatu (só dígitos, com DDI 55).
-    const WHATSAPP = "5581999306212";
-    // =====================
+<style>
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
 
-    const form = document.getElementById('form');
-    const intro = document.getElementById('intro');
-    const done = document.getElementById('done');
-    const steps = [...form.querySelectorAll('.step')];
-    const total = steps.length;
-    let cur = 0;
+</main>
 
-    const bar = document.getElementById('bar');
-    const stepLabel = document.getElementById('stepLabel');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const submitBtn = document.getElementById('submitBtn');
-    const errMsg = document.getElementById('errMsg');
+<!-- NAV BUTTONS (out of step containers, shared) -->
+<div style="max-width:640px; margin: 0 auto; padding: 0 24px 60px; width: 100%;" id="navContainer">
+  <div class="nav-buttons" id="navButtons" style="display: none;">
+    <button class="btn btn-back" id="btnBack">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Voltar
+    </button>
+    <button class="btn btn-primary" id="btnNext">
+      Próximo
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+</div>
 
-    document.getElementById('startBtn').addEventListener('click', () => {
-      intro.classList.add('hidden');
-      form.classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+<!-- Upload via Cloudinary (unsigned) — SOM -->
 
-    function render() {
-      steps.forEach((s, i) => s.classList.toggle('active', i === cur));
-      const pct = Math.round(((cur + 1) / total) * 100);
-      bar.style.width = pct + '%';
-      stepLabel.textContent = cur + 1;
-      prevBtn.style.visibility = cur === 0 ? 'hidden' : 'visible';
-      const last = cur === total - 1;
-      nextBtn.classList.toggle('hidden', last);
-      submitBtn.classList.toggle('hidden', !last);
-      errMsg.classList.add('hidden');
+<script>
+  (function() {
+    var STORAGE_KEY = 'maracatu_site_briefing_v1';
+    var TOTAL_STEPS = 10; // 0 welcome → 9 success
+    var FORM_STEPS = 8; // step 0 welcome + 1-7 form + 8 review = 9 user-visible. 9 is success.
+
+    var sections = document.querySelectorAll('.step');
+    var current = 0;
+    var answers = {};
+
+    // Questions metadata for review
+    var QUESTIONS = [
+      { section: 'Sua empresa', step: 1, items: [
+        { q: 'empresa_nome', label: 'Nome da empresa ou marca' },
+        { q: 'empresa_cnpj', label: 'CNPJ' },
+        { q: 'empresa_razao', label: 'Razão social' },
+        { q: 'empresa_frase', label: 'O que a empresa faz (em uma frase)' },
+        { q: 'empresa_tempo', label: 'Tempo de mercado' },
+        { q: 'empresa_historia', label: 'História da empresa' },
+        { q: 'empresa_missao', label: 'Missão / valores / jeito de trabalhar' },
+        { q: 'empresa_quem', label: 'Quem está por trás' },
+      ]},
+      { section: 'Identidade visual', step: 2, items: [
+        { q: 'id_logo', label: 'Já tem logo?' },
+        { q: 'id_cores', label: 'Cores ou estilo que combinam' },
+        { q: 'id_evitar', label: 'O que NÃO quer no visual' },
+        { q: 'id_tratamento', label: 'Trata o cliente por' },
+        { q: 'id_estilo', label: 'Estilo de comunicação' },
+        { q: 'id_referencias', label: 'Sites de referência (design)' },
+      ]},
+      { section: 'Produto ou serviço', step: 3, items: [
+        { q: 'prod_tipo', label: 'Vende principalmente' },
+        { q: 'prod_lista', label: 'Produtos ou serviços' },
+        { q: 'prod_diferencial', label: 'O que os torna diferentes' },
+        { q: 'prod_setores', label: 'Setores / perfis de cliente' },
+        { q: 'prod_transformacao', label: 'Transformação que o cliente sente' },
+        { q: 'prod_precos', label: 'Mostrar preços no site?' },
+      ]},
+      { section: 'Público e diferencial', step: 4, items: [
+        { q: 'pub_ideal', label: 'Cliente ideal' },
+        { q: 'pub_problema', label: 'Problema que resolve' },
+        { q: 'pub_atende', label: 'Onde atende' },
+        { q: 'pub_porque', label: 'Por que escolher você' },
+        { q: 'pub_concorrentes', label: 'Concorrentes / referências' },
+      ]},
+      { section: 'Credibilidade', step: 5, items: [
+        { q: 'cred_depoimentos', label: 'Depoimentos de clientes' },
+        { q: 'cred_numeros', label: 'Números de impacto' },
+        { q: 'cred_certificacoes', label: 'Certificações / prêmios / parcerias' },
+        { q: 'cred_secao', label: 'Mostrar seção de empresas/clientes?' },
+        { q: 'cred_empresas', label: 'Empresas a destacar' },
+      ]},
+      { section: 'Objetivo e contato', step: 6, items: [
+        { q: 'obj_acao', label: 'Ação principal do visitante' },
+        { q: 'obj_whatsapp', label: 'WhatsApp dos botões' },
+        { q: 'obj_telefone', label: 'Telefone / fixo' },
+        { q: 'obj_email', label: 'E-mail' },
+        { q: 'obj_endereco', label: 'Endereço e horário' },
+        { q: 'obj_redes', label: 'Redes sociais' },
+      ]},
+      { section: 'Conteúdo e técnico', step: 7, items: [
+        { q: 'tec_conteudo', label: 'O que quer no site' },
+        { q: 'tec_fotos', label: 'Tem fotos próprias?' },
+        { q: 'tec_blog', label: 'Quer blog?' },
+        { q: 'tec_materiais', label: 'Link com materiais' },
+        { q: 'tec_dominio', label: 'Domínio registrado?' },
+        { q: 'tec_dominio_empresa', label: 'Onde o domínio está registrado' },
+        { q: 'tec_hospedagem', label: 'Hospedagem atual' },
+        { q: 'tec_palavras', label: 'Palavras-chave do Google' },
+      ]},
+    ];
+
+    // === STORAGE ===
+    var savedStep = 0; // Etapa salva da última sessão (se existir)
+    var pendingFileStore = null; // Backup do fileStore enquanto a pagina carrega
+    function load() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          var data = JSON.parse(raw);
+          answers = data.answers || {};
+          // Arquivos sao guardados como URL (metadata pequena, seguro pro localStorage)
+          if (data.files && typeof data.files === 'object') {
+            pendingFileStore = data.files;
+          }
+          if (typeof data.step === 'number' && data.step > 0 && data.step < 9) {
+            savedStep = data.step;
+          }
+        }
+      } catch(e) {}
+      // SEMPRE inicia na tela de boas-vindas, independente do estado salvo
+      current = 0;
+    }
+    var saveTimer = null;
+    function save() {
+      // Persiste tambem o fileStore — agora que e so URL+metadata, cabe no localStorage.
+      // Isso protege o cliente de perder os arquivos por um F5 acidental.
+      var safeFiles = {};
+      try {
+        Object.keys(fileStore || {}).forEach(function(k) {
+          var f = fileStore[k];
+          if (f && f.url) {
+            safeFiles[k] = { name: f.name, type: f.type, size: f.size, url: f.url };
+          }
+        });
+      } catch(e) {}
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        answers: answers,
+        step: current,
+        files: safeFiles,
+      }));
+      var counter = document.getElementById('stepCounter');
+      counter.classList.add('saving');
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function() { counter.classList.remove('saving'); }, 1500);
     }
 
-    function validateStep() {
-      const fields = steps[cur].querySelectorAll('[required]');
-      for (const f of fields) {
-        if (!f.checkValidity()) { f.reportValidity(); return false; }
+    // === RENDER ===
+    function show(n) {
+      current = n;
+      sections.forEach(function(s) { s.classList.remove('active'); });
+      var target = document.querySelector('.step[data-step="' + n + '"]');
+      if (target) target.classList.add('active');
+
+      // Counter & progress
+      var visibleStep = Math.min(n, 8);
+      document.getElementById('stepNow').textContent = (n === 0 ? 1 : Math.min(n + 1, 9));
+      document.getElementById('stepTotal').textContent = 9;
+      var pct = n === 0 ? 0 : (n === 9 ? 100 : (n / 8) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+
+      // Nav visibility
+      var nav = document.getElementById('navButtons');
+      if (n === 0 || n === 9) {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+        document.getElementById('btnBack').style.visibility = n === 1 ? 'hidden' : 'visible';
+        document.getElementById('btnNext').textContent = '';
+        var nextBtn = document.getElementById('btnNext');
+        if (n === 7) {
+          nextBtn.innerHTML = 'Revisar &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        } else if (n === 8) {
+          nextBtn.innerHTML = 'Finalizar &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        } else {
+          nextBtn.innerHTML = 'Próximo &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        }
       }
-      return true;
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Render review if on review step
+      if (n === 8) renderReview();
+
+      // Focus first input
+      setTimeout(function() {
+        var firstInput = target ? target.querySelector('input, textarea, button.choice') : null;
+        if (firstInput && n > 0 && n < 8) firstInput.focus({ preventScroll: true });
+      }, 100);
+
+      save();
     }
 
-    nextBtn.addEventListener('click', () => {
-      if (!validateStep()) { errMsg.classList.remove('hidden'); return; }
-      if (cur < total - 1) { cur++; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    });
-    prevBtn.addEventListener('click', () => {
-      if (cur > 0) { cur--; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    // File storage. Agora guarda apenas { name, type, size, url } — sem binario.
+    // Por isso pode ser persistido no localStorage (sobrevive a um F5 do cliente).
+    var fileStore = {};
+    if (pendingFileStore && typeof pendingFileStore === 'object') {
+      Object.keys(pendingFileStore).forEach(function(k) {
+        var f = pendingFileStore[k];
+        if (f && f.url && f.name) {
+          fileStore[k] = { name: f.name, type: f.type || '', size: f.size || 0, url: f.url };
+        }
+      });
+    }
+
+    // === RESTORE INPUTS ===
+    function restoreInputs() {
+      document.querySelectorAll('[data-q]').forEach(function(el) {
+        var key = el.getAttribute('data-q');
+        if (answers[key]) el.value = answers[key];
+      });
+      document.querySelectorAll('[data-choice]').forEach(function(group) {
+        var key = group.getAttribute('data-choice');
+        if (answers[key]) {
+          var values = Array.isArray(answers[key]) ? answers[key] : [answers[key]];
+          group.querySelectorAll('.choice').forEach(function(c) {
+            var txt = c.textContent.trim();
+            if (values.indexOf(txt) !== -1) c.classList.add('selected');
+          });
+        }
+      });
+    }
+
+    // === INPUT HANDLERS ===
+    document.querySelectorAll('[data-q]').forEach(function(el) {
+      el.addEventListener('input', function() {
+        answers[el.getAttribute('data-q')] = el.value.trim();
+        save();
+      });
     });
 
+    document.querySelectorAll('[data-choice]').forEach(function(group) {
+      var key = group.getAttribute('data-choice');
+      var multi = group.getAttribute('data-multi') === 'true';
+      group.querySelectorAll('.choice').forEach(function(choice) {
+        choice.addEventListener('click', function() {
+          if (multi) {
+            choice.classList.toggle('selected');
+            var selected = [];
+            group.querySelectorAll('.choice.selected').forEach(function(c) {
+              selected.push(c.textContent.trim());
+            });
+            answers[key] = selected;
+          } else {
+            group.querySelectorAll('.choice').forEach(function(c) { c.classList.remove('selected'); });
+            choice.classList.add('selected');
+            answers[key] = choice.textContent.trim();
+          }
+          save();
+        });
+      });
+    });
+
+    // === FILE INPUT HANDLERS ===
+    // Upload direto pro Vercel Blob (contorna limite de 4.5MB do Vercel serverless).
+    // Aceita ate 100MB por arquivo. O briefing chega no email com link clicavel.
+    var MAX_UPLOAD = 100 * 1024 * 1024; // 100MB
+
+    function waitForBlobSDK() {
+      return new Promise(function(resolve, reject) {
+        if (window.__blobUpload) return resolve(window.__blobUpload);
+        var tries = 0;
+        var iv = setInterval(function() {
+          tries++;
+          if (window.__blobUpload) {
+            clearInterval(iv);
+            resolve(window.__blobUpload);
+          } else if (tries > 80) {
+            clearInterval(iv);
+            reject(new Error('SDK de upload nao carregou. Verifique sua conexao.'));
+          }
+        }, 100);
+      });
+    }
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes/1024).toFixed(0) + ' KB';
+      return (bytes/1024/1024).toFixed(1) + ' MB';
+    }
+
+    function attachClearButton(btn, input, key) {
+      if (btn.querySelector('.file-clear')) return;
+      var clearBtn = document.createElement('button');
+      clearBtn.type = 'button';
+      clearBtn.className = 'file-clear';
+      clearBtn.setAttribute('aria-label', 'Remover arquivo');
+      clearBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+      clearBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        delete fileStore[key];
+        input.value = '';
+        btn.classList.remove('has-file');
+        btn.classList.remove('is-uploading');
+        btn.querySelector('.file-name').textContent = 'Anexar arquivo';
+        clearBtn.remove();
+      });
+      btn.appendChild(clearBtn);
+    }
+
+    document.querySelectorAll('input[type="file"][data-file]').forEach(function(input) {
+      var key = input.getAttribute('data-file');
+      var btn = document.getElementById('filebtn_' + key);
+
+      // Se restauramos um arquivo do localStorage, ja marca o botao como "has-file"
+      if (fileStore[key] && fileStore[key].url) {
+        var f = fileStore[key];
+        btn.classList.add('has-file');
+        btn.querySelector('.file-name').textContent = f.name + ' (' + formatSize(f.size || 0) + ')';
+        attachClearButton(btn, input, key);
+      }
+
+      input.addEventListener('change', async function() {
+        var file = input.files[0];
+        if (!file) return;
+        if (file.size > MAX_UPLOAD) {
+          alert('Arquivo muito grande (limite 100MB). Comprima ou cole o link do Google Drive no campo abaixo.');
+          input.value = '';
+          return;
+        }
+
+        // UI: mostrar estado de upload
+        btn.classList.add('is-uploading');
+        var nameEl = btn.querySelector('.file-name');
+        var originalText = nameEl.textContent;
+        nameEl.textContent = 'Enviando ' + formatSize(file.size) + '...';
+
+        try {
+          var _fd = new FormData();
+          _fd.append('file', file);
+          _fd.append('upload_preset', 'som_unsigned');
+          var _cu = await fetch('https://api.cloudinary.com/v1_1/druemogap/auto/upload', { method: 'POST', body: _fd });
+          if (!_cu.ok) throw new Error('Falha no upload (' + _cu.status + ')');
+          var _cd = await _cu.json();
+          var blob = { url: _cd.secure_url };
+
+          fileStore[key] = {
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            url: blob.url
+          };
+
+          btn.classList.remove('is-uploading');
+          btn.classList.add('has-file');
+          nameEl.textContent = file.name + ' (' + formatSize(file.size) + ')';
+          attachClearButton(btn, input, key);
+          save();
+        } catch (err) {
+          console.error('Upload falhou:', err);
+          btn.classList.remove('is-uploading');
+          nameEl.textContent = originalText;
+          input.value = '';
+          alert('Erro ao enviar arquivo: ' + (err && err.message ? err.message : 'tente de novo') + '. Voce tambem pode colar um link do Google Drive no campo abaixo.');
+        }
+      });
+    });
+
+    // === VALIDATION ===
+    function validateStep(n) {
+      var step = document.querySelector('.step[data-step="' + n + '"]');
+      if (!step) return true;
+      var ok = true;
+      step.querySelectorAll('[data-required="true"]').forEach(function(el) {
+        var key = el.getAttribute('data-q') || el.getAttribute('data-choice');
+        if (!answers[key]) {
+          ok = false;
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.style.borderColor = 'var(--red)';
+            el.focus();
+            setTimeout(function() { el.style.borderColor = ''; }, 2000);
+          } else {
+            el.style.outline = '2px solid var(--red)';
+            setTimeout(function() { el.style.outline = ''; }, 2000);
+          }
+        }
+      });
+      return ok;
+    }
+
+    // === NAVIGATION ===
+    document.querySelector('[data-action="start"]').addEventListener('click', function() {
+      show(1);
+    });
+    document.getElementById('btnNext').addEventListener('click', function() {
+      if (!validateStep(current)) return;
+      if (current === 8) {
+        show(9);
+        submitBriefing();
+      } else if (current < 8) {
+        show(current + 1);
+      }
+    });
+    document.getElementById('btnBack').addEventListener('click', function() {
+      if (current > 1) show(current - 1);
+    });
+
+    // === REVIEW RENDER ===
+    function renderReview() {
+      var list = document.getElementById('reviewList');
+      list.innerHTML = '';
+      QUESTIONS.forEach(function(sec, idx) {
+        var details = document.createElement('details');
+        details.className = 'review-section';
+        if (idx < 2) details.open = true;
+        var summary = document.createElement('summary');
+        summary.textContent = sec.section;
+        details.appendChild(summary);
+        var items = document.createElement('div');
+        items.className = 'items';
+        sec.items.forEach(function(item) {
+          var div = document.createElement('div');
+          div.className = 'review-item';
+          var ans = answers[item.q];
+          if (Array.isArray(ans)) ans = ans.join(', ');
+          // Check for file attachment too
+          var hasFile = item.fileKey && fileStore[item.fileKey];
+          var fileLabel = hasFile ? '📎 ' + fileStore[item.fileKey].name : '';
+          var display = ans || '';
+          if (hasFile) display = display ? (fileLabel + ' + ' + display) : fileLabel;
+          div.innerHTML = '<div class="q">' + item.label + '<a href="#" class="edit-link" data-go="' + sec.step + '">editar</a></div>' +
+                          '<div class="a' + (display ? '' : ' empty') + '">' + (display ? escapeHTML(display) : 'em branco') + '</div>';
+          items.appendChild(div);
+        });
+        details.appendChild(items);
+        list.appendChild(details);
+      });
+
+      list.querySelectorAll('.edit-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          show(parseInt(link.getAttribute('data-go'), 10));
+        });
+      });
+    }
     function escapeHTML(s) {
-      return String(s == null ? '' : s)
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    function buildBriefingHTML(data) {
-      const sections = [
-        { titulo: 'Quem é você', cor: '#E03A2F', campos: [
-          ['empresa', 'Nome da empresa / marca'],
-          ['resumo', 'Em uma frase, o que a empresa faz'],
-          ['tempo_mercado', 'Tempo no mercado'],
-          ['historia', 'História da empresa'],
-          ['missao_valores', 'Missão, valores ou jeito de trabalhar'],
-          ['equipe', 'Quem está por trás'],
-        ]},
-        { titulo: 'A cara da marca', cor: '#F4B400', campos: [
-          ['tem_logo', 'Já tem logo'],
-          ['cores', 'Cores ou estilo'],
-          ['evitar', 'Coisas a evitar'],
-          ['tratamento', 'Tratamento (você/vocês/tu)'],
-          ['estilo_comunicacao', 'Estilo de comunicação'],
-          ['referencias_design', 'Sites de referência de design'],
-        ]},
-        { titulo: 'O que você oferece', cor: '#2D5BD6', campos: [
-          ['tipo', 'Tipo (produto/serviço/os dois)'],
-          ['principais', 'Produtos ou serviços oferecidos'],
-          ['diferencial_produto', 'Diferencial dos produtos/serviços'],
-          ['segmentos', 'Setores/perfis que mais se beneficiam'],
-          ['beneficio', 'Transformação que o cliente sente'],
-          ['mostrar_preco', 'Mostrar preços no site'],
-        ]},
-        { titulo: 'Pra quem e por quê', cor: '#1E9E4A', campos: [
-          ['cliente_ideal', 'Cliente ideal'],
-          ['problema', 'Problema que resolve'],
-          ['atuacao', 'Onde atende'],
-          ['diferencial', 'Diferencial vs concorrente'],
-          ['concorrentes', 'Concorrentes ou referências'],
-        ]},
-        { titulo: 'O que prova seu valor', cor: '#E03A2F', campos: [
-          ['depoimentos', 'Depoimentos de clientes'],
-          ['numeros', 'Números de impacto'],
-          ['certificacoes', 'Certificações/prêmios'],
-          ['quer_clientes', 'Quer seção de clientes/empresas que usam'],
-          ['clientes_destaque', 'Clientes a destacar (logos)'],
-        ]},
-        { titulo: 'O que o site deve fazer', cor: '#F4B400', campos: [
-          ['acao_principal', 'Ação principal do visitante'],
-          ['whatsapp', 'WhatsApp para os botões'],
-          ['telefone', 'Telefone fixo'],
-          ['email_contato', 'E-mail'],
-          ['endereco', 'Endereço e horário'],
-          ['redes', 'Redes sociais'],
-        ]},
-        { titulo: 'Últimos detalhes', cor: '#2D5BD6', campos: [
-          ['textos', 'Textos do site (escritos pelo cliente)'],
-          ['fotos', 'Tem fotos próprias'],
-          ['quer_blog', 'Quer espaço de blog'],
-          ['link_materiais', 'Link de materiais'],
-          ['dominio', 'Domínio próprio'],
-          ['hospedagem', 'Onde hospeda hoje'],
-          ['palavras_seo', 'Palavras-chave SEO'],
-        ]},
-      ];
-      const empresa = data.empresa || 'Sem nome';
-      let html = '<div style="font-family:Inter,Arial,sans-serif;max-width:680px;margin:0 auto;color:#1A1712;">';
-      html += '<div style="background:#1A1712;padding:32px;border-radius:16px 16px 0 0;color:#fff;">';
-      html += '<div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#F4B400;margin-bottom:8px;">Briefing de site novo</div>';
-      html += '<h1 style="font-size:28px;margin:0;letter-spacing:-1px;">' + escapeHTML(empresa) + '</h1>';
+    // === FORMAT FOR SUBMISSION ===
+    function buildBriefingText() {
+      var out = 'BRIEFING MARACATU DIGITAL\n';
+      out += '=========================\n\n';
+      var empresa = answers.empresa_nome || 'Sem nome';
+      out += 'Empresa: ' + empresa + '\n';
+      out += 'Enviado em: ' + new Date().toLocaleString('pt-BR') + '\n\n';
+      QUESTIONS.forEach(function(sec) {
+        out += '\n--- ' + sec.section.toUpperCase() + ' ---\n';
+        sec.items.forEach(function(item) {
+          var ans = answers[item.q];
+          if (Array.isArray(ans)) ans = ans.join(', ');
+          var hasFile = item.fileKey && fileStore[item.fileKey];
+          var parts = [];
+          if (hasFile) {
+            var f = fileStore[item.fileKey];
+            if (f.url) {
+              parts.push('[Arquivo: ' + f.name + ' — ' + f.url + ']');
+            } else {
+              parts.push('[Arquivo anexado: ' + f.name + ']');
+            }
+          }
+          if (ans) parts.push(ans);
+          var display = parts.length ? parts.join('\n') : '(em branco)';
+          out += '\n' + item.label + ':\n' + display + '\n';
+        });
+        out += '\n';
+      });
+      // List attached files
+      var fileKeys = Object.keys(fileStore);
+      if (fileKeys.length > 0) {
+        out += '\n--- ARQUIVOS ENVIADOS ---\n';
+        fileKeys.forEach(function(k) {
+          var f = fileStore[k];
+          var sizeStr = f.size < 1024*1024 ? (f.size/1024).toFixed(0)+' KB' : (f.size/1024/1024).toFixed(1)+' MB';
+          if (f.url) {
+            out += '\n• ' + f.name + ' (' + sizeStr + ')\n  ' + f.url + '\n';
+          } else {
+            out += '\n• ' + f.name + ' (' + sizeStr + ')\n';
+          }
+        });
+      }
+      return out;
+    }
+
+    function buildBriefingHTML() {
+      var html = '<div style="font-family:Inter,Arial,sans-serif;max-width:680px;margin:0 auto;color:#0a0a0a;">';
+      html += '<div style="background:#0a0a0a;padding:32px;border-radius:16px 16px 0 0;color:#fff;">';
+      html += '<div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fbbc04;margin-bottom:8px;">Novo briefing</div>';
+      html += '<h1 style="font-size:28px;margin:0;letter-spacing:-1px;">' + escapeHTML(answers.empresa_nome || 'Sem nome') + '</h1>';
       html += '<div style="margin-top:8px;color:rgba(255,255,255,0.7);font-size:13px;">Enviado em ' + new Date().toLocaleString('pt-BR') + '</div>';
       html += '</div>';
       html += '<div style="background:#fff;padding:24px 32px;border:1px solid #ECECE6;border-top:none;border-radius:0 0 16px 16px;">';
-      sections.forEach(function(sec) {
+      QUESTIONS.forEach(function(sec, i) {
+        var colors = ['#EA4335','#FBBC04','#34A853','#4285F4','#EA4335','#FBBC04','#34A853','#4285F4'];
         html += '<div style="margin:24px 0 12px;padding-top:20px;border-top:1px solid #ECECE6;">';
-        html += '<div style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + sec.cor + ';margin-right:8px;vertical-align:middle;"></div>';
-        html += '<span style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#1A1712;vertical-align:middle;">' + sec.titulo + '</span>';
+        html += '<div style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + colors[i % colors.length] + ';margin-right:8px;vertical-align:middle;"></div>';
+        html += '<span style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0a0a0a;vertical-align:middle;">' + sec.section + '</span>';
         html += '</div>';
-        sec.campos.forEach(function(c) {
-          var k = c[0], label = c[1];
-          var v = data[k];
-          var empty = !v;
+        sec.items.forEach(function(item) {
+          var ans = answers[item.q];
+          if (Array.isArray(ans)) ans = ans.join(', ');
+          var hasFile = item.fileKey && fileStore[item.fileKey];
+          var hasAns = !!ans;
+          var empty = !hasFile && !hasAns;
+
           html += '<div style="margin:12px 0;padding:10px 0;border-bottom:1px dashed #ECECE6;">';
-          html += '<div style="font-size:12px;color:#6B7280;margin-bottom:4px;">' + label + '</div>';
-          html += '<div style="font-size:15px;line-height:1.5;color:' + (empty ? '#bbb' : '#1A1712') + ';white-space:pre-wrap;">' + escapeHTML(empty ? '(em branco)' : v) + '</div>';
-          html += '</div>';
+          html += '<div style="font-size:12px;color:#6B7280;margin-bottom:4px;">' + item.label + '</div>';
+          html += '<div style="font-size:15px;line-height:1.5;color:' + (empty ? '#bbb' : '#0a0a0a') + ';white-space:pre-wrap;">';
+          if (hasFile) {
+            var f = fileStore[item.fileKey];
+            if (f.url) {
+              html += '📎 <a href="' + escapeHTML(f.url) + '" target="_blank" rel="noopener" style="color:#4285F4;text-decoration:underline;font-weight:600;">' + escapeHTML(f.name) + '</a>';
+            } else {
+              html += '📎 ' + escapeHTML(f.name);
+            }
+            if (hasAns) html += '<br>';
+          }
+          if (hasAns) html += escapeHTML(ans);
+          if (empty) html += '(em branco)';
+          html += '</div></div>';
         });
       });
+      var fileKeys = Object.keys(fileStore);
+      if (fileKeys.length > 0) {
+        html += '<div style="margin-top:24px;padding:16px;background:#FAFAF7;border-radius:12px;">';
+        html += '<div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#0a0a0a;margin-bottom:10px;">Arquivos enviados</div>';
+        fileKeys.forEach(function(k) {
+          var f = fileStore[k];
+          var sizeStr = f.size < 1024*1024 ? (f.size/1024).toFixed(0)+' KB' : (f.size/1024/1024).toFixed(1)+' MB';
+          if (f.url) {
+            html += '<div style="font-size:14px;margin:6px 0;">📎 <a href="' + escapeHTML(f.url) + '" target="_blank" rel="noopener" style="color:#4285F4;text-decoration:underline;font-weight:600;">' + escapeHTML(f.name) + '</a> <span style="color:#6B7280;">(' + sizeStr + ')</span></div>';
+          } else {
+            html += '<div style="font-size:14px;margin:6px 0;">📎 ' + escapeHTML(f.name) + ' <span style="color:#6B7280;">(' + sizeStr + ')</span></div>';
+          }
+        });
+        html += '</div>';
+      }
       html += '</div></div>';
       return html;
     }
 
-    function buildBriefingText(data) {
-      var out = 'BRIEFING DE SITE NOVO, MARACATU DIGITAL\n';
-      out += '========================================\n\n';
-      out += 'Empresa: ' + (data.empresa || 'Sem nome') + '\n';
-      out += 'Enviado em: ' + new Date().toLocaleString('pt-BR') + '\n\n';
-      Object.keys(data).forEach(function(k) {
-        out += k + ': ' + (data[k] || '(em branco)') + '\n';
-      });
-      return out;
-    }
+    // === SUBMIT TO BACKEND ===
+    function submitBriefing() {
+      var sending = document.getElementById('sendingState');
+      var success = document.getElementById('successState');
+      var error = document.getElementById('errorState');
+      sending.style.display = '';
+      success.style.display = 'none';
+      error.style.display = 'none';
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!validateStep()) { errMsg.classList.remove('hidden'); return; }
+      // Arquivos sao subidos pro Vercel Blob no momento da selecao.
+      // O briefing chega no email com links clicaveis pros arquivos — nao precisa
+      // mais mandar o binario junto. Isso libera arquivos ate 100MB.
+      var fileLinks = Object.keys(fileStore)
+        .filter(function(k) { return fileStore[k].url; })
+        .map(function(k) {
+          return {
+            filename: fileStore[k].name,
+            url: fileStore[k].url,
+            size: fileStore[k].size,
+            type: fileStore[k].type,
+          };
+        });
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando...';
-
-      const data = Object.fromEntries(new FormData(form).entries());
-      const empresa = data.empresa || 'Cliente';
-
-      const payload = {
-        tipo: TIPO,
-        empresa: empresa,
-        answers: data,
-        html: buildBriefingHTML(data),
-        text: buildBriefingText(data),
+      var payload = {
+        empresa: answers.empresa_nome || 'Sem nome',
+        tipo: 'site',
+        timestamp: new Date().toISOString(),
+        answers: answers,
+        html: buildBriefingHTML(),
+        text: buildBriefingText(),
         attachments: [],
+        fileLinks: fileLinks
       };
 
-      try {
-        const res = await fetch(BACKEND_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        const out = await res.json().catch(function() { return {}; });
-        if (!res.ok || (out && out.ok === false)) throw new Error(out.message || 'Falha no envio');
+      fetch('https://som-backend-production-01d8.up.railway.app/api/onboarding', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r) {
+        return r.json().then(function(data) { return { ok: r.ok, status: r.status, data: data }; })
+                       .catch(function() { return { ok: r.ok, status: r.status, data: {} }; });
+      }).then(function(result) {
+        if (result.ok) {
+          sending.style.display = 'none';
+          success.style.display = '';
+          try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+          return;
+        }
+        var errMsg = (result.data && result.data.error) || ('Erro ' + result.status);
+        // Fallback automático para mailto quando o backend ainda não está configurado
+        if (errMsg.indexOf('RESEND_API_KEY') !== -1 || errMsg.indexOf('não configurada') !== -1) {
+          fallbackMailto();
+          return;
+        }
+        sending.style.display = 'none';
+        error.style.display = '';
+        document.getElementById('errorMsg').textContent = 'Erro: ' + errMsg;
+      }).catch(function(err) {
+        console.error(err);
+        // Erro de rede também tenta o fallback
+        fallbackMailto();
+      });
+    }
 
-        const msg = 'Olá! Acabei de responder o briefing de criação de site (' + empresa + '). Pode seguir!';
-        document.getElementById('waReminder').href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg);
+    function fallbackMailto() {
+      var TO = [
+        'laura@maracatumktdigital.com',
+        'marketing@maracatumktdigital.com',
+        'marketing2@maracatumktdigital.com',
+        'midias@maracatumktdigital.com',
+        'diogo@maracatumktdigital.com',
+        'contato@maracatumktdigital.com',
+        'joana@maracatumktdigital.com'
+      ];
+      var subject = 'Briefing de site: ' + (answers.empresa_nome || 'Sem nome');
+      var body = buildBriefingText();
+      var mailto = 'mailto:' + TO.join(',') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
-        form.classList.add('hidden');
-        done.classList.remove('hidden');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } catch (err) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Enviar respostas';
-        errMsg.textContent = 'Ops, não conseguimos enviar agora. Confira sua conexão e tente de novo, ou nos chame no WhatsApp.';
-        errMsg.classList.remove('hidden');
-      }
-    });
+      // Atualiza a tela de sucesso para o modo mailto
+      document.getElementById('sendingState').style.display = 'none';
+      var success = document.getElementById('successState');
+      success.style.display = '';
+      var h1 = success.querySelector('h1');
+      var p = success.querySelector('p');
+      if (h1) h1.innerHTML = 'Quase lá! ✉️';
+      if (p) p.innerHTML = 'Seu app de email vai abrir com o briefing pronto. <strong>Só conferir e clicar enviar.</strong><br/><br/>Se os arquivos não vieram juntos, anexa eles antes de enviar.';
 
-    render();
-  </script>
+      // Tenta abrir o app de email
+      setTimeout(function() {
+        window.location.href = mailto;
+      }, 600);
+
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+    }
+
+    // === DOWNLOAD / RETRY ===
+    function downloadTxt() {
+      var text = buildBriefingText();
+      var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'briefing-maracatu-' + (answers.empresa_nome || 'cliente').replace(/[^a-z0-9]/gi, '-').toLowerCase() + '.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    document.getElementById('downloadTxt').addEventListener('click', downloadTxt);
+    document.getElementById('downloadTxtError').addEventListener('click', downloadTxt);
+    document.getElementById('retrySend').addEventListener('click', submitBriefing);
+
+    // === BOOT ===
+    load();
+    restoreInputs();
+    show(0); // Sempre começa na tela de boas-vindas
+
+    // Se houver progresso salvo, mostra opção "Continuar de onde parei"
+    if (savedStep > 0) {
+      var resumeBanner = document.createElement('div');
+      resumeBanner.style.cssText = 'margin-top: 24px; padding: 14px 20px; background: rgba(10,10,10,0.04); border: 1px solid var(--border); border-radius: 14px; display: inline-flex; align-items: center; gap: 14px; font-size: 14px; color: var(--ink);';
+      resumeBanner.innerHTML = '<span>Você começou esse briefing antes. Quer continuar de onde parou (etapa ' + savedStep + ')?</span>' +
+                                '<button type="button" id="resumeBtn" style="background: var(--ink); color: #fff; border: none; padding: 8px 16px; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;">Continuar</button>' +
+                                '<button type="button" id="restartBtn" style="background: transparent; color: var(--muted); border: none; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: underline;">Começar do zero</button>';
+      var welcomeStep = document.querySelector('.step[data-step="0"]');
+      welcomeStep.appendChild(resumeBanner);
+
+      document.getElementById('resumeBtn').addEventListener('click', function() {
+        show(savedStep);
+      });
+      document.getElementById('restartBtn').addEventListener('click', function() {
+        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+        answers = {};
+        document.querySelectorAll('[data-q]').forEach(function(el) { el.value = ''; });
+        document.querySelectorAll('.choice.selected').forEach(function(el) { el.classList.remove('selected'); });
+        resumeBanner.remove();
+      });
+    }
+  })();
+</script>
+
+<script>
+(function(){
+  var inp=document.getElementById('cnpjInput'), st=document.getElementById('cnpjStatus'), rz=document.getElementById('cnpjRazao');
+  if(!inp||!rz) return;
+  var t=null, last='';
+  function setRazao(v){ rz.value=v; rz.dispatchEvent(new Event('input',{bubbles:true})); }
+  inp.addEventListener('input', function(){
+    var raw=(inp.value||'').replace(/\D/g,'');
+    if(raw.length!==14){ if(rz.value) setRazao(''); if(st) st.textContent='Ao digitar o CNPJ, buscamos a razão social na Receita.'; last=''; return; }
+    if(raw===last) return; last=raw;
+    clearTimeout(t);
+    t=setTimeout(function(){
+      if(st) st.textContent='Buscando razão social na Receita…';
+      fetch('https://brasilapi.com.br/api/cnpj/v1/'+raw).then(function(r){return r.ok?r.json():Promise.reject(r.status);}).then(function(d){
+        var nome=d.razao_social||d.nome_fantasia||'';
+        if(nome){ setRazao(nome); if(st) st.textContent='\u2713 '+nome; }
+        else { if(st) st.textContent='CNPJ não encontrado — confira o número.'; }
+      }).catch(function(){ if(st) st.textContent='Não deu pra consultar agora — pode seguir; a gente confere depois.'; });
+    }, 500);
+  });
+})();
+</script>
 </body>
 </html>
