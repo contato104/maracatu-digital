@@ -98,20 +98,27 @@
   main { padding: 40px 0 120px; }
   .grid {
     display: none;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 160px;
+    grid-auto-flow: dense;
+    gap: 12px;
   }
   .grid.active { display: grid; }
   .portfolio-item {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    height: 100%;
+    grid-column: span 2;
+    grid-row: span 2;
     cursor: pointer;
-    border-radius: 14px;
+    border-radius: 12px;
     overflow: hidden;
     background: #f5f5f0;
     position: relative;
     transition: transform .3s cubic-bezier(0.2,0.8,0.2,1);
   }
+  .portfolio-item.tall  { grid-row: span 3; }
+  .portfolio-item.wide  { grid-column: span 3; grid-row: span 2; }
+  .portfolio-item.big   { grid-column: span 3; grid-row: span 3; }
   .portfolio-item:hover { transform: translateY(-4px); }
   .portfolio-item img, .portfolio-item video {
     width: 100%;
@@ -120,7 +127,7 @@
     display: block;
     transition: transform .5s;
   }
-  .portfolio-item:hover img { transform: scale(1.02); }
+  .portfolio-item:hover img { transform: scale(1.03); }
   .portfolio-item.video { cursor: pointer; }
   .portfolio-item.video video { pointer-events: none; }
   .portfolio-item .play-badge {
@@ -211,15 +218,20 @@
   footer a { color: rgba(255,255,255,0.85); }
 
   /* ==== RESPONSIVO ==== */
-  @media (max-width: 1024px) {
-    .grid { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 1200px) {
+    .grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 140px; }
+    .portfolio-item      { grid-column: span 2; grid-row: span 2; }
+    .portfolio-item.tall { grid-column: span 2; grid-row: span 3; }
+    .portfolio-item.wide { grid-column: span 4; grid-row: span 2; }
+    .portfolio-item.big  { grid-column: span 4; grid-row: span 3; }
   }
   @media (max-width: 720px) {
-    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; grid-auto-rows: 130px; }
+    .portfolio-item      { grid-column: span 1; grid-row: span 2; }
+    .portfolio-item.tall { grid-column: span 1; grid-row: span 3; }
+    .portfolio-item.wide { grid-column: span 2; grid-row: span 2; }
+    .portfolio-item.big  { grid-column: span 2; grid-row: span 3; }
     nav ul { display: none; }
-  }
-  @media (max-width: 480px) {
-    .grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -260,436 +272,436 @@
 <main>
   <div class="container">
     <div class="grid active" id="grid-tudo">
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/1f7584386aba49c9.mp4')">
+      <div class="portfolio-item video big" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/1f7584386aba49c9.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/1f7584386aba49c9.mp4" poster="/portfolio-assets/audiovisual/1f7584386aba49c9.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/6d03cb8d0cc34915.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/6d03cb8d0cc34915.png')">
         <img src="/portfolio-assets/social/6d03cb8d0cc34915.png" loading="lazy" alt="Portfolio 2">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/3c9c770d9bb54d70.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/3c9c770d9bb54d70.png')">
         <img src="/portfolio-assets/social/3c9c770d9bb54d70.png" loading="lazy" alt="Portfolio 3">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('/portfolio-assets/videos/aulas-corpo-livre-1080p.mp4')">
+      <div class="portfolio-item video big" onclick="abrirVideo('/portfolio-assets/videos/aulas-corpo-livre-1080p.mp4')">
         <video src="/portfolio-assets/videos/aulas-corpo-livre-1080p.mp4" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/561dccb89af24463.png')">
+      <div class="portfolio-item wide" onclick="abrirImagem('/portfolio-assets/sites/561dccb89af24463.png')">
         <img src="/portfolio-assets/sites/561dccb89af24463.png" loading="lazy" alt="Portfolio 5">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/65bfc795125b40cf.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/65bfc795125b40cf.png')">
         <img src="/portfolio-assets/social/65bfc795125b40cf.png" loading="lazy" alt="Portfolio 6">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/76481b96add24f98.mp4')">
+      <div class="portfolio-item video wide" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/76481b96add24f98.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/76481b96add24f98.mp4" poster="/portfolio-assets/audiovisual/76481b96add24f98.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/91aba0d67eca4fb5.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/91aba0d67eca4fb5.png')">
         <img src="/portfolio-assets/social/91aba0d67eca4fb5.png" loading="lazy" alt="Portfolio 8">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/7cef8272ab05405c.jpg')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/7cef8272ab05405c.jpg')">
         <img src="/portfolio-assets/social/7cef8272ab05405c.jpg" loading="lazy" alt="Portfolio 9">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/b4e8ef6e71834fb4.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/b4e8ef6e71834fb4.png')">
         <img src="/portfolio-assets/social/b4e8ef6e71834fb4.png" loading="lazy" alt="Portfolio 10">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/46f2fbcbc4b04982.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/46f2fbcbc4b04982.png')">
         <img src="/portfolio-assets/social/46f2fbcbc4b04982.png" loading="lazy" alt="Portfolio 11">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/b20d6864a4394bc0.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/b20d6864a4394bc0.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/b20d6864a4394bc0.mp4" poster="/portfolio-assets/audiovisual/b20d6864a4394bc0.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/5341aa50f0e84d39.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/5341aa50f0e84d39.png')">
         <img src="/portfolio-assets/social/5341aa50f0e84d39.png" loading="lazy" alt="Portfolio 13">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/9dae90ed38d74032.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/9dae90ed38d74032.png')">
         <img src="/portfolio-assets/social/9dae90ed38d74032.png" loading="lazy" alt="Portfolio 14">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/7c5336815a784427.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/7c5336815a784427.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/7c5336815a784427.mp4" poster="/portfolio-assets/audiovisual/7c5336815a784427.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/2f0041d1daad430c.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/2f0041d1daad430c.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/2f0041d1daad430c.mp4" poster="/portfolio-assets/audiovisual/2f0041d1daad430c.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/02c19f5a2cfe43ad.png')">
+      <div class="portfolio-item big" onclick="abrirImagem('/portfolio-assets/social/02c19f5a2cfe43ad.png')">
         <img src="/portfolio-assets/social/02c19f5a2cfe43ad.png" loading="lazy" alt="Portfolio 17">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/9e5d373fb4734d00.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/9e5d373fb4734d00.png')">
         <img src="/portfolio-assets/social/9e5d373fb4734d00.png" loading="lazy" alt="Portfolio 18">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/4dc3e673d7e64bcc.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/4dc3e673d7e64bcc.png')">
         <img src="/portfolio-assets/social/4dc3e673d7e64bcc.png" loading="lazy" alt="Portfolio 19">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c892960858b84ff9.mp4')">
+      <div class="portfolio-item video wide" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c892960858b84ff9.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c892960858b84ff9.mp4" poster="/portfolio-assets/audiovisual/c892960858b84ff9.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/f162b0f29ba24f61.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/f162b0f29ba24f61.png')">
         <img src="/portfolio-assets/social/f162b0f29ba24f61.png" loading="lazy" alt="Portfolio 21">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/18db5a109f984aaf.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/18db5a109f984aaf.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/18db5a109f984aaf.mp4" poster="/portfolio-assets/audiovisual/18db5a109f984aaf.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/fd0aef5e9b9247e2.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/fd0aef5e9b9247e2.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/fd0aef5e9b9247e2.mp4" poster="/portfolio-assets/audiovisual/fd0aef5e9b9247e2.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/bd949dcb5ca14841.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/bd949dcb5ca14841.png')">
         <img src="/portfolio-assets/social/bd949dcb5ca14841.png" loading="lazy" alt="Portfolio 24">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/a9d5807521a54801.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/a9d5807521a54801.png')">
         <img src="/portfolio-assets/social/a9d5807521a54801.png" loading="lazy" alt="Portfolio 25">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/1677438b623c4c31.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/1677438b623c4c31.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/1677438b623c4c31.mp4" poster="/portfolio-assets/audiovisual/1677438b623c4c31.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/050e1a72156c4f64.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/050e1a72156c4f64.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/050e1a72156c4f64.mp4" poster="/portfolio-assets/audiovisual/050e1a72156c4f64.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/4f5e4938df7a4672.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/4f5e4938df7a4672.png')">
         <img src="/portfolio-assets/social/4f5e4938df7a4672.png" loading="lazy" alt="Portfolio 28">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/ae447d949b2a4ab1.png')">
+      <div class="portfolio-item big" onclick="abrirImagem('/portfolio-assets/social/ae447d949b2a4ab1.png')">
         <img src="/portfolio-assets/social/ae447d949b2a4ab1.png" loading="lazy" alt="Portfolio 29">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/5a1a470d85e54260.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/5a1a470d85e54260.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/5a1a470d85e54260.mp4" poster="/portfolio-assets/audiovisual/5a1a470d85e54260.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/e85abbcd3c164d84.jpg')">
+      <div class="portfolio-item wide" onclick="abrirImagem('/portfolio-assets/sites/e85abbcd3c164d84.jpg')">
         <img src="/portfolio-assets/sites/e85abbcd3c164d84.jpg" loading="lazy" alt="Portfolio 31">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/4469ec2b16fa4f92.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/4469ec2b16fa4f92.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/4469ec2b16fa4f92.mp4" poster="/portfolio-assets/audiovisual/4469ec2b16fa4f92.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c930f4063b5f4e1a.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c930f4063b5f4e1a.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c930f4063b5f4e1a.mp4" poster="/portfolio-assets/audiovisual/c930f4063b5f4e1a.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/964e4c6e25004c2c.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/964e4c6e25004c2c.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/964e4c6e25004c2c.mp4" poster="/portfolio-assets/audiovisual/964e4c6e25004c2c.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c6312d800ece4d90.mp4')">
+      <div class="portfolio-item video wide" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c6312d800ece4d90.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c6312d800ece4d90.mp4" poster="/portfolio-assets/audiovisual/c6312d800ece4d90.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/1ca5026315d84e0a.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/1ca5026315d84e0a.png')">
         <img src="/portfolio-assets/social/1ca5026315d84e0a.png" loading="lazy" alt="Portfolio 36">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/877aec62ac46440d.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/877aec62ac46440d.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/877aec62ac46440d.mp4" poster="/portfolio-assets/audiovisual/877aec62ac46440d.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/266118aa26dc4268.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/266118aa26dc4268.png')">
         <img src="/portfolio-assets/social/266118aa26dc4268.png" loading="lazy" alt="Portfolio 38">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/7dbb46b47a5348a5.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/7dbb46b47a5348a5.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/7dbb46b47a5348a5.mp4" poster="/portfolio-assets/audiovisual/7dbb46b47a5348a5.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/fbec69050a674304.mp4')">
+      <div class="portfolio-item video big" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/fbec69050a674304.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/fbec69050a674304.mp4" poster="/portfolio-assets/audiovisual/fbec69050a674304.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/8701c3cb64414fab.mp4')">
+      <div class="portfolio-item video big" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/8701c3cb64414fab.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/8701c3cb64414fab.mp4" poster="/portfolio-assets/audiovisual/8701c3cb64414fab.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/f6678f56df8b4d27.mp4')">
+      <div class="portfolio-item video wide" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/f6678f56df8b4d27.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/f6678f56df8b4d27.mp4" poster="/portfolio-assets/audiovisual/f6678f56df8b4d27.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/e2b22eef2ca64dca.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/e2b22eef2ca64dca.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/e2b22eef2ca64dca.mp4" poster="/portfolio-assets/audiovisual/e2b22eef2ca64dca.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/bbfa891da63e4c81.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/bbfa891da63e4c81.png')">
         <img src="/portfolio-assets/social/bbfa891da63e4c81.png" loading="lazy" alt="Portfolio 44">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/44d648d8d2914e3a.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/44d648d8d2914e3a.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/44d648d8d2914e3a.mp4" poster="/portfolio-assets/audiovisual/44d648d8d2914e3a.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/0585a48a81124da3.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/0585a48a81124da3.png')">
         <img src="/portfolio-assets/social/0585a48a81124da3.png" loading="lazy" alt="Portfolio 46">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/0b85455c1a7b4879.png')">
+      <div class="portfolio-item big" onclick="abrirImagem('/portfolio-assets/social/0b85455c1a7b4879.png')">
         <img src="/portfolio-assets/social/0b85455c1a7b4879.png" loading="lazy" alt="Portfolio 47">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/4ea95df79903497d.mp4')">
+      <div class="portfolio-item video wide" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/4ea95df79903497d.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/4ea95df79903497d.mp4" poster="/portfolio-assets/audiovisual/4ea95df79903497d.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/8abb48239c9a41bb.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/8abb48239c9a41bb.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/8abb48239c9a41bb.mp4" poster="/portfolio-assets/audiovisual/8abb48239c9a41bb.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/c77d563745f6448f.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/c77d563745f6448f.png')">
         <img src="/portfolio-assets/social/c77d563745f6448f.png" loading="lazy" alt="Portfolio 50">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/0162e861e4444240.png')">
+      <div class="portfolio-item wide" onclick="abrirImagem('/portfolio-assets/sites/0162e861e4444240.png')">
         <img src="/portfolio-assets/sites/0162e861e4444240.png" loading="lazy" alt="Portfolio 51">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/4f04ba07dbbf4ee3.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/4f04ba07dbbf4ee3.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/4f04ba07dbbf4ee3.mp4" poster="/portfolio-assets/audiovisual/4f04ba07dbbf4ee3.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/150db8e9343e4cd1.jpg')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/audiovisual/150db8e9343e4cd1.jpg')">
         <img src="/portfolio-assets/audiovisual/150db8e9343e4cd1.jpg" loading="lazy" alt="Portfolio 53">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/eae65971961748a2.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/eae65971961748a2.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/eae65971961748a2.mp4" poster="/portfolio-assets/audiovisual/eae65971961748a2.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/3a872c1b25344e10.png')">
+      <div class="portfolio-item wide" onclick="abrirImagem('/portfolio-assets/social/3a872c1b25344e10.png')">
         <img src="/portfolio-assets/social/3a872c1b25344e10.png" loading="lazy" alt="Portfolio 55">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/3903ee33fd9a4b68.mp4')">
+      <div class="portfolio-item video big" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/3903ee33fd9a4b68.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/3903ee33fd9a4b68.mp4" poster="/portfolio-assets/audiovisual/3903ee33fd9a4b68.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c1be9acd37044872.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c1be9acd37044872.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/c1be9acd37044872.mp4" poster="/portfolio-assets/audiovisual/c1be9acd37044872.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/e0a7fa45ece4431d.png')">
+      <div class="portfolio-item wide" onclick="abrirImagem('/portfolio-assets/sites/e0a7fa45ece4431d.png')">
         <img src="/portfolio-assets/sites/e0a7fa45ece4431d.png" loading="lazy" alt="Portfolio 58">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/9cf33db0f28141a9.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/9cf33db0f28141a9.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/9cf33db0f28141a9.mp4" poster="/portfolio-assets/audiovisual/9cf33db0f28141a9.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/076075c7069e4d68.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/076075c7069e4d68.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/076075c7069e4d68.mp4" poster="/portfolio-assets/audiovisual/076075c7069e4d68.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/d2cc83e291b244ca.png')">
+      <div class="portfolio-item big" onclick="abrirImagem('/portfolio-assets/social/d2cc83e291b244ca.png')">
         <img src="/portfolio-assets/social/d2cc83e291b244ca.png" loading="lazy" alt="Portfolio 61">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/3cab3a3adc6b4ccd.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/3cab3a3adc6b4ccd.png')">
         <img src="/portfolio-assets/social/3cab3a3adc6b4ccd.png" loading="lazy" alt="Portfolio 62">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/3d9cbd23da284e84.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/3d9cbd23da284e84.png')">
         <img src="/portfolio-assets/social/3d9cbd23da284e84.png" loading="lazy" alt="Portfolio 63">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/805520a1a9e54eff.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/805520a1a9e54eff.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/805520a1a9e54eff.mp4" poster="/portfolio-assets/audiovisual/805520a1a9e54eff.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/b1d22765cf1347ee.mp4')">
+      <div class="portfolio-item video big" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/b1d22765cf1347ee.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/b1d22765cf1347ee.mp4" poster="/portfolio-assets/audiovisual/b1d22765cf1347ee.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/85d1e29867734d2c.mp4')">
+      <div class="portfolio-item video big" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/85d1e29867734d2c.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/85d1e29867734d2c.mp4" poster="/portfolio-assets/audiovisual/85d1e29867734d2c.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/209ae98c3faf40c5.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/209ae98c3faf40c5.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/209ae98c3faf40c5.mp4" poster="/portfolio-assets/audiovisual/209ae98c3faf40c5.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/72b10ec24fa545a0.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/72b10ec24fa545a0.png')">
         <img src="/portfolio-assets/social/72b10ec24fa545a0.png" loading="lazy" alt="Portfolio 68">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/2ca2e5efad714365.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/2ca2e5efad714365.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/2ca2e5efad714365.mp4" poster="/portfolio-assets/audiovisual/2ca2e5efad714365.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/2a898f82facb46a0.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/2a898f82facb46a0.png')">
         <img src="/portfolio-assets/social/2a898f82facb46a0.png" loading="lazy" alt="Portfolio 70">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/f14179811fbc4343.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/f14179811fbc4343.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/f14179811fbc4343.mp4" poster="/portfolio-assets/audiovisual/f14179811fbc4343.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/14ad19aab5eb4cd5.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/14ad19aab5eb4cd5.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/14ad19aab5eb4cd5.mp4" poster="/portfolio-assets/audiovisual/14ad19aab5eb4cd5.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/7d77d8ec9f144e28.mp4')">
+      <div class="portfolio-item video wide" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/7d77d8ec9f144e28.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/7d77d8ec9f144e28.mp4" poster="/portfolio-assets/audiovisual/7d77d8ec9f144e28.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/a4754fb02380408a.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/a4754fb02380408a.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/a4754fb02380408a.mp4" poster="/portfolio-assets/audiovisual/a4754fb02380408a.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/aca25d47b87b4611.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/aca25d47b87b4611.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/aca25d47b87b4611.mp4" poster="/portfolio-assets/audiovisual/aca25d47b87b4611.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/2422ee4ac51c4d10.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/2422ee4ac51c4d10.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/2422ee4ac51c4d10.mp4" poster="/portfolio-assets/audiovisual/2422ee4ac51c4d10.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/b2f7990c52ca4910.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/b2f7990c52ca4910.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/b2f7990c52ca4910.mp4" poster="/portfolio-assets/audiovisual/b2f7990c52ca4910.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/cc9396fbe9cb4124.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/cc9396fbe9cb4124.png')">
         <img src="/portfolio-assets/social/cc9396fbe9cb4124.png" loading="lazy" alt="Portfolio 78">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/f5f001f3afbe4687.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/f5f001f3afbe4687.png')">
         <img src="/portfolio-assets/social/f5f001f3afbe4687.png" loading="lazy" alt="Portfolio 79">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/614f040d36534b6e.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/614f040d36534b6e.png')">
         <img src="/portfolio-assets/social/614f040d36534b6e.png" loading="lazy" alt="Portfolio 80">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/cc2b21d14d814d92.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/cc2b21d14d814d92.png')">
         <img src="/portfolio-assets/social/cc2b21d14d814d92.png" loading="lazy" alt="Portfolio 81">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/3d9638279cc841c2.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/3d9638279cc841c2.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/3d9638279cc841c2.mp4" poster="/portfolio-assets/audiovisual/3d9638279cc841c2.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/f38ba2a35bca4198.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/f38ba2a35bca4198.png')">
         <img src="/portfolio-assets/social/f38ba2a35bca4198.png" loading="lazy" alt="Portfolio 83">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/a217fd708e834bf8.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/a217fd708e834bf8.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/a217fd708e834bf8.mp4" poster="/portfolio-assets/audiovisual/a217fd708e834bf8.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/dae4bd85a9084a0c.jpg')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/dae4bd85a9084a0c.jpg')">
         <img src="/portfolio-assets/social/dae4bd85a9084a0c.jpg" loading="lazy" alt="Portfolio 85">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/429cc2c266344a1b.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/429cc2c266344a1b.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/429cc2c266344a1b.mp4" poster="/portfolio-assets/audiovisual/429cc2c266344a1b.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/00a355fe592149f7.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/00a355fe592149f7.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/00a355fe592149f7.mp4" poster="/portfolio-assets/audiovisual/00a355fe592149f7.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/6fb03a3c7153441a.jpeg')">
+      <div class="portfolio-item wide" onclick="abrirImagem('/portfolio-assets/sites/6fb03a3c7153441a.jpeg')">
         <img src="/portfolio-assets/sites/6fb03a3c7153441a.jpeg" loading="lazy" alt="Portfolio 88">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/ddb5ff1490f24edc.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/ddb5ff1490f24edc.png')">
         <img src="/portfolio-assets/social/ddb5ff1490f24edc.png" loading="lazy" alt="Portfolio 89">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/ec9cfa316a7849fa.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/ec9cfa316a7849fa.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/ec9cfa316a7849fa.mp4" poster="/portfolio-assets/audiovisual/ec9cfa316a7849fa.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/50ce042aa8744f0c.png')">
+      <div class="portfolio-item wide" onclick="abrirImagem('/portfolio-assets/sites/50ce042aa8744f0c.png')">
         <img src="/portfolio-assets/sites/50ce042aa8744f0c.png" loading="lazy" alt="Portfolio 91">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/d5c1b8c9523b4d7c.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/d5c1b8c9523b4d7c.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/d5c1b8c9523b4d7c.mp4" poster="/portfolio-assets/audiovisual/d5c1b8c9523b4d7c.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/eb76c4901e214522.png')">
+      <div class="portfolio-item wide" onclick="abrirImagem('/portfolio-assets/social/eb76c4901e214522.png')">
         <img src="/portfolio-assets/social/eb76c4901e214522.png" loading="lazy" alt="Portfolio 93">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/8fcebb8059724fb3.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/8fcebb8059724fb3.png')">
         <img src="/portfolio-assets/social/8fcebb8059724fb3.png" loading="lazy" alt="Portfolio 94">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/65ac6e0b314a4826.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/65ac6e0b314a4826.png')">
         <img src="/portfolio-assets/social/65ac6e0b314a4826.png" loading="lazy" alt="Portfolio 95">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/97481c45b0d842c1.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/97481c45b0d842c1.png')">
         <img src="/portfolio-assets/social/97481c45b0d842c1.png" loading="lazy" alt="Portfolio 96">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/570bb9a0d0724546.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/570bb9a0d0724546.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/570bb9a0d0724546.mp4" poster="/portfolio-assets/audiovisual/570bb9a0d0724546.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/3b5db2e585c543ae.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/3b5db2e585c543ae.png')">
         <img src="/portfolio-assets/social/3b5db2e585c543ae.png" loading="lazy" alt="Portfolio 98">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/d2997851259d476a.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/d2997851259d476a.png')">
         <img src="/portfolio-assets/social/d2997851259d476a.png" loading="lazy" alt="Portfolio 99">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/4d38bc82407342dd.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/4d38bc82407342dd.png')">
         <img src="/portfolio-assets/social/4d38bc82407342dd.png" loading="lazy" alt="Portfolio 100">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/06f331122ceb46c9.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/06f331122ceb46c9.png')">
         <img src="/portfolio-assets/social/06f331122ceb46c9.png" loading="lazy" alt="Portfolio 101">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/659239be064d4149.mp4')">
+      <div class="portfolio-item video wide" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/659239be064d4149.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/659239be064d4149.mp4" poster="/portfolio-assets/audiovisual/659239be064d4149.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/5cbbe1ac81724ea5.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/5cbbe1ac81724ea5.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/5cbbe1ac81724ea5.mp4" poster="/portfolio-assets/audiovisual/5cbbe1ac81724ea5.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/e275378d134e43f6.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/e275378d134e43f6.png')">
         <img src="/portfolio-assets/social/e275378d134e43f6.png" loading="lazy" alt="Portfolio 104">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/9d1e9c14653b4b51.png')">
+      <div class="portfolio-item wide" onclick="abrirImagem('/portfolio-assets/sites/9d1e9c14653b4b51.png')">
         <img src="/portfolio-assets/sites/9d1e9c14653b4b51.png" loading="lazy" alt="Portfolio 105">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/12d695323fc34e5d.mp4')">
+      <div class="portfolio-item video tall" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/12d695323fc34e5d.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/12d695323fc34e5d.mp4" poster="/portfolio-assets/audiovisual/12d695323fc34e5d.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/de475cb69d7b4b7d.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/de475cb69d7b4b7d.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/de475cb69d7b4b7d.mp4" poster="/portfolio-assets/audiovisual/de475cb69d7b4b7d.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/442dda170ff849cb.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/442dda170ff849cb.png')">
         <img src="/portfolio-assets/social/442dda170ff849cb.png" loading="lazy" alt="Portfolio 108">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/23ae6c1fc8264b5a.mp4')">
+      <div class="portfolio-item video wide" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/23ae6c1fc8264b5a.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/23ae6c1fc8264b5a.mp4" poster="/portfolio-assets/audiovisual/23ae6c1fc8264b5a.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/2ac4c6a309404b1d.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/2ac4c6a309404b1d.png')">
         <img src="/portfolio-assets/social/2ac4c6a309404b1d.png" loading="lazy" alt="Portfolio 110">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/fea2ed5fe4424016.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/fea2ed5fe4424016.png')">
         <img src="/portfolio-assets/social/fea2ed5fe4424016.png" loading="lazy" alt="Portfolio 111">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/6d8ef48fbdeb4cc0.png')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/social/6d8ef48fbdeb4cc0.png')">
         <img src="/portfolio-assets/social/6d8ef48fbdeb4cc0.png" loading="lazy" alt="Portfolio 112">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/25ef4d33b0704995.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/25ef4d33b0704995.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/25ef4d33b0704995.mp4" poster="/portfolio-assets/audiovisual/25ef4d33b0704995.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/sites/8cd619a91d974c8b.png')">
+      <div class="portfolio-item wide" onclick="abrirImagem('/portfolio-assets/sites/8cd619a91d974c8b.png')">
         <img src="/portfolio-assets/sites/8cd619a91d974c8b.png" loading="lazy" alt="Portfolio 114">
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/audiovisual/326aed08058c42a6.jpg')">
+      <div class="portfolio-item normal" onclick="abrirImagem('/portfolio-assets/audiovisual/326aed08058c42a6.jpg')">
         <img src="/portfolio-assets/audiovisual/326aed08058c42a6.jpg" loading="lazy" alt="Portfolio 115">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/5fc37e4292284338.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/5fc37e4292284338.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/5fc37e4292284338.mp4" poster="/portfolio-assets/audiovisual/5fc37e4292284338.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/791a9bc8bc8940b8.mp4')">
+      <div class="portfolio-item video wide" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/791a9bc8bc8940b8.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/791a9bc8bc8940b8.mp4" poster="/portfolio-assets/audiovisual/791a9bc8bc8940b8.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/804c1550d1354334.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/804c1550d1354334.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/804c1550d1354334.mp4" poster="/portfolio-assets/audiovisual/804c1550d1354334.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/a351caa1b68d4c86.png')">
+      <div class="portfolio-item wide" onclick="abrirImagem('/portfolio-assets/social/a351caa1b68d4c86.png')">
         <img src="/portfolio-assets/social/a351caa1b68d4c86.png" loading="lazy" alt="Portfolio 119">
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/0ad129e44cca4a0d.mp4')">
+      <div class="portfolio-item video wide" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/0ad129e44cca4a0d.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/0ad129e44cca4a0d.mp4" poster="/portfolio-assets/audiovisual/0ad129e44cca4a0d.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item video" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/29e2e790f09c49bb.mp4')">
+      <div class="portfolio-item video normal" onclick="abrirVideo('https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/29e2e790f09c49bb.mp4')">
         <video src="https://lye0xzdr7qe3vjlw.public.blob.vercel-storage.com/portfolio-videos/29e2e790f09c49bb.mp4" poster="/portfolio-assets/audiovisual/29e2e790f09c49bb.jpg" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;"></video>
         <div class="play-badge"><svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="portfolio-item" onclick="abrirImagem('/portfolio-assets/social/581e0a31c23e4ac7.png')">
+      <div class="portfolio-item tall" onclick="abrirImagem('/portfolio-assets/social/581e0a31c23e4ac7.png')">
         <img src="/portfolio-assets/social/581e0a31c23e4ac7.png" loading="lazy" alt="Portfolio 122">
       </div>
     </div>
 
-        <div class="cta-wrap">
+            <div class="cta-wrap">
       <h2>Quer o próximo case aqui?</h2>
       <p>Se você tá procurando uma agência que entende de estratégia, criativo e execução, bora conversar.</p>
       <a href="https://wa.me/5581999306212?text=Ol%C3%A1!%20Vi%20o%20portf%C3%B3lio%20da%20Maracatu%20e%20quero%20conversar." target="_blank" rel="noopener">
