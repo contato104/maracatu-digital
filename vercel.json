@@ -4,6 +4,9 @@
   "functions": {
     "api/onboarding-upload.js": {
       "includeFiles": "node_modules/@vercel/blob/dist/**"
+    },
+    "api/admin/portfolio-upload.js": {
+      "includeFiles": "node_modules/@vercel/blob/dist/**"
     }
   }
 }

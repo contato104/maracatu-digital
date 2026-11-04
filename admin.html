@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Painel — Maracatu Digital</title>
+<title>Administrador — Maracatu Digital</title>
 <meta name="robots" content="noindex,nofollow,noarchive" />
 <link rel="icon" type="image/png" href="/favicon.png?v=2" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,6 +56,22 @@
     transition: border-color 0.2s, background 0.2s;
   }
   .btn-logout:hover { border-color: var(--ink); background: #fafaf5; }
+
+  /* === SEÇÕES (abas do administrador) === */
+  .section-tabs {
+    display: flex; gap: 4px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 999px; padding: 4px;
+  }
+  .section-tabs button {
+    background: transparent; border: none;
+    padding: 9px 18px; border-radius: 999px;
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    color: var(--muted); cursor: pointer;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .section-tabs button:hover:not(.active) { color: var(--ink); }
+  .section-tabs button.active { background: var(--ink); color: #fff; }
 
   /* === LOGIN === */
   .login-wrap {
@@ -145,6 +161,7 @@
   .dash-head .sub {
     color: var(--muted); font-size: 15px; margin-top: 4px;
   }
+  .dash-head .head-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
   .posts-list {
     display: flex; flex-direction: column; gap: 12px;
@@ -283,6 +300,90 @@
   .ql-toolbar.ql-snow { border: 1px solid var(--border); border-radius: 12px 12px 0 0; background: #fafaf5; }
   .ql-container.ql-snow { border: 1px solid var(--border); border-top: 0; border-radius: 0 0 12px 12px; background: #fff; }
 
+  /* === PORTFÓLIO === */
+  .drop-zone {
+    background: #fff;
+    border: 2px dashed var(--border);
+    border-radius: 20px;
+    padding: 36px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 20px;
+  }
+  .drop-zone:hover, .drop-zone.over { border-color: var(--ink); background: #fafaf5; }
+  .drop-zone .icon { font-size: 36px; margin-bottom: 8px; }
+  .drop-zone h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .drop-zone p { color: var(--muted); font-size: 14px; max-width: 560px; margin: 0 auto; }
+  .drop-zone input[type="file"] { display: none; }
+
+  .upload-queue { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .upload-queue:empty { display: none; }
+  .upload-row {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 16px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 13px;
+  }
+  .upload-row .name {
+    flex: 1; min-width: 0; font-weight: 600;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .upload-row .bar {
+    width: 160px; height: 6px; border-radius: 999px;
+    background: var(--bg); border: 1px solid var(--border); overflow: hidden;
+  }
+  .upload-row .bar span { display: block; height: 100%; width: 0; background: var(--green); transition: width 0.2s; }
+  .upload-row .state { color: var(--muted); min-width: 110px; text-align: right; }
+  .upload-row.done .state { color: #1d6e34; }
+  .upload-row.error .state { color: #b62b1d; }
+  .upload-row.error .bar span { background: var(--red); }
+
+  .pf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 14px;
+  }
+  .pf-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .pf-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .pf-card .media {
+    aspect-ratio: 1; background: #f0f0ea;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .pf-card .media img, .pf-card .media video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .pf-card .badge {
+    position: absolute; top: 10px; left: 10px;
+    background: rgba(0,0,0,0.7); color: #fff;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+    padding: 4px 9px; border-radius: 999px;
+  }
+  .pf-card .pos {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(255,255,255,0.9); color: var(--muted);
+    font-size: 11px; font-weight: 600;
+    padding: 4px 8px; border-radius: 999px;
+  }
+  .pf-card .pf-actions {
+    display: flex; gap: 6px; padding: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .pf-card .pf-actions button {
+    flex: 1; height: 34px; border-radius: 10px;
+    background: var(--bg); border: 1px solid var(--border);
+    font-family: inherit; font-size: 12px; font-weight: 600;
+    color: var(--ink); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pf-card .pf-actions button:hover { border-color: var(--ink); }
+  .pf-card .pf-actions button.danger:hover { color: var(--red); border-color: var(--red); }
+  .pf-card .pf-actions button:disabled { opacity: 0.45; cursor: default; border-color: var(--border); color: var(--ink); }
+
   .modal-bg {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.5);
@@ -304,11 +405,15 @@
   .modal-actions .btn { flex: 1; }
 
   @media (max-width: 640px) {
+    .top-inner { flex-wrap: wrap; }
+    .section-tabs { order: 3; width: 100%; justify-content: center; }
     .editor-grid { grid-template-columns: 1fr; }
     .dash-head h1 { font-size: 26px; }
     .login-card { padding: 32px 24px; }
     .post-row .thumb { width: 48px; height: 48px; }
     .editor-actions .btn { padding: 10px 16px; font-size: 13px; }
+    .upload-row .bar { width: 90px; }
+    .pf-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
   }
 </style>
 </head>
@@ -321,8 +426,8 @@
       <div class="login-logo">
         <img src="logo-symbol.png" alt="Maracatu" />
       </div>
-      <h1>Painel do blog</h1>
-      <p class="sub">Acesso restrito da equipe da Maracatu.</p>
+      <h1>Administrador Maracatu Digital</h1>
+      <p class="sub">Acesso restrito da equipe. Blog e portfólio do site.</p>
       <div id="loginError" class="alert alert-error" style="display:none;"></div>
       <form id="loginForm">
         <div class="field">
@@ -341,104 +446,154 @@
   <!-- HEADER -->
   <header class="top">
     <div class="container top-inner">
-      <a href="admin.html" class="top-logo">
+      <a href="/admin" class="top-logo">
         <img src="Maracatu.png" alt="Maracatu" />
       </a>
+      <nav class="section-tabs" aria-label="Seções do administrador">
+        <button type="button" data-section="blog" class="active">Painel do Blog</button>
+        <button type="button" data-section="portfolio">Portfólio</button>
+      </nav>
       <div class="top-user">
-        <span>Painel da equipe</span>
+        <span>Administrador</span>
         <button class="btn-logout" id="logoutBtn">Sair</button>
       </div>
     </div>
   </header>
 
-  <!-- DASHBOARD VIEW -->
-  <div id="dashboardView" class="dash">
-    <div class="container">
-      <div class="dash-head">
-        <div>
-          <h1>Posts do blog</h1>
-          <div class="sub" id="postsCount">Carregando…</div>
-        </div>
-        <button class="btn btn-primary" id="newPostBtn">+ Novo post</button>
-      </div>
+  <!-- ===== SEÇÃO: PAINEL DO BLOG ===== -->
+  <section id="blogSection">
 
-      <div id="postsList" class="posts-list"></div>
-
-      <div id="emptyState" class="empty" style="display:none;">
-        <div class="icon">📝</div>
-        <h3>Ainda não tem nenhum post.</h3>
-        <p>Cria o primeiro pra começar a alimentar o blog.</p>
-        <button class="btn btn-primary" onclick="document.getElementById('newPostBtn').click()">+ Criar primeiro post</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- EDITOR VIEW -->
-  <div id="editorView" class="editor-wrap" style="display:none;">
-    <div class="container">
-      <div class="editor-head">
-        <a href="#" class="back-link" id="backToDash">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-          Voltar
-        </a>
-        <div class="editor-actions">
-          <button class="btn btn-secondary" id="cancelBtn">Cancelar</button>
-          <button class="btn btn-primary" id="saveBtn">Salvar post</button>
-        </div>
-      </div>
-
-      <div id="editorError" class="alert alert-error" style="display:none;"></div>
-      <div id="editorSuccess" class="alert alert-success" style="display:none;"></div>
-
-      <div class="editor-card">
-        <div class="field">
-          <label>Imagem de capa</label>
-          <div class="cover-upload" id="coverUpload">
-            <input type="file" id="coverFile" accept="image/*" />
-            <div class="placeholder">📷 Clique para escolher uma imagem (max 5MB)</div>
+    <!-- DASHBOARD VIEW -->
+    <div id="dashboardView" class="dash">
+      <div class="container">
+        <div class="dash-head">
+          <div>
+            <h1>Posts do blog</h1>
+            <div class="sub" id="postsCount">Carregando…</div>
+          </div>
+          <div class="head-actions">
+            <a class="btn btn-secondary" href="/blog" target="_blank" rel="noopener">Ver no site</a>
+            <button class="btn btn-primary" id="newPostBtn">+ Novo post</button>
           </div>
         </div>
 
-        <div class="field">
-          <label>Título <span class="req">*</span></label>
-          <input type="text" id="postTitle" placeholder="Ex: Como criar uma campanha de Google Ads que converte" />
-        </div>
+        <div id="postsList" class="posts-list"></div>
 
-        <div class="editor-grid">
-          <div class="field" style="margin-bottom:0;">
-            <label>Categoria</label>
-            <select id="postCategory">
-              <option value="Performance">Performance</option>
-              <option value="SEO & GEO">SEO & GEO</option>
-              <option value="Branding">Branding</option>
-              <option value="Conteúdo">Conteúdo</option>
-              <option value="Estratégia">Estratégia</option>
-            </select>
-          </div>
-          <div class="field" style="margin-bottom:0;">
-            <label>Autor</label>
-            <input type="text" id="postAuthor" placeholder="Ex: Laura Alves" />
-          </div>
-        </div>
-
-        <div class="field" style="margin-top:22px;">
-          <label>Resumo (aparece na lista do blog)</label>
-          <textarea id="postExcerpt" placeholder="Em uma ou duas frases, sobre o que é esse post."></textarea>
-        </div>
-
-        <div class="field">
-          <label>Conteúdo <span class="req">*</span></label>
-          <div id="quillEditor"></div>
+        <div id="emptyState" class="empty" style="display:none;">
+          <div class="icon">📝</div>
+          <h3>Ainda não tem nenhum post.</h3>
+          <p>Cria o primeiro pra começar a alimentar o blog.</p>
+          <button class="btn btn-primary" onclick="document.getElementById('newPostBtn').click()">+ Criar primeiro post</button>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- EDITOR VIEW -->
+    <div id="editorView" class="editor-wrap" style="display:none;">
+      <div class="container">
+        <div class="editor-head">
+          <a href="#" class="back-link" id="backToDash">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Voltar
+          </a>
+          <div class="editor-actions">
+            <button class="btn btn-secondary" id="cancelBtn">Cancelar</button>
+            <button class="btn btn-primary" id="saveBtn">Salvar post</button>
+          </div>
+        </div>
+
+        <div id="editorError" class="alert alert-error" style="display:none;"></div>
+        <div id="editorSuccess" class="alert alert-success" style="display:none;"></div>
+
+        <div class="editor-card">
+          <div class="field">
+            <label>Imagem de capa</label>
+            <div class="cover-upload" id="coverUpload">
+              <input type="file" id="coverFile" accept="image/*" />
+              <div class="placeholder">📷 Clique para escolher uma imagem (max 5MB)</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Título <span class="req">*</span></label>
+            <input type="text" id="postTitle" placeholder="Ex: Como criar uma campanha de Google Ads que converte" />
+          </div>
+
+          <div class="editor-grid">
+            <div class="field" style="margin-bottom:0;">
+              <label>Categoria</label>
+              <select id="postCategory">
+                <option value="Performance">Performance</option>
+                <option value="SEO & GEO">SEO & GEO</option>
+                <option value="Branding">Branding</option>
+                <option value="Conteúdo">Conteúdo</option>
+                <option value="Estratégia">Estratégia</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label>Autor</label>
+              <input type="text" id="postAuthor" placeholder="Ex: Laura Alves" />
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:22px;">
+            <label>Resumo (aparece na lista do blog)</label>
+            <textarea id="postExcerpt" placeholder="Em uma ou duas frases, sobre o que é esse post."></textarea>
+          </div>
+
+          <div class="field">
+            <label>Conteúdo <span class="req">*</span></label>
+            <div id="quillEditor"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SEÇÃO: PORTFÓLIO ===== -->
+  <section id="portfolioSection" style="display:none;">
+    <div class="dash">
+      <div class="container">
+        <div class="dash-head">
+          <div>
+            <h1>Portfólio</h1>
+            <div class="sub" id="portfolioCount">Carregando…</div>
+          </div>
+          <div class="head-actions">
+            <a class="btn btn-secondary" href="/portfolio" target="_blank" rel="noopener">Ver no site</a>
+            <button class="btn btn-primary" id="pickFilesBtn">+ Subir arquivos</button>
+          </div>
+        </div>
+
+        <div id="portfolioError" class="alert alert-error" style="display:none;"></div>
+        <div id="portfolioSuccess" class="alert alert-success" style="display:none;"></div>
+
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="portfolioFiles" multiple accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/quicktime,video/webm,.png,.jpg,.jpeg,.webp,.gif,.mp4,.mov,.webm" />
+          <div class="icon">🎞️</div>
+          <h3>Arraste fotos e vídeos aqui, ou clique pra escolher</h3>
+          <p>JPG, PNG, WEBP, GIF, MP4, MOV e WEBM, até 200MB por arquivo. Pode mandar vários de uma vez. O que subir entra no topo do portfólio e aparece no site em até 1 minuto.</p>
+        </div>
+
+        <div id="uploadQueue" class="upload-queue"></div>
+
+        <div id="portfolioGrid" class="pf-grid"></div>
+
+        <div id="portfolioEmpty" class="empty" style="display:none;">
+          <div class="icon">🖼️</div>
+          <h3>O portfólio está vazio.</h3>
+          <p>Sobe a primeira foto ou vídeo pra ele aparecer no site.</p>
+          <button class="btn btn-primary" onclick="document.getElementById('pickFilesBtn').click()">+ Subir arquivos</button>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <!-- DELETE MODAL -->
 <div id="deleteModal" class="modal-bg" style="display:none;">
   <div class="modal">
-    <h3>Apagar este post?</h3>
+    <h3 id="deleteTitle">Apagar este post?</h3>
     <p id="deleteText">Esta ação não pode ser desfeita.</p>
     <div class="modal-actions">
       <button class="btn btn-secondary" id="cancelDelete">Cancelar</button>
@@ -448,6 +603,11 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<!-- upload direto do navegador pro Vercel Blob (arquivos grandes do portfolio) -->
+<script type="module">
+  import { upload } from 'https://esm.sh/@vercel/blob@2.4.0/client';
+  window.__blobUpload = upload;
+</script>
 <script>
 (function() {
   const TOKEN_KEY = 'maracatu_admin_token';
@@ -486,6 +646,13 @@
     setTimeout(() => { el.style.display = 'none'; }, 4000);
   }
 
+  function escapeHTML(s) {
+    return (s || '').toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function escapeAttr(s) {
+    return escapeHTML(s).replace(/"/g, '&quot;');
+  }
+
   // ===== AUTH =====
   async function login(password) {
     const r = await fetch('/api/admin/login', {
@@ -501,6 +668,28 @@
 
   function authHeaders(extra) {
     return Object.assign({ 'Authorization': 'Bearer ' + token() }, extra || {});
+  }
+
+  // ===== SEÇÕES =====
+  const SECTIONS = ['blog', 'portfolio'];
+  function sectionFromHash() {
+    const h = (location.hash || '').replace('#', '');
+    return SECTIONS.indexOf(h) !== -1 ? h : 'blog';
+  }
+  function showSection(name) {
+    document.querySelectorAll('.section-tabs button').forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-section') === name);
+    });
+    if (name === 'portfolio') {
+      hide('blogSection');
+      show('portfolioSection');
+      showPortfolio();
+    } else {
+      hide('portfolioSection');
+      show('blogSection');
+      showDashboard();
+    }
+    if (sectionFromHash() !== name) history.replaceState(null, '', '#' + name);
   }
 
   // ===== POSTS API =====
@@ -567,8 +756,7 @@
     }
     hide('loginView');
     show('appView');
-    // Default to dashboard
-    showDashboard();
+    showSection(sectionFromHash());
   }
 
   async function showDashboard() {
@@ -625,13 +813,6 @@
       `;
       list.appendChild(row);
     });
-  }
-
-  function escapeHTML(s) {
-    return (s || '').toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  }
-  function escapeAttr(s) {
-    return escapeHTML(s).replace(/"/g, '&quot;');
   }
 
   // ===== EDITOR =====
@@ -762,6 +943,236 @@
     }
   }
 
+  // ===== PORTFÓLIO =====
+  let portfolioItems = [];
+  let uploadsEmAndamento = 0;
+  const PF_MAX = 200 * 1024 * 1024; // 200MB, igual ao servidor
+  const PF_MIME = {
+    jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif',
+    mp4: 'video/mp4', mov: 'video/quicktime', webm: 'video/webm'
+  };
+
+  function extDe(file) { return (file.name.split('.').pop() || '').toLowerCase(); }
+  function mimeDe(file) {
+    if (file.type && file.type !== 'application/octet-stream') return file.type;
+    return PF_MIME[extDe(file)] || '';
+  }
+  function tipoDe(mime) {
+    if (mime.indexOf('video/') === 0) return 'video';
+    if (mime.indexOf('image/') === 0) return 'img';
+    return '';
+  }
+  function nomeSeguro(file) {
+    const base = file.name.replace(/\.[^.]+$/, '')
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+      .toLowerCase().slice(0, 60) || 'arquivo';
+    return Date.now().toString(36) + '-' + base;
+  }
+
+  async function pfRequest(method, path, body) {
+    const r = await fetch(path, {
+      method,
+      headers: authHeaders(body ? { 'Content-Type': 'application/json' } : {}),
+      body: body ? JSON.stringify(body) : undefined
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      if (r.status === 401) { clearToken(); render(); }
+      throw new Error(data.error || ('Erro ' + r.status));
+    }
+    return data;
+  }
+
+  async function loadPortfolio() {
+    // ?t= fura o cache da CDN: o admin sempre ve a lista atual
+    const r = await fetch('/api/portfolio?t=' + Date.now(), { cache: 'no-store' });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(data.error || 'Erro');
+    portfolioItems = data.items || [];
+    return portfolioItems;
+  }
+
+  async function showPortfolio() {
+    $('#portfolioCount').textContent = 'Carregando…';
+    try {
+      await loadPortfolio();
+      renderPortfolio();
+    } catch (e) {
+      $('#portfolioCount').textContent = 'Erro ao carregar: ' + e.message;
+    }
+  }
+
+  function renderPortfolio() {
+    const grid = $('#portfolioGrid');
+    grid.innerHTML = '';
+    const n = portfolioItems.length;
+    if (!n) {
+      show('portfolioEmpty');
+      $('#portfolioCount').textContent = '0 itens no site';
+      return;
+    }
+    hide('portfolioEmpty');
+    const videos = portfolioItems.filter(i => i.tipo === 'video').length;
+    $('#portfolioCount').textContent =
+      n + (n === 1 ? ' item' : ' itens') + ' no site · ' + (n - videos) + ' fotos · ' + videos + ' vídeos';
+
+    portfolioItems.forEach((it, idx) => {
+      const card = document.createElement('div');
+      card.className = 'pf-card';
+      let media;
+      if (it.tipo === 'video') {
+        // com capa, mostra a capa (nao baixa 60 videos de uma vez); sem capa, o proprio video
+        media = it.poster
+          ? `<img src="${escapeAttr(it.poster)}" loading="lazy" alt="" />`
+          : `<video src="${escapeAttr(it.src)}" muted playsinline preload="metadata"></video>`;
+      } else {
+        media = `<img src="${escapeAttr(it.src)}" loading="lazy" alt="" />`;
+      }
+      card.innerHTML = `
+        <div class="media">${media}</div>
+        ${it.tipo === 'video' ? '<span class="badge">▶ VÍDEO</span>' : ''}
+        <span class="pos">#${idx + 1}</span>
+        <div class="pf-actions">
+          <button type="button" data-pf="view" data-id="${escapeAttr(it.id)}" title="Abrir o arquivo">Ver</button>
+          <button type="button" data-pf="top" data-id="${escapeAttr(it.id)}" ${idx === 0 ? 'disabled' : ''} title="Mover pro topo do portfólio">Topo</button>
+          <button type="button" class="danger" data-pf="delete" data-id="${escapeAttr(it.id)}" title="Tirar do portfólio">Apagar</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function getBlobUpload() {
+    if (window.__blobUpload) return Promise.resolve(window.__blobUpload);
+    return new Promise((resolve, reject) => {
+      let tries = 0;
+      const t = setInterval(() => {
+        if (window.__blobUpload) { clearInterval(t); resolve(window.__blobUpload); }
+        else if (++tries > 100) { clearInterval(t); reject(new Error('O módulo de upload não carregou. Recarrega a página e tenta de novo.')); }
+      }, 100);
+    });
+  }
+
+  async function subirBlob(pathname, data, contentType, onProgress) {
+    const upload = await getBlobUpload();
+    return upload(pathname, data, {
+      access: 'public',
+      handleUploadUrl: '/api/admin/portfolio-upload',
+      clientPayload: JSON.stringify({ token: token() }),
+      contentType,
+      multipart: data.size > 20 * 1024 * 1024,
+      onUploadProgress: onProgress ? (p) => onProgress(p.percentage || 0) : undefined
+    });
+  }
+
+  // Tira um quadro do video no proprio navegador pra servir de capa no mosaico
+  function gerarPoster(file) {
+    return new Promise((resolve) => {
+      const url = URL.createObjectURL(file);
+      const v = document.createElement('video');
+      let done = false;
+      const finish = (blob) => {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
+        URL.revokeObjectURL(url);
+        resolve(blob);
+      };
+      const timer = setTimeout(() => finish(null), 15000);
+      v.muted = true;
+      v.playsInline = true;
+      v.preload = 'auto';
+      v.addEventListener('error', () => finish(null));
+      v.addEventListener('loadedmetadata', () => {
+        try { v.currentTime = Math.min(0.5, (v.duration || 1) / 2); } catch (e) { finish(null); }
+      });
+      v.addEventListener('seeked', () => {
+        try {
+          const c = document.createElement('canvas');
+          const scale = Math.min(1, 1280 / (v.videoWidth || 1280));
+          c.width = Math.max(1, Math.round(v.videoWidth * scale));
+          c.height = Math.max(1, Math.round(v.videoHeight * scale));
+          c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
+          c.toBlob((b) => finish(b), 'image/jpeg', 0.85);
+        } catch (e) { finish(null); }
+      });
+      v.src = url;
+    });
+  }
+
+  function filaRow(file) {
+    const row = document.createElement('div');
+    row.className = 'upload-row';
+    row.innerHTML = `
+      <div class="name">${escapeHTML(file.name)}</div>
+      <div class="bar"><span></span></div>
+      <div class="state">Na fila</div>
+    `;
+    $('#uploadQueue').appendChild(row);
+    return {
+      progress: (pct) => { row.querySelector('.bar span').style.width = Math.max(0, Math.min(100, pct)) + '%'; },
+      state: (txt) => { row.querySelector('.state').textContent = txt; },
+      done: () => { row.classList.add('done'); setTimeout(() => row.remove(), 8000); },
+      error: (msg) => { row.classList.add('error'); row.querySelector('.bar span').style.width = '100%'; row.querySelector('.state').textContent = 'Erro: ' + msg; }
+    };
+  }
+
+  async function processarArquivo(file) {
+    const ui = filaRow(file);
+    const mime = mimeDe(file);
+    const tipo = tipoDe(mime);
+    if (!tipo) { ui.error('formato não aceito'); return false; }
+    if (file.size > PF_MAX) { ui.error('passa de 200MB'); return false; }
+
+    const base = nomeSeguro(file);
+    const ext = extDe(file) || (tipo === 'video' ? 'mp4' : 'jpg');
+    try {
+      ui.state('Enviando… 0%');
+      const blob = await subirBlob('portfolio/' + base + '.' + ext, file, mime, (pct) => {
+        ui.progress(pct);
+        ui.state('Enviando… ' + Math.round(pct) + '%');
+      });
+
+      let poster = '';
+      if (tipo === 'video') {
+        ui.state('Gerando capa…');
+        const posterBlob = await gerarPoster(file);
+        if (posterBlob) {
+          try {
+            const pb = await subirBlob('portfolio/' + base + '-capa.jpg', posterBlob, 'image/jpeg');
+            poster = pb.url;
+          } catch (e) { poster = ''; }
+        }
+      }
+
+      ui.state('Salvando…');
+      await pfRequest('POST', '/api/portfolio', { tipo, src: blob.url, poster });
+      ui.progress(100);
+      ui.state('Pronto ✓');
+      ui.done();
+      return true;
+    } catch (e) {
+      ui.error(e.message || 'falhou');
+      return false;
+    }
+  }
+
+  async function handleFiles(fileList) {
+    const files = Array.from(fileList || []);
+    if (!files.length) return;
+    uploadsEmAndamento += files.length;
+    let ok = 0;
+    for (const f of files) {
+      if (await processarArquivo(f)) ok++;
+      uploadsEmAndamento--;
+    }
+    $('#portfolioFiles').value = '';
+    if (ok) showOk('portfolioSuccess', ok + (ok === 1 ? ' arquivo entrou' : ' arquivos entraram') + ' no portfólio. No site aparece em até 1 minuto.');
+    if (ok < files.length) showErr('portfolioError', (files.length - ok) + ' arquivo(s) não subiram. O motivo está na lista acima.');
+    try { await loadPortfolio(); renderPortfolio(); } catch (e) {}
+  }
+
   // ===== EVENTS =====
   $('#loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -785,6 +1196,11 @@
     render();
   });
 
+  document.querySelectorAll('.section-tabs button').forEach(b => {
+    b.addEventListener('click', () => showSection(b.getAttribute('data-section')));
+  });
+  window.addEventListener('hashchange', () => { if (token()) showSection(sectionFromHash()); });
+
   $('#newPostBtn').addEventListener('click', () => showEditor(null));
   $('#backToDash').addEventListener('click', (e) => { e.preventDefault(); showDashboard(); });
   $('#cancelBtn').addEventListener('click', () => showDashboard());
@@ -799,9 +1215,10 @@
       const p = posts.find(x => x.slug === slug);
       if (p) showEditor(p);
     } else if (action === 'view') {
-      window.open('/post.html?slug=' + encodeURIComponent(slug), '_blank');
+      window.open('/post?slug=' + encodeURIComponent(slug), '_blank');
     } else if (action === 'delete') {
       const title = btn.getAttribute('data-title');
+      $('#deleteTitle').textContent = 'Apagar este post?';
       $('#deleteText').textContent = `O post "${title}" será removido permanentemente.`;
       $('#deleteModal').style.display = '';
       $('#confirmDelete').onclick = async () => {
@@ -823,6 +1240,71 @@
 
   $('#coverUpload').addEventListener('click', () => $('#coverFile').click());
   $('#coverFile').addEventListener('change', handleCoverChange);
+
+  // Portfólio: escolher / arrastar arquivos
+  $('#pickFilesBtn').addEventListener('click', () => $('#portfolioFiles').click());
+  $('#dropZone').addEventListener('click', () => $('#portfolioFiles').click());
+  $('#portfolioFiles').addEventListener('change', (e) => handleFiles(e.target.files));
+  ['dragenter', 'dragover'].forEach(ev => $('#dropZone').addEventListener(ev, (e) => {
+    e.preventDefault(); $('#dropZone').classList.add('over');
+  }));
+  ['dragleave', 'drop'].forEach(ev => $('#dropZone').addEventListener(ev, (e) => {
+    e.preventDefault(); $('#dropZone').classList.remove('over');
+  }));
+  $('#dropZone').addEventListener('drop', (e) => handleFiles(e.dataTransfer.files));
+  // soltar fora da zona nao abre o arquivo na aba
+  window.addEventListener('dragover', (e) => e.preventDefault());
+  window.addEventListener('drop', (e) => e.preventDefault());
+  window.addEventListener('beforeunload', (e) => {
+    if (uploadsEmAndamento > 0) { e.preventDefault(); e.returnValue = ''; }
+  });
+
+  // Portfólio: ações dos cards
+  $('#portfolioGrid').addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-pf]');
+    if (!btn) return;
+    const id = btn.getAttribute('data-id');
+    const it = portfolioItems.find(x => x.id === id);
+    if (!it) return;
+    const action = btn.getAttribute('data-pf');
+
+    if (action === 'view') {
+      window.open(it.src, '_blank');
+      return;
+    }
+    if (action === 'top') {
+      btn.disabled = true;
+      try {
+        await pfRequest('PUT', '/api/portfolio/' + encodeURIComponent(id), { topo: true });
+        await loadPortfolio();
+        renderPortfolio();
+        window.scrollTo({ top: $('#portfolioGrid').offsetTop - 120, behavior: 'smooth' });
+        showOk('portfolioSuccess', 'Item movido pro topo do portfólio.');
+      } catch (err) {
+        showErr('portfolioError', err.message);
+        btn.disabled = false;
+      }
+      return;
+    }
+    if (action === 'delete') {
+      $('#deleteTitle').textContent = 'Tirar este item do portfólio?';
+      $('#deleteText').textContent = 'Ele some do site na hora. O arquivo continua guardado, caso precise voltar.';
+      $('#deleteModal').style.display = '';
+      $('#confirmDelete').onclick = async () => {
+        $('#confirmDelete').disabled = true;
+        try {
+          await pfRequest('DELETE', '/api/portfolio/' + encodeURIComponent(id));
+          $('#deleteModal').style.display = 'none';
+          await loadPortfolio();
+          renderPortfolio();
+        } catch (err) {
+          alert('Erro: ' + err.message);
+        } finally {
+          $('#confirmDelete').disabled = false;
+        }
+      };
+    }
+  });
 
   // ===== BOOT =====
   render();
