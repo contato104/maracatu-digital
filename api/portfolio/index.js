@@ -48,7 +48,9 @@ export default async function handler(req, res) {
       items.unshift(item);
       items.forEach((it, i) => { it.ordem = i; });
       await kv.set(KEY, items);
-      return res.status(201).json({ item });
+      // Devolve a lista inteira: a leitura logo depois da escrita pode vir
+      // atrasada da replica do KV, e o admin usa esta lista em vez de reler.
+      return res.status(201).json({ item, items });
     } catch (e) {
       return res.status(500).json({ error: 'Erro ao salvar: ' + (e.message || '') });
     }

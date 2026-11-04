@@ -134,8 +134,8 @@
     border: 2px solid var(--border);
   }
   .btn-secondary:hover { border-color: var(--ink); }
-  .btn-danger { background: var(--red); color: #fff; }
-  .btn-danger:hover { background: #c5331f; }
+  .btn-danger { background: #c5331f; color: #fff; } /* vermelho um tom mais fechado: branco em cima passa AA */
+  .btn-danger:hover { background: #a3281a; }
   .btn-block { width: 100%; }
 
   .alert {
@@ -981,6 +981,9 @@
       if (r.status === 401) { clearToken(); render(); }
       throw new Error(data.error || ('Erro ' + r.status));
     }
+    // As escritas devolvem a lista atualizada; usar ela evita reler o KV
+    // logo depois (a replica pode responder com a versao anterior por uns segundos)
+    if (Array.isArray(data.items)) portfolioItems = data.items;
     return data;
   }
 
@@ -1022,10 +1025,10 @@
       card.className = 'pf-card';
       let media;
       if (it.tipo === 'video') {
-        // com capa, mostra a capa (nao baixa 60 videos de uma vez); sem capa, o proprio video
+        // mostra a capa; sem capa, um marcador (nao baixa o video so pra listar)
         media = it.poster
           ? `<img src="${escapeAttr(it.poster)}" loading="lazy" alt="" />`
-          : `<video src="${escapeAttr(it.src)}" muted playsinline preload="metadata"></video>`;
+          : `<span style="font-size:34px;color:var(--muted);">▶</span>`;
       } else {
         media = `<img src="${escapeAttr(it.src)}" loading="lazy" alt="" />`;
       }
@@ -1170,7 +1173,7 @@
     $('#portfolioFiles').value = '';
     if (ok) showOk('portfolioSuccess', ok + (ok === 1 ? ' arquivo entrou' : ' arquivos entraram') + ' no portfólio. No site aparece em até 1 minuto.');
     if (ok < files.length) showErr('portfolioError', (files.length - ok) + ' arquivo(s) não subiram. O motivo está na lista acima.');
-    try { await loadPortfolio(); renderPortfolio(); } catch (e) {}
+    renderPortfolio();
   }
 
   // ===== EVENTS =====
@@ -1199,7 +1202,7 @@
   document.querySelectorAll('.section-tabs button').forEach(b => {
     b.addEventListener('click', () => showSection(b.getAttribute('data-section')));
   });
-  window.addEventListener('hashchange', () => { if (token()) showSection(sectionFromHash()); });
+  window.addEventListener('hashchange', () => render());
 
   $('#newPostBtn').addEventListener('click', () => showEditor(null));
   $('#backToDash').addEventListener('click', (e) => { e.preventDefault(); showDashboard(); });
@@ -1276,7 +1279,6 @@
       btn.disabled = true;
       try {
         await pfRequest('PUT', '/api/portfolio/' + encodeURIComponent(id), { topo: true });
-        await loadPortfolio();
         renderPortfolio();
         window.scrollTo({ top: $('#portfolioGrid').offsetTop - 120, behavior: 'smooth' });
         showOk('portfolioSuccess', 'Item movido pro topo do portfólio.');
@@ -1295,7 +1297,6 @@
         try {
           await pfRequest('DELETE', '/api/portfolio/' + encodeURIComponent(id));
           $('#deleteModal').style.display = 'none';
-          await loadPortfolio();
           renderPortfolio();
         } catch (err) {
           alert('Erro: ' + err.message);
