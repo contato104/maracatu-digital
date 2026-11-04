@@ -186,7 +186,7 @@
     width: 100%; height: 100%; object-fit: cover;
   }
   .post-row .info { flex: 1; min-width: 0; }
-  .post-row .info h3 {
+  .post-row .info h2 {
     font-size: 17px; font-weight: 700; letter-spacing: -0.3px;
     margin-bottom: 4px;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -223,7 +223,7 @@
   .empty .icon {
     font-size: 48px; margin-bottom: 12px;
   }
-  .empty h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .empty h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
   .empty p { color: var(--muted); margin-bottom: 24px; }
 
   /* === EDITOR === */
@@ -313,7 +313,7 @@
   }
   .drop-zone:hover, .drop-zone.over { border-color: var(--ink); background: #fafaf5; }
   .drop-zone .icon { font-size: 36px; margin-bottom: 8px; }
-  .drop-zone h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .drop-zone h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
   .drop-zone p { color: var(--muted); font-size: 14px; max-width: 560px; margin: 0 auto; }
   .drop-zone input[type="file"] { display: none; }
 
@@ -399,7 +399,7 @@
     max-width: 420px; width: 100%;
     text-align: center;
   }
-  .modal h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+  .modal h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
   .modal p { color: var(--muted); margin-bottom: 24px; }
   .modal-actions { display: flex; gap: 10px; }
   .modal-actions .btn { flex: 1; }
@@ -481,7 +481,7 @@
 
         <div id="emptyState" class="empty" style="display:none;">
           <div class="icon">📝</div>
-          <h3>Ainda não tem nenhum post.</h3>
+          <h2>Ainda não tem nenhum post.</h2>
           <p>Cria o primeiro pra começar a alimentar o blog.</p>
           <button class="btn btn-primary" onclick="document.getElementById('newPostBtn').click()">+ Criar primeiro post</button>
         </div>
@@ -571,7 +571,7 @@
         <div class="drop-zone" id="dropZone">
           <input type="file" id="portfolioFiles" multiple accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/quicktime,video/webm,.png,.jpg,.jpeg,.webp,.gif,.mp4,.mov,.webm" />
           <div class="icon">🎞️</div>
-          <h3>Arraste fotos e vídeos aqui, ou clique pra escolher</h3>
+          <h2>Arraste fotos e vídeos aqui, ou clique pra escolher</h2>
           <p>JPG, PNG, WEBP, GIF, MP4, MOV e WEBM, até 200MB por arquivo. Pode mandar vários de uma vez. O que subir entra no topo do portfólio e aparece no site em até 1 minuto.</p>
         </div>
 
@@ -581,7 +581,7 @@
 
         <div id="portfolioEmpty" class="empty" style="display:none;">
           <div class="icon">🖼️</div>
-          <h3>O portfólio está vazio.</h3>
+          <h2>O portfólio está vazio.</h2>
           <p>Sobe a primeira foto ou vídeo pra ele aparecer no site.</p>
           <button class="btn btn-primary" onclick="document.getElementById('pickFilesBtn').click()">+ Subir arquivos</button>
         </div>
@@ -593,7 +593,7 @@
 <!-- DELETE MODAL -->
 <div id="deleteModal" class="modal-bg" style="display:none;">
   <div class="modal">
-    <h3 id="deleteTitle">Apagar este post?</h3>
+    <h2 id="deleteTitle">Apagar este post?</h2>
     <p id="deleteText">Esta ação não pode ser desfeita.</p>
     <div class="modal-actions">
       <button class="btn btn-secondary" id="cancelDelete">Cancelar</button>
@@ -791,7 +791,7 @@
       row.innerHTML = `
         ${thumb}
         <div class="info">
-          <h3>${escapeHTML(p.title)}</h3>
+          <h2>${escapeHTML(p.title)}</h2>
           <div class="meta">
             <span class="cat-chip">${escapeHTML(p.category)}</span>
             <span>${fmtDate(p.publishedAt)}</span>
