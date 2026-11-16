@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Briefing de Tráfego Pago — Maracatu Digital Intelligence</title>
+<meta name="description" content="Vamos começar nosso trabalho juntos." />
+<meta name="robots" content="noindex,nofollow,noarchive" />
+<link rel="icon" type="image/png" href="assets/favicon.png?v=6" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #EA4335;
+    --yellow: #FBBC04;
+    --green: #34A853;
+    --blue: #4285F4;
+    --ink: #0A0A0A;
+    --bg: #FAFAF7;
+    --card: #FFFFFF;
+    --muted: #6B7280;
+    --border: #ECECE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+
+  /* === TOP BAR === */
+  .top-bar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(250, 250, 247, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .top-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 18px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .top-logo img { height: 104px; width: auto; display: block; }
+  .step-counter {
+    font-size: 13px; font-weight: 600;
+    color: var(--muted); letter-spacing: 0.3px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .step-counter strong { color: var(--ink); font-weight: 700; }
+  .step-counter .save-indicator {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--green);
+    font-weight: 500;
+    opacity: 0; transition: opacity 0.4s;
+    margin-left: 6px;
+  }
+  .step-counter.saving .save-indicator { opacity: 1; }
+  .save-indicator .check {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--green); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px;
+  }
+
+  /* === PROGRESS BAR === */
+  .progress {
+    height: 3px; width: 100%;
+    background: var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--red) 0%, var(--yellow) 33%, var(--green) 66%, var(--blue) 100%);
+    background-size: 200% 100%;
+    transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: shine 4s linear infinite;
+  }
+  @keyframes shine {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* === MAIN === */
+  main {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 60px 24px;
+    position: relative;
+  }
+  .step {
+    width: 100%; max-width: 640px;
+    display: none;
+    animation: fadeUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .step.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(10,10,10,0.04);
+    border: 1px solid var(--border);
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+  .step[data-section="empresa"] .eyebrow .dot { background: var(--red); }
+  .step[data-section="materiais"] .eyebrow .dot { background: var(--yellow); }
+  .step[data-section="publico"] .eyebrow .dot { background: var(--green); }
+  .step[data-section="negocio"] .eyebrow .dot { background: var(--blue); }
+  .step[data-section="historico"] .eyebrow .dot { background: var(--red); }
+  .step[data-section="estrategia"] .eyebrow .dot { background: var(--yellow); }
+  .step[data-section="criacao"] .eyebrow .dot { background: var(--green); }
+  .step[data-section="palavras"] .eyebrow .dot { background: var(--blue); }
+
+  .step h1 {
+    font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+    letter-spacing: -1.2px; line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .step h1 .req { color: var(--red); font-weight: 800; }
+  .step h1 .accent { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .step p.lead {
+    font-size: 17px; color: var(--muted);
+    line-height: 1.55; margin-bottom: 36px;
+  }
+  .step p.hint {
+    font-size: 13px; color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* === INPUTS === */
+  .field { margin-bottom: 28px; }
+  .field label {
+    display: block;
+    font-size: 15px; font-weight: 600;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .field label .req { color: var(--red); }
+  .field input[type="text"],
+  .field input[type="url"],
+  .field input[type="email"],
+  .field input[type="tel"],
+  .field textarea {
+    width: 100%;
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field input::placeholder, .field textarea::placeholder {
+    color: #b8b8b0;
+  }
+  .field input:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--ink);
+    box-shadow: 0 0 0 4px rgba(10,10,10,0.05);
+  }
+  .field textarea {
+    resize: vertical; min-height: 120px; line-height: 1.55;
+  }
+
+  /* === FILE UPLOAD === */
+  .file-row { margin-bottom: 10px; }
+  .file-input { display: none; }
+  .file-btn {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 20px;
+    border: 2px dashed var(--border);
+    border-radius: 14px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--ink);
+    font-size: 15px; font-weight: 600;
+  }
+  .file-btn:hover {
+    border-color: var(--ink);
+    background: #fafaf5;
+  }
+  .file-btn .file-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .file-btn .file-name {
+    flex: 1;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .file-btn.has-file {
+    border-style: solid;
+    border-color: var(--green);
+    background: rgba(52, 168, 83, 0.04);
+  }
+  .file-btn.has-file .file-icon {
+    background: var(--green); color: #fff;
+  }
+  .file-btn.has-file .file-name { color: var(--ink); font-weight: 600; }
+  .file-btn.is-uploading {
+    border-style: solid;
+    border-color: var(--blue);
+    background: rgba(66, 133, 244, 0.04);
+    pointer-events: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .file-btn.is-uploading .file-icon {
+    background: var(--blue); color: #fff;
+    animation: pulse-upload 1.2s ease-in-out infinite;
+  }
+  .file-btn.is-uploading .file-name {
+    color: var(--blue); font-weight: 600;
+  }
+  .file-btn.is-uploading::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    height: 3px; width: 30%;
+    background: var(--blue);
+    animation: upload-bar 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse-upload {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.7; }
+  }
+  @keyframes upload-bar {
+    0% { left: -30%; }
+    100% { left: 100%; }
+  }
+  .file-clear {
+    background: transparent; border: none;
+    color: var(--muted); cursor: pointer;
+    padding: 6px; border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .file-clear:hover { color: var(--red); background: rgba(234, 67, 53, 0.08); }
+  .file-divider {
+    text-align: center;
+    color: var(--muted); font-size: 12px;
+    margin: 8px 0;
+    text-transform: uppercase; letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  /* === CHOICE BUTTONS === */
+  .choices {
+    display: grid; gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+  .choice {
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    text-align: left;
+    font-family: inherit;
+    font-size: 15px; font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .choice:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .choice .marker {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .choice.selected {
+    border-color: var(--ink);
+    background: var(--ink); color: #fff;
+  }
+  .choice.selected .marker {
+    border-color: #fff; background: #fff;
+  }
+  .choice.selected .marker::after {
+    content: ''; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--ink);
+  }
+
+  /* === NAV === */
+  .nav-buttons {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 40px; gap: 16px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 28px; border-radius: 999px;
+    font-family: inherit; font-weight: 700; font-size: 15px;
+    border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.18); }
+  .btn-primary:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-back {
+    background: transparent; color: var(--muted);
+    padding: 14px 20px; font-weight: 600;
+  }
+  .btn-back:hover { color: var(--ink); }
+  .btn-back svg { transition: transform 0.2s; }
+  .btn-back:hover svg { transform: translateX(-3px); }
+  .btn-primary svg { transition: transform 0.2s; }
+  .btn-primary:hover svg { transform: translateX(3px); }
+  .btn-big {
+    padding: 18px 36px; font-size: 16px;
+  }
+
+  /* === WELCOME === */
+  .welcome {
+    text-align: center;
+  }
+  .welcome .welcome-icon {
+    margin: 0 auto 36px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .welcome .welcome-icon img { width: 150px; height: auto; display: block; }
+  .welcome h1 {
+    font-size: clamp(40px, 6vw, 64px);
+    letter-spacing: -2.5px;
+    margin-bottom: 20px;
+  }
+  .welcome p {
+    font-size: 19px; color: var(--muted);
+    line-height: 1.55; max-width: 520px;
+    margin: 0 auto 36px;
+  }
+  .welcome .perks {
+    display: flex; justify-content: center; gap: 28px;
+    flex-wrap: wrap; margin-bottom: 44px;
+    color: var(--muted); font-size: 14px;
+  }
+  .welcome .perk {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .welcome .perk .icon {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--green); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+  }
+
+  /* === MILESTONE === */
+  .milestone {
+    background: var(--ink); color: #fff;
+    border-radius: 24px;
+    padding: 36px;
+    text-align: center;
+    margin: 32px 0;
+    position: relative; overflow: hidden;
+  }
+  .milestone::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 250px; height: 250px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(251, 188, 4, 0.2), transparent 70%);
+  }
+  .milestone-emoji {
+    font-size: 48px; margin-bottom: 12px;
+    display: block;
+  }
+  .milestone h3 {
+    font-size: 22px; font-weight: 800; margin-bottom: 8px;
+    position: relative; z-index: 1;
+  }
+  .milestone p {
+    color: rgba(255,255,255,0.75); font-size: 15px;
+    position: relative; z-index: 1;
+  }
+
+  /* === REVIEW === */
+  .review-list {
+    display: flex; flex-direction: column; gap: 16px;
+    margin-bottom: 36px;
+  }
+  .review-section {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .review-section summary {
+    padding: 20px 24px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    list-style: none;
+    font-weight: 700; font-size: 16px;
+  }
+  .review-section summary::-webkit-details-marker { display: none; }
+  .review-section summary::after {
+    content: '+'; font-size: 22px; color: var(--muted);
+    transition: transform 0.3s;
+  }
+  .review-section[open] summary::after { content: '−'; }
+  .review-section .items {
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .review-item {
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .review-item:last-child { border-bottom: none; }
+  .review-item .q {
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .review-item .a {
+    font-size: 15px; color: var(--ink); font-weight: 500;
+    white-space: pre-wrap;
+  }
+  .review-item .a.empty { color: #c5c5bc; font-style: italic; font-weight: 400; }
+  .review-item .edit-link {
+    font-size: 12px; color: var(--blue);
+    text-decoration: none; font-weight: 600;
+    margin-left: 8px;
+  }
+  .review-item .edit-link:hover { text-decoration: underline; }
+
+  /* === SUCCESS === */
+  .success {
+    text-align: center;
+  }
+  .success-icon {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: var(--green);
+    margin: 0 auto 32px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    box-shadow: 0 20px 50px rgba(52, 168, 83, 0.3);
+    animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes pop {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  .success h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    letter-spacing: -2px; margin-bottom: 16px;
+  }
+  .success p {
+    font-size: 18px; color: var(--muted);
+    max-width: 480px; margin: 0 auto 36px;
+    line-height: 1.55;
+  }
+  .success-actions {
+    display: flex; flex-direction: column; gap: 10px;
+    max-width: 360px; margin: 0 auto;
+  }
+  .success-actions .btn {
+    width: 100%; justify-content: center;
+  }
+  .btn-whatsapp {
+    background: var(--green); color: #fff;
+  }
+  .btn-whatsapp:hover { background: #2a8c44; }
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    border: 2px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .top-logo img { height: 40px; }
+    main { padding: 30px 20px; }
+    .step h1 { font-size: 26px; }
+    .step p.lead { font-size: 15px; margin-bottom: 24px; }
+    .field { margin-bottom: 22px; }
+    .nav-buttons { flex-direction: column-reverse; gap: 12px; align-items: stretch; }
+    .nav-buttons .btn { justify-content: center; width: 100%; }
+    .btn-back { padding: 12px; }
+    .welcome .welcome-icon { width: 72px; height: 72px; font-size: 32px; }
+    .welcome .perks { gap: 16px; }
+    .choices { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-inner">
+    <div class="top-logo">
+      <img src="assets/logo-horizontal.png" alt="Maracatu Digital Intelligence" />
+    </div>
+    <div class="step-counter" id="stepCounter">
+      Etapa <strong id="stepNow">1</strong> de <strong id="stepTotal">10</strong>
+      <span class="save-indicator"><span class="check">✓</span>salvo</span>
+    </div>
+  </div>
+  <div class="progress">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+</div>
+
+<main>
+
+<!-- STEP 0: WELCOME -->
+<section class="step active welcome" data-step="0">
+  <div class="welcome-icon">
+    <img src="assets/icon.png" alt="Maracatu" />
+  </div>
+  <h1>Bem-vindo à <span class="accent">Maracatu.</span></h1>
+  <p>Esse é o briefing pra gente entender o seu negócio e montar as suas campanhas de tráfego pago do jeito certo desde o primeiro dia.</p>
+  <div class="perks">
+    <span class="perk"><span class="icon">⏱</span>~10 minutos</span>
+    <span class="perk"><span class="icon">💾</span>Salva sozinho</span>
+    <span class="perk"><span class="icon">📨</span>Direto pro nosso time</span>
+  </div>
+  <button class="btn btn-primary btn-big" data-action="start">
+    Começar
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </button>
+</section>
+
+<!-- STEP 1: EMPRESA -->
+<section class="step" data-step="1" data-section="empresa">
+  <div class="eyebrow"><span class="dot"></span>Sua empresa</div>
+  <h1>Vamos começar pelo básico.</h1>
+  <p class="lead">Quem é você e onde podemos te encontrar online.</p>
+
+  <div class="field">
+    <label>Nome da empresa <span class="req">*</span></label>
+    <input type="text" data-q="empresa_nome" data-required="true" placeholder="Ex: Doceria da Maria" />
+  </div>
+
+  <div class="field">
+    <label>CNPJ <span class="req">*</span></label>
+    <input type="text" data-q="empresa_cnpj" data-required="true" inputmode="numeric" id="cnpjInput" placeholder="00.000.000/0000-00" />
+    <p class="hint" id="cnpjStatus">Ao digitar o CNPJ, buscamos a razão social na Receita.</p>
+  </div>
+
+  <div class="field">
+    <label>Razão social</label>
+    <input type="text" data-q="empresa_razao" id="cnpjRazao" placeholder="Preenche sozinho pelo CNPJ" readonly style="background:#f6f6f3;color:#555" />
+  </div>
+
+  <div class="field">
+    <label>Sua empresa tem site? Informa o endereço, se houver.</label>
+    <input type="url" data-q="empresa_site" placeholder="https://www.suaempresa.com.br" />
+  </div>
+
+  <div class="field">
+    <label>Qual o Instagram da empresa?</label>
+    <input type="text" data-q="empresa_instagram" placeholder='@suaempresa' />
+  </div>
+
+  <div class="field">
+    <label>Tem Google Meu Negócio? Você possui o acesso?</label>
+    <input type="text" data-q="empresa_gmn" placeholder='Ex: "Sim, tenho acesso" / "Sim, mas perdi o acesso" / "Não tenho"' />
+  </div>
+</section>
+
+<!-- STEP 2: MATERIAIS -->
+<section class="step" data-step="2" data-section="materiais">
+  <div class="eyebrow"><span class="dot"></span>Materiais pros anúncios</div>
+  <h1>Materiais pros anúncios.</h1>
+  <p class="lead">Anexa o que a gente vai usar nos anúncios. Se preferir, cola um link de pasta do Drive. Se ainda não tem, pode deixar em branco e a gente conversa.</p>
+
+  <div class="field">
+    <label>Logo em alta qualidade</label>
+    <div class="file-row">
+      <input type="file" class="file-input" id="file_mat_logo" data-file="mat_logo" accept=".png,.jpg,.jpeg,.pdf,.ai,.svg,.eps" />
+      <label for="file_mat_logo" class="file-btn" id="filebtn_mat_logo">
+        <span class="file-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </span>
+        <span class="file-name">Anexar arquivo</span>
+      </label>
+    </div>
+    <div class="file-divider">ou</div>
+    <input type="url" data-q="mat_logo_url" placeholder="Cola um link do Drive" />
+    <p class="hint">PDF, AI, SVG ou PNG transparente, se possível.</p>
+  </div>
+
+  <div class="field">
+    <label>Drive com fotos, vídeos e artes que podem virar anúncio</label>
+    <input type="url" data-q="mat_fotos" placeholder="https://drive.google.com/..." />
+    <p class="hint">Como fotos e vídeos costumam ser pesados, melhor compartilhar via link.</p>
+  </div>
+
+  <div class="field">
+    <label>Mailing interno de clientes</label>
+    <div class="file-row">
+      <input type="file" class="file-input" id="file_mat_mailing" data-file="mat_mailing" accept=".csv,.xlsx,.xls,.numbers" />
+      <label for="file_mat_mailing" class="file-btn" id="filebtn_mat_mailing">
+        <span class="file-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </span>
+        <span class="file-name">Anexar planilha</span>
+      </label>
+    </div>
+    <div class="file-divider">ou</div>
+    <input type="url" data-q="mat_mailing_url" placeholder="Cola o link da planilha (Google Sheets, Excel...)" />
+    <p class="hint">Listas com nomes, e-mails e telefones. Usamos pra criar públicos parecidos com quem já compra de você.</p>
+  </div>
+</section>
+
+<!-- STEP 3: PÚBLICO -->
+<section class="step" data-step="3" data-section="publico">
+  <div class="eyebrow"><span class="dot"></span>Seu público</div>
+  <h1>Quem é a pessoa que <span class="accent">compra de você?</span></h1>
+  <p class="lead">Quanto mais específico, melhor. Isso define pra quem os anúncios aparecem.</p>
+
+  <div class="field">
+    <label>Qual a faixa etária do seu público? <span class="req">*</span></label>
+    <input type="text" data-q="pub_idade" data-required="true" placeholder="Ex: 25 a 45 anos" />
+  </div>
+
+  <div class="field">
+    <label>Qual o nível de escolaridade do seu público? <span class="req">*</span></label>
+    <div class="choices" data-choice="pub_escolaridade" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Sem instrução</button>
+      <button type="button" class="choice"><span class="marker"></span>Ensino Fundamental</button>
+      <button type="button" class="choice"><span class="marker"></span>Ensino Médio</button>
+      <button type="button" class="choice"><span class="marker"></span>Ensino Superior</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Sexo do seu público <span class="hint" style="font-size:13px;font-weight:500;color:var(--muted);margin-left:6px;">(pode escolher mais de um)</span></label>
+    <div class="choices" data-choice="pub_sexo" data-multi="true">
+      <button type="button" class="choice"><span class="marker"></span>Feminino</button>
+      <button type="button" class="choice"><span class="marker"></span>Masculino</button>
+      <button type="button" class="choice"><span class="marker"></span>Não definido</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Em quais cidades ou regiões você atende? <span class="req">*</span></label>
+    <input type="text" data-q="pub_regiao" data-required="true" placeholder='Ex: "Recife e Região Metropolitana" / "Raio de 10 km da loja" / "Brasil todo"' />
+  </div>
+
+  <div class="field">
+    <label>Quem é o seu público-alvo principal?</label>
+    <textarea data-q="pub_alvo" placeholder="Ex: Mães de 30-45 anos, classe B, que valorizam produtos artesanais e gostam de presentear..."></textarea>
+  </div>
+</section>
+
+<!-- STEP 4: NEGÓCIO -->
+<section class="step" data-step="4" data-section="negocio">
+  <div class="eyebrow"><span class="dot"></span>Posicionamento</div>
+  <h1>Como você se posiciona no mercado?</h1>
+  <p class="lead">Aqui é onde a gente entende o que torna sua marca única.</p>
+
+  <div class="field">
+    <label>Como você descreveria o seu negócio em poucas palavras?</label>
+    <textarea data-q="neg_descricao" placeholder='Ex: "Uma doceria artesanal especializada em bolos de aniversário personalizados."'></textarea>
+  </div>
+
+  <div class="field">
+    <label>Qual produto ou serviço você quer anunciar primeiro?</label>
+    <textarea data-q="neg_foco" placeholder='Ex: "Bolos de aniversário sob encomenda". Se for mais de um, lista por ordem de prioridade.'></textarea>
+  </div>
+
+  <div class="field">
+    <label>Qual o ticket médio de uma venda?</label>
+    <input type="text" data-q="neg_ticket" placeholder='Ex: "R$ 180 por pedido" / "Mensalidade de R$ 450"' />
+  </div>
+
+  <div class="field">
+    <label>Cite 2 ou 3 concorrentes diretos.</label>
+    <textarea data-q="neg_concorrentes" placeholder="Nome / @ do Instagram / Site, se souber."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Como o seu cliente percebe o seu produto na categoria?</label>
+    <input type="text" data-q="neg_percepcao" placeholder='Ex: "Bom custo-benefício", "Premium", "Barato com qualidade média"...' />
+  </div>
+
+  <div class="field">
+    <label>Qual a recorrência de consumo dos clientes?</label>
+    <input type="text" data-q="neg_recorrencia" placeholder='Ex: "Compram a cada 3 meses" / "Compra única"' />
+  </div>
+
+  <div class="field">
+    <label>Qual o tempo médio que dura o fechamento de uma venda?</label>
+    <input type="text" data-q="neg_fechamento" placeholder='Ex: "1 dia após o primeiro contato" / "1 a 2 semanas"' />
+  </div>
+</section>
+
+<!-- STEP 5: HISTÓRICO -->
+<section class="step" data-step="5" data-section="historico">
+  <div class="eyebrow"><span class="dot"></span>Histórico anterior</div>
+  <h1>Bora aprender com o passado.</h1>
+  <p class="lead">A gente quer entender o que funcionou pra continuar fazendo, e o que precisa mudar pra você se sentir bem servido.</p>
+
+  <div class="milestone">
+    <span class="milestone-emoji">🎯</span>
+    <h3>Quase na metade!</h3>
+    <p>Você tá indo super bem. Falta pouco pra gente saber tudo que precisa.</p>
+  </div>
+
+  <div class="field">
+    <label>O que você mais gostava nos trabalhos entregues pela agência anterior?</label>
+    <textarea data-q="hist_gostava" placeholder="Pode ser qualquer coisa: prazos, atendimento, qualidade, ideias..."></textarea>
+  </div>
+
+  <div class="field">
+    <label>O que sentia falta ou deixava a desejar e quer que seja diferente agora?</label>
+    <textarea data-q="hist_faltava" placeholder="Seja sincero! É isso que vai guiar a gente."></textarea>
+  </div>
+</section>
+
+<!-- STEP 6: ANÚNCIOS E METAS -->
+<section class="step" data-step="6" data-section="estrategia">
+  <div class="eyebrow"><span class="dot"></span>Anúncios e metas</div>
+  <h1>O que você espera <span class="accent">dos anúncios?</span></h1>
+  <p class="lead">Objetivo, verba e o que já foi testado. É isso que define a estrutura das campanhas.</p>
+
+  <div class="field">
+    <label>Qual o principal objetivo com o tráfego pago? <span class="req">*</span> <span class="hint" style="font-size:13px;font-weight:500;color:var(--muted);margin-left:6px;">(pode escolher mais de um)</span></label>
+    <div class="choices" data-choice="est_objetivo" data-multi="true" data-required="true">
+      <button type="button" class="choice"><span class="marker"></span>Mensagens no WhatsApp</button>
+      <button type="button" class="choice"><span class="marker"></span>Vendas no site</button>
+      <button type="button" class="choice"><span class="marker"></span>Cadastros / leads</button>
+      <button type="button" class="choice"><span class="marker"></span>Visitas na loja física</button>
+      <button type="button" class="choice"><span class="marker"></span>Seguidores e alcance</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Quanto pretende investir por mês em anúncios? <span class="req">*</span></label>
+    <input type="text" data-q="est_verba" data-required="true" placeholder='Ex: "R$ 1.500 por mês"' />
+    <p class="hint">É a verba que vai direto pras plataformas (Meta, Google), fora o valor da gestão.</p>
+  </div>
+
+  <div class="field">
+    <label>Onde quer anunciar?</label>
+    <div class="choices" data-choice="est_plataformas" data-multi="true">
+      <button type="button" class="choice"><span class="marker"></span>Instagram e Facebook</button>
+      <button type="button" class="choice"><span class="marker"></span>Google (pesquisa)</button>
+      <button type="button" class="choice"><span class="marker"></span>YouTube</button>
+      <button type="button" class="choice"><span class="marker"></span>Ainda não sei, quero indicação</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Já fez anúncios em alguma mídia?</label>
+    <textarea data-q="est_anuncios" placeholder="TV, jornal, outdoor, redes sociais... Conta um pouco da experiência: deu retorno? Quais problemas enfrentou?"></textarea>
+  </div>
+
+  <div class="field">
+    <label>Existe alguma campanha, data ou lançamento importante previsto pros próximos meses?</label>
+    <textarea data-q="est_campanhas" placeholder='Ex: Black Friday, Dia das Mães, lançamento de produto novo, abertura de loja...'></textarea>
+  </div>
+
+  <div class="field">
+    <label>Tem algo que não pode aparecer nos anúncios?</label>
+    <textarea data-q="est_restricoes" placeholder='Ex: "Não falar de preço", "Não citar concorrente", "Não prometer prazo de entrega"...'></textarea>
+  </div>
+</section>
+
+<!-- STEP 7: CONTAS E ATENDIMENTO -->
+<section class="step" data-step="7" data-section="criacao">
+  <div class="eyebrow"><span class="dot"></span>Contas e atendimento</div>
+  <h1>Onde os anúncios rodam e <span class="accent">quem atende.</span></h1>
+  <p class="lead">Só pra saber o que já existe. Os acessos em si a gente combina depois, com segurança, sem você mandar senha por aqui.</p>
+
+  <div class="field">
+    <label>Já tem conta de anúncios na Meta (Gerenciador de Negócios)?</label>
+    <div class="choices" data-choice="acc_meta">
+      <button type="button" class="choice"><span class="marker"></span>Sim, e tenho acesso</button>
+      <button type="button" class="choice"><span class="marker"></span>Sim, mas perdi o acesso</button>
+      <button type="button" class="choice"><span class="marker"></span>Não tenho</button>
+      <button type="button" class="choice"><span class="marker"></span>Não sei</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Já tem conta no Google Ads?</label>
+    <div class="choices" data-choice="acc_google">
+      <button type="button" class="choice"><span class="marker"></span>Sim, e tenho acesso</button>
+      <button type="button" class="choice"><span class="marker"></span>Sim, mas perdi o acesso</button>
+      <button type="button" class="choice"><span class="marker"></span>Não tenho</button>
+      <button type="button" class="choice"><span class="marker"></span>Não sei</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Seu site tem Pixel da Meta ou tag do Google instalados?</label>
+    <div class="choices" data-choice="acc_pixel">
+      <button type="button" class="choice"><span class="marker"></span>Sim</button>
+      <button type="button" class="choice"><span class="marker"></span>Não</button>
+      <button type="button" class="choice"><span class="marker"></span>Não sei</button>
+      <button type="button" class="choice"><span class="marker"></span>Não tenho site</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Quem cuida do site, se precisarmos instalar algo?</label>
+    <input type="text" data-q="acc_site_resp" placeholder='Nome e contato do desenvolvedor ou da plataforma (Wix, Shopify, WordPress...)' />
+  </div>
+
+  <div class="field">
+    <label>Pra onde o anúncio deve levar a pessoa?</label>
+    <input type="text" data-q="acc_destino" placeholder='Ex: "WhatsApp (81) 9...." / "Página do produto no site" / "Direct do Instagram"' />
+  </div>
+
+  <div class="field">
+    <label>Quem atende os contatos que chegam, e em qual horário?</label>
+    <textarea data-q="acc_atendimento" placeholder='Ex: "Maria, de segunda a sexta, das 8h às 18h". Isso define o horário em que os anúncios rodam.'></textarea>
+  </div>
+
+</section>
+
+<!-- STEP 8: PALAVRAS-CHAVE -->
+<section class="step" data-step="8" data-section="palavras">
+  <div class="eyebrow"><span class="dot"></span>Palavras-chave</div>
+  <h1>Palavras-chave do seu serviço.</h1>
+  <p class="lead">São os termos que as pessoas digitam no Google quando buscam o que você oferece.</p>
+
+  <div class="milestone">
+    <span class="milestone-emoji">🚀</span>
+    <h3>Última etapa!</h3>
+    <p>Tá quase. Depois daqui é só revisar e enviar.</p>
+  </div>
+
+  <div class="field">
+    <label>Indique palavras-chave referentes ao seu serviço/produto.</label>
+    <textarea data-q="pal_chave" placeholder='Ex: "Bolo de aniversário sob encomenda", "Doces personalizados Recife", "Bolo decorado infantil"...'></textarea>
+    <p class="hint">Dica: pense no que VOCÊ pesquisaria no Google se fosse um cliente. Pode listar várias separadas por vírgula.</p>
+  </div>
+</section>
+
+<!-- STEP 9: REVIEW -->
+<section class="step" data-step="9">
+  <div class="eyebrow"><span class="dot"></span>Quase lá</div>
+  <h1>Revisa suas respostas.</h1>
+  <p class="lead">Dá uma conferida no que você preencheu antes de enviar. Pode clicar em qualquer pergunta pra voltar e editar.</p>
+
+  <div class="review-list" id="reviewList"></div>
+</section>
+
+<!-- STEP 10: SENDING (loading) -->
+<section class="step success" data-step="10">
+  <div id="sendingState">
+    <div class="success-icon" style="background: var(--ink); animation: spin 1.2s linear infinite;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation: none;"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
+    </div>
+    <h1>Enviando seu briefing…</h1>
+    <p>Só um instante, tá indo direto pro nosso time.</p>
+  </div>
+
+  <div id="successState" style="display:none;">
+    <div class="success-icon">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h1>Briefing recebido. ✨</h1>
+    <p>Agradecemos pela confiança. Em até 24h alguém do nosso time entra em contato pra dar sequência ao trabalho.</p>
+    <div class="success-actions">
+      <button class="btn btn-secondary" id="downloadTxt">
+        Baixar uma cópia em PDF/TXT
+      </button>
+    </div>
+  </div>
+
+  <div id="errorState" style="display:none;">
+    <div class="success-icon" style="background: var(--red);">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+    <h1>Tivemos um problema.</h1>
+    <p id="errorMsg" style="color: var(--red); margin-bottom: 12px;">Erro no envio.</p>
+    <p>Mas suas respostas estão salvas. Pode tentar de novo ou baixar uma cópia e enviar pra gente pelo WhatsApp.</p>
+    <div class="success-actions">
+      <button class="btn btn-primary" id="retrySend">Tentar novamente</button>
+      <button class="btn btn-secondary" id="downloadTxtError">Baixar cópia</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+</main>
+
+<!-- NAV BUTTONS (out of step containers, shared) -->
+<div style="max-width:640px; margin: 0 auto; padding: 0 24px 60px; width: 100%;" id="navContainer">
+  <div class="nav-buttons" id="navButtons" style="display: none;">
+    <button class="btn btn-back" id="btnBack">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Voltar
+    </button>
+    <button class="btn btn-primary" id="btnNext">
+      Próximo
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Upload via Cloudinary (unsigned) — SOM -->
+
+<script>
+  (function() {
+    var STORAGE_KEY = 'maracatu_briefing_trafego_v1';
+    var TOTAL_STEPS = 11; // 0 welcome → 10 success
+    var FORM_STEPS = 9; // step 0 welcome + 1-8 form + 9 review = 10 user-visible. 10 is success.
+
+    var sections = document.querySelectorAll('.step');
+    var current = 0;
+    var answers = {};
+
+    // Questions metadata for review
+    var QUESTIONS = [
+      { section: 'Sua empresa', step: 1, items: [
+        { q: 'empresa_nome', label: 'Nome da empresa' },
+        { q: 'empresa_cnpj', label: 'CNPJ' },
+        { q: 'empresa_razao', label: 'Razão social' },
+        { q: 'empresa_site', label: 'Site' },
+        { q: 'empresa_instagram', label: 'Instagram' },
+        { q: 'empresa_gmn', label: 'Google Meu Negócio' },
+      ]},
+      { section: 'Materiais pros anúncios', step: 2, items: [
+        { q: 'mat_logo_url', label: 'Logo (link)', fileKey: 'mat_logo' },
+        { q: 'mat_fotos', label: 'Drive de fotos, vídeos e artes' },
+        { q: 'mat_mailing_url', label: 'Mailing de clientes (link)', fileKey: 'mat_mailing' },
+      ]},
+      { section: 'Seu público', step: 3, items: [
+        { q: 'pub_idade', label: 'Faixa etária' },
+        { q: 'pub_escolaridade', label: 'Escolaridade' },
+        { q: 'pub_sexo', label: 'Sexo' },
+        { q: 'pub_regiao', label: 'Região de atendimento' },
+        { q: 'pub_alvo', label: 'Público-alvo principal' },
+      ]},
+      { section: 'Posicionamento', step: 4, items: [
+        { q: 'neg_descricao', label: 'Descrição do negócio' },
+        { q: 'neg_foco', label: 'Produto/serviço a anunciar primeiro' },
+        { q: 'neg_ticket', label: 'Ticket médio' },
+        { q: 'neg_concorrentes', label: 'Concorrentes' },
+        { q: 'neg_percepcao', label: 'Percepção do produto' },
+        { q: 'neg_recorrencia', label: 'Recorrência de consumo' },
+        { q: 'neg_fechamento', label: 'Tempo de fechamento da venda' },
+      ]},
+      { section: 'Histórico anterior', step: 5, items: [
+        { q: 'hist_gostava', label: 'O que gostava da agência anterior' },
+        { q: 'hist_faltava', label: 'O que sentia falta' },
+      ]},
+      { section: 'Anúncios e metas', step: 6, items: [
+        { q: 'est_objetivo', label: 'Objetivo com o tráfego pago' },
+        { q: 'est_verba', label: 'Verba mensal de anúncios' },
+        { q: 'est_plataformas', label: 'Onde quer anunciar' },
+        { q: 'est_anuncios', label: 'Experiência com anúncios' },
+        { q: 'est_campanhas', label: 'Campanhas/datas previstas' },
+        { q: 'est_restricoes', label: 'O que não pode aparecer nos anúncios' },
+      ]},
+      { section: 'Contas e atendimento', step: 7, items: [
+        { q: 'acc_meta', label: 'Conta de anúncios Meta' },
+        { q: 'acc_google', label: 'Conta Google Ads' },
+        { q: 'acc_pixel', label: 'Pixel / tag no site' },
+        { q: 'acc_site_resp', label: 'Responsável pelo site' },
+        { q: 'acc_destino', label: 'Destino do anúncio' },
+        { q: 'acc_atendimento', label: 'Quem atende e horário' },
+      ]},
+      { section: 'Palavras-chave', step: 8, items: [
+        { q: 'pal_chave', label: 'Palavras-chave de busca' },
+      ]},
+    ];
+
+    // === STORAGE ===
+    var savedStep = 0; // Etapa salva da última sessão (se existir)
+    var pendingFileStore = null; // Backup do fileStore enquanto a pagina carrega
+    function load() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          var data = JSON.parse(raw);
+          answers = data.answers || {};
+          // Arquivos sao guardados como URL (metadata pequena, seguro pro localStorage)
+          if (data.files && typeof data.files === 'object') {
+            pendingFileStore = data.files;
+          }
+          if (typeof data.step === 'number' && data.step > 0 && data.step < 10) {
+            savedStep = data.step;
+          }
+        }
+      } catch(e) {}
+      // SEMPRE inicia na tela de boas-vindas, independente do estado salvo
+      current = 0;
+    }
+    var saveTimer = null;
+    function save() {
+      // Persiste tambem o fileStore — agora que e so URL+metadata, cabe no localStorage.
+      // Isso protege o cliente de perder os arquivos por um F5 acidental.
+      var safeFiles = {};
+      try {
+        Object.keys(fileStore || {}).forEach(function(k) {
+          var f = fileStore[k];
+          if (f && f.url) {
+            safeFiles[k] = { name: f.name, type: f.type, size: f.size, url: f.url };
+          }
+        });
+      } catch(e) {}
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        answers: answers,
+        step: current,
+        files: safeFiles,
+      }));
+      var counter = document.getElementById('stepCounter');
+      counter.classList.add('saving');
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function() { counter.classList.remove('saving'); }, 1500);
+    }
+
+    // === RENDER ===
+    function show(n) {
+      current = n;
+      sections.forEach(function(s) { s.classList.remove('active'); });
+      var target = document.querySelector('.step[data-step="' + n + '"]');
+      if (target) target.classList.add('active');
+
+      // Counter & progress
+      var visibleStep = Math.min(n, 9);
+      document.getElementById('stepNow').textContent = (n === 0 ? 1 : Math.min(n + 1, 10));
+      document.getElementById('stepTotal').textContent = 10;
+      var pct = n === 0 ? 0 : (n === 10 ? 100 : (n / 9) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+
+      // Nav visibility
+      var nav = document.getElementById('navButtons');
+      if (n === 0 || n === 10) {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+        document.getElementById('btnBack').style.visibility = n === 1 ? 'hidden' : 'visible';
+        document.getElementById('btnNext').textContent = '';
+        var nextBtn = document.getElementById('btnNext');
+        if (n === 8) {
+          nextBtn.innerHTML = 'Revisar &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        } else if (n === 9) {
+          nextBtn.innerHTML = 'Finalizar &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        } else {
+          nextBtn.innerHTML = 'Próximo &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        }
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Render review if on review step
+      if (n === 9) renderReview();
+
+      // Focus first input
+      setTimeout(function() {
+        var firstInput = target ? target.querySelector('input, textarea, button.choice') : null;
+        if (firstInput && n > 0 && n < 9) firstInput.focus({ preventScroll: true });
+      }, 100);
+
+      save();
+    }
+
+    // File storage. Agora guarda apenas { name, type, size, url } — sem binario.
+    // Por isso pode ser persistido no localStorage (sobrevive a um F5 do cliente).
+    var fileStore = {};
+    if (pendingFileStore && typeof pendingFileStore === 'object') {
+      Object.keys(pendingFileStore).forEach(function(k) {
+        var f = pendingFileStore[k];
+        if (f && f.url && f.name) {
+          fileStore[k] = { name: f.name, type: f.type || '', size: f.size || 0, url: f.url };
+        }
+      });
+    }
+
+    // === RESTORE INPUTS ===
+    function restoreInputs() {
+      document.querySelectorAll('[data-q]').forEach(function(el) {
+        var key = el.getAttribute('data-q');
+        if (answers[key]) el.value = answers[key];
+      });
+      document.querySelectorAll('[data-choice]').forEach(function(group) {
+        var key = group.getAttribute('data-choice');
+        if (answers[key]) {
+          var values = Array.isArray(answers[key]) ? answers[key] : [answers[key]];
+          group.querySelectorAll('.choice').forEach(function(c) {
+            var txt = c.textContent.trim();
+            if (values.indexOf(txt) !== -1) c.classList.add('selected');
+          });
+        }
+      });
+    }
+
+    // === INPUT HANDLERS ===
+    document.querySelectorAll('[data-q]').forEach(function(el) {
+      el.addEventListener('input', function() {
+        answers[el.getAttribute('data-q')] = el.value.trim();
+        save();
+      });
+    });
+
+    document.querySelectorAll('[data-choice]').forEach(function(group) {
+      var key = group.getAttribute('data-choice');
+      var multi = group.getAttribute('data-multi') === 'true';
+      group.querySelectorAll('.choice').forEach(function(choice) {
+        choice.addEventListener('click', function() {
+          if (multi) {
+            choice.classList.toggle('selected');
+            var selected = [];
+            group.querySelectorAll('.choice.selected').forEach(function(c) {
+              selected.push(c.textContent.trim());
+            });
+            answers[key] = selected;
+          } else {
+            group.querySelectorAll('.choice').forEach(function(c) { c.classList.remove('selected'); });
+            choice.classList.add('selected');
+            answers[key] = choice.textContent.trim();
+          }
+          save();
+        });
+      });
+    });
+
+    // === FILE INPUT HANDLERS ===
+    // Upload direto pro Vercel Blob (contorna limite de 4.5MB do Vercel serverless).
+    // Aceita ate 100MB por arquivo. O briefing chega no email com link clicavel.
+    var MAX_UPLOAD = 100 * 1024 * 1024; // 100MB
+
+    function waitForBlobSDK() {
+      return new Promise(function(resolve, reject) {
+        if (window.__blobUpload) return resolve(window.__blobUpload);
+        var tries = 0;
+        var iv = setInterval(function() {
+          tries++;
+          if (window.__blobUpload) {
+            clearInterval(iv);
+            resolve(window.__blobUpload);
+          } else if (tries > 80) {
+            clearInterval(iv);
+            reject(new Error('SDK de upload nao carregou. Verifique sua conexao.'));
+          }
+        }, 100);
+      });
+    }
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes/1024).toFixed(0) + ' KB';
+      return (bytes/1024/1024).toFixed(1) + ' MB';
+    }
+
+    function attachClearButton(btn, input, key) {
+      if (btn.querySelector('.file-clear')) return;
+      var clearBtn = document.createElement('button');
+      clearBtn.type = 'button';
+      clearBtn.className = 'file-clear';
+      clearBtn.setAttribute('aria-label', 'Remover arquivo');
+      clearBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+      clearBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        delete fileStore[key];
+        input.value = '';
+        btn.classList.remove('has-file');
+        btn.classList.remove('is-uploading');
+        btn.querySelector('.file-name').textContent = 'Anexar arquivo';
+        clearBtn.remove();
+      });
+      btn.appendChild(clearBtn);
+    }
+
+    document.querySelectorAll('input[type="file"][data-file]').forEach(function(input) {
+      var key = input.getAttribute('data-file');
+      var btn = document.getElementById('filebtn_' + key);
+
+      // Se restauramos um arquivo do localStorage, ja marca o botao como "has-file"
+      if (fileStore[key] && fileStore[key].url) {
+        var f = fileStore[key];
+        btn.classList.add('has-file');
+        btn.querySelector('.file-name').textContent = f.name + ' (' + formatSize(f.size || 0) + ')';
+        attachClearButton(btn, input, key);
+      }
+
+      input.addEventListener('change', async function() {
+        var file = input.files[0];
+        if (!file) return;
+        if (file.size > MAX_UPLOAD) {
+          alert('Arquivo muito grande (limite 100MB). Comprima ou cole o link do Google Drive no campo abaixo.');
+          input.value = '';
+          return;
+        }
+
+        // UI: mostrar estado de upload
+        btn.classList.add('is-uploading');
+        var nameEl = btn.querySelector('.file-name');
+        var originalText = nameEl.textContent;
+        nameEl.textContent = 'Enviando ' + formatSize(file.size) + '...';
+
+        try {
+          var _fd = new FormData();
+          _fd.append('file', file);
+          _fd.append('upload_preset', 'som_unsigned');
+          var _cu = await fetch('https://api.cloudinary.com/v1_1/druemogap/auto/upload', { method: 'POST', body: _fd });
+          if (!_cu.ok) throw new Error('Falha no upload (' + _cu.status + ')');
+          var _cd = await _cu.json();
+          var blob = { url: _cd.secure_url };
+
+          fileStore[key] = {
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            url: blob.url
+          };
+
+          btn.classList.remove('is-uploading');
+          btn.classList.add('has-file');
+          nameEl.textContent = file.name + ' (' + formatSize(file.size) + ')';
+          attachClearButton(btn, input, key);
+          save();
+        } catch (err) {
+          console.error('Upload falhou:', err);
+          btn.classList.remove('is-uploading');
+          nameEl.textContent = originalText;
+          input.value = '';
+          alert('Erro ao enviar arquivo: ' + (err && err.message ? err.message : 'tente de novo') + '. Voce tambem pode colar um link do Google Drive no campo abaixo.');
+        }
+      });
+    });
+
+    // === VALIDATION ===
+    function validateStep(n) {
+      var step = document.querySelector('.step[data-step="' + n + '"]');
+      if (!step) return true;
+      var ok = true;
+      step.querySelectorAll('[data-required="true"]').forEach(function(el) {
+        var key = el.getAttribute('data-q') || el.getAttribute('data-choice');
+        if (!answers[key]) {
+          ok = false;
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.style.borderColor = 'var(--red)';
+            el.focus();
+            setTimeout(function() { el.style.borderColor = ''; }, 2000);
+          } else {
+            el.style.outline = '2px solid var(--red)';
+            setTimeout(function() { el.style.outline = ''; }, 2000);
+          }
+        }
+      });
+      return ok;
+    }
+
+    // === NAVIGATION ===
+    document.querySelector('[data-action="start"]').addEventListener('click', function() {
+      show(1);
+    });
+    document.getElementById('btnNext').addEventListener('click', function() {
+      if (!validateStep(current)) return;
+      if (current === 9) {
+        show(10);
+        submitBriefing();
+      } else if (current < 9) {
+        show(current + 1);
+      }
+    });
+    document.getElementById('btnBack').addEventListener('click', function() {
+      if (current > 1) show(current - 1);
+    });
+
+    // === REVIEW RENDER ===
+    function renderReview() {
+      var list = document.getElementById('reviewList');
+      list.innerHTML = '';
+      QUESTIONS.forEach(function(sec, idx) {
+        var details = document.createElement('details');
+        details.className = 'review-section';
+        if (idx < 2) details.open = true;
+        var summary = document.createElement('summary');
+        summary.textContent = sec.section;
+        details.appendChild(summary);
+        var items = document.createElement('div');
+        items.className = 'items';
+        sec.items.forEach(function(item) {
+          var div = document.createElement('div');
+          div.className = 'review-item';
+          var ans = answers[item.q];
+          if (Array.isArray(ans)) ans = ans.join(', ');
+          // Check for file attachment too
+          var hasFile = item.fileKey && fileStore[item.fileKey];
+          var fileLabel = hasFile ? '📎 ' + fileStore[item.fileKey].name : '';
+          var display = ans || '';
+          if (hasFile) display = display ? (fileLabel + ' + ' + display) : fileLabel;
+          div.innerHTML = '<div class="q">' + item.label + '<a href="#" class="edit-link" data-go="' + sec.step + '">editar</a></div>' +
+                          '<div class="a' + (display ? '' : ' empty') + '">' + (display ? escapeHTML(display) : 'em branco') + '</div>';
+          items.appendChild(div);
+        });
+        details.appendChild(items);
+        list.appendChild(details);
+      });
+
+      list.querySelectorAll('.edit-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          show(parseInt(link.getAttribute('data-go'), 10));
+        });
+      });
+    }
+    function escapeHTML(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // === FORMAT FOR SUBMISSION ===
+    function buildBriefingText() {
+      var out = 'BRIEFING MARACATU DIGITAL\n';
+      out += '=========================\n\n';
+      var empresa = answers.empresa_nome || 'Sem nome';
+      out += 'Empresa: ' + empresa + '\n';
+      out += 'Enviado em: ' + new Date().toLocaleString('pt-BR') + '\n\n';
+      QUESTIONS.forEach(function(sec) {
+        out += '\n--- ' + sec.section.toUpperCase() + ' ---\n';
+        sec.items.forEach(function(item) {
+          var ans = answers[item.q];
+          if (Array.isArray(ans)) ans = ans.join(', ');
+          var hasFile = item.fileKey && fileStore[item.fileKey];
+          var parts = [];
+          if (hasFile) {
+            var f = fileStore[item.fileKey];
+            if (f.url) {
+              parts.push('[Arquivo: ' + f.name + ' — ' + f.url + ']');
+            } else {
+              parts.push('[Arquivo anexado: ' + f.name + ']');
+            }
+          }
+          if (ans) parts.push(ans);
+          var display = parts.length ? parts.join('\n') : '(em branco)';
+          out += '\n' + item.label + ':\n' + display + '\n';
+        });
+        out += '\n';
+      });
+      // List attached files
+      var fileKeys = Object.keys(fileStore);
+      if (fileKeys.length > 0) {
+        out += '\n--- ARQUIVOS ENVIADOS ---\n';
+        fileKeys.forEach(function(k) {
+          var f = fileStore[k];
+          var sizeStr = f.size < 1024*1024 ? (f.size/1024).toFixed(0)+' KB' : (f.size/1024/1024).toFixed(1)+' MB';
+          if (f.url) {
+            out += '\n• ' + f.name + ' (' + sizeStr + ')\n  ' + f.url + '\n';
+          } else {
+            out += '\n• ' + f.name + ' (' + sizeStr + ')\n';
+          }
+        });
+      }
+      return out;
+    }
+
+    function buildBriefingHTML() {
+      var html = '<div style="font-family:Inter,Arial,sans-serif;max-width:680px;margin:0 auto;color:#0a0a0a;">';
+      html += '<div style="background:#0a0a0a;padding:32px;border-radius:16px 16px 0 0;color:#fff;">';
+      html += '<div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fbbc04;margin-bottom:8px;">Novo briefing · Tráfego pago</div>';
+      html += '<h1 style="font-size:28px;margin:0;letter-spacing:-1px;">' + escapeHTML(answers.empresa_nome || 'Sem nome') + '</h1>';
+      html += '<div style="margin-top:8px;color:rgba(255,255,255,0.7);font-size:13px;">Enviado em ' + new Date().toLocaleString('pt-BR') + '</div>';
+      html += '</div>';
+      html += '<div style="background:#fff;padding:24px 32px;border:1px solid #ECECE6;border-top:none;border-radius:0 0 16px 16px;">';
+      QUESTIONS.forEach(function(sec, i) {
+        var colors = ['#EA4335','#FBBC04','#34A853','#4285F4','#EA4335','#FBBC04','#34A853','#4285F4'];
+        html += '<div style="margin:24px 0 12px;padding-top:20px;border-top:1px solid #ECECE6;">';
+        html += '<div style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + colors[i % colors.length] + ';margin-right:8px;vertical-align:middle;"></div>';
+        html += '<span style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0a0a0a;vertical-align:middle;">' + sec.section + '</span>';
+        html += '</div>';
+        sec.items.forEach(function(item) {
+          var ans = answers[item.q];
+          if (Array.isArray(ans)) ans = ans.join(', ');
+          var hasFile = item.fileKey && fileStore[item.fileKey];
+          var hasAns = !!ans;
+          var empty = !hasFile && !hasAns;
+
+          html += '<div style="margin:12px 0;padding:10px 0;border-bottom:1px dashed #ECECE6;">';
+          html += '<div style="font-size:12px;color:#6B7280;margin-bottom:4px;">' + item.label + '</div>';
+          html += '<div style="font-size:15px;line-height:1.5;color:' + (empty ? '#bbb' : '#0a0a0a') + ';white-space:pre-wrap;">';
+          if (hasFile) {
+            var f = fileStore[item.fileKey];
+            if (f.url) {
+              html += '📎 <a href="' + escapeHTML(f.url) + '" target="_blank" rel="noopener" style="color:#4285F4;text-decoration:underline;font-weight:600;">' + escapeHTML(f.name) + '</a>';
+            } else {
+              html += '📎 ' + escapeHTML(f.name);
+            }
+            if (hasAns) html += '<br>';
+          }
+          if (hasAns) html += escapeHTML(ans);
+          if (empty) html += '(em branco)';
+          html += '</div></div>';
+        });
+      });
+      var fileKeys = Object.keys(fileStore);
+      if (fileKeys.length > 0) {
+        html += '<div style="margin-top:24px;padding:16px;background:#FAFAF7;border-radius:12px;">';
+        html += '<div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#0a0a0a;margin-bottom:10px;">Arquivos enviados</div>';
+        fileKeys.forEach(function(k) {
+          var f = fileStore[k];
+          var sizeStr = f.size < 1024*1024 ? (f.size/1024).toFixed(0)+' KB' : (f.size/1024/1024).toFixed(1)+' MB';
+          if (f.url) {
+            html += '<div style="font-size:14px;margin:6px 0;">📎 <a href="' + escapeHTML(f.url) + '" target="_blank" rel="noopener" style="color:#4285F4;text-decoration:underline;font-weight:600;">' + escapeHTML(f.name) + '</a> <span style="color:#6B7280;">(' + sizeStr + ')</span></div>';
+          } else {
+            html += '<div style="font-size:14px;margin:6px 0;">📎 ' + escapeHTML(f.name) + ' <span style="color:#6B7280;">(' + sizeStr + ')</span></div>';
+          }
+        });
+        html += '</div>';
+      }
+      html += '</div></div>';
+      return html;
+    }
+
+    // === SUBMIT TO BACKEND ===
+    function submitBriefing() {
+      var sending = document.getElementById('sendingState');
+      var success = document.getElementById('successState');
+      var error = document.getElementById('errorState');
+      sending.style.display = '';
+      success.style.display = 'none';
+      error.style.display = 'none';
+
+      // Arquivos sao subidos pro Vercel Blob no momento da selecao.
+      // O briefing chega no email com links clicaveis pros arquivos — nao precisa
+      // mais mandar o binario junto. Isso libera arquivos ate 100MB.
+      var fileLinks = Object.keys(fileStore)
+        .filter(function(k) { return fileStore[k].url; })
+        .map(function(k) {
+          return {
+            filename: fileStore[k].name,
+            url: fileStore[k].url,
+            size: fileStore[k].size,
+            type: fileStore[k].type,
+          };
+        });
+
+      var payload = {
+        empresa: answers.empresa_nome || 'Sem nome',
+        tipo: 'trafego',
+        timestamp: new Date().toISOString(),
+        answers: answers,
+        html: buildBriefingHTML(),
+        text: buildBriefingText(),
+        attachments: [],
+        fileLinks: fileLinks
+      };
+
+      fetch('https://som-backend-production-01d8.up.railway.app/api/onboarding', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r) {
+        return r.json().then(function(data) { return { ok: r.ok, status: r.status, data: data }; })
+                       .catch(function() { return { ok: r.ok, status: r.status, data: {} }; });
+      }).then(function(result) {
+        if (result.ok) {
+          sending.style.display = 'none';
+          success.style.display = '';
+          try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+          return;
+        }
+        var errMsg = (result.data && result.data.error) || ('Erro ' + result.status);
+        // Fallback automático para mailto quando o backend ainda não está configurado
+        if (errMsg.indexOf('RESEND_API_KEY') !== -1 || errMsg.indexOf('não configurada') !== -1) {
+          fallbackMailto();
+          return;
+        }
+        sending.style.display = 'none';
+        error.style.display = '';
+        document.getElementById('errorMsg').textContent = 'Erro: ' + errMsg;
+      }).catch(function(err) {
+        console.error(err);
+        // Erro de rede também tenta o fallback
+        fallbackMailto();
+      });
+    }
+
+    function fallbackMailto() {
+      var TO = [
+        'laura@maracatumktdigital.com',
+        'marketing@maracatumktdigital.com',
+        'marketing2@maracatumktdigital.com',
+        'midias@maracatumktdigital.com',
+        'diogo@maracatumktdigital.com',
+        'contato@maracatumktdigital.com',
+        'joana@maracatumktdigital.com'
+      ];
+      var subject = 'Briefing de tráfego: ' + (answers.empresa_nome || 'Sem nome');
+      var body = buildBriefingText();
+      var mailto = 'mailto:' + TO.join(',') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+      // Atualiza a tela de sucesso para o modo mailto
+      document.getElementById('sendingState').style.display = 'none';
+      var success = document.getElementById('successState');
+      success.style.display = '';
+      var h1 = success.querySelector('h1');
+      var p = success.querySelector('p');
+      if (h1) h1.innerHTML = 'Quase lá! ✉️';
+      if (p) p.innerHTML = 'Seu app de email vai abrir com o briefing pronto. <strong>Só conferir e clicar enviar.</strong><br/><br/>Se os arquivos não vieram juntos, anexa eles antes de enviar.';
+
+      // Tenta abrir o app de email
+      setTimeout(function() {
+        window.location.href = mailto;
+      }, 600);
+
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+    }
+
+    // === DOWNLOAD / RETRY ===
+    function downloadTxt() {
+      var text = buildBriefingText();
+      var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'briefing-maracatu-' + (answers.empresa_nome || 'cliente').replace(/[^a-z0-9]/gi, '-').toLowerCase() + '.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    document.getElementById('downloadTxt').addEventListener('click', downloadTxt);
+    document.getElementById('downloadTxtError').addEventListener('click', downloadTxt);
+    document.getElementById('retrySend').addEventListener('click', submitBriefing);
+
+    // === BOOT ===
+    load();
+    restoreInputs();
+    show(0); // Sempre começa na tela de boas-vindas
+
+    // Se houver progresso salvo, mostra opção "Continuar de onde parei"
+    if (savedStep > 0) {
+      var resumeBanner = document.createElement('div');
+      resumeBanner.style.cssText = 'margin-top: 24px; padding: 14px 20px; background: rgba(10,10,10,0.04); border: 1px solid var(--border); border-radius: 14px; display: inline-flex; align-items: center; gap: 14px; font-size: 14px; color: var(--ink);';
+      resumeBanner.innerHTML = '<span>Você começou esse briefing antes. Quer continuar de onde parou (etapa ' + savedStep + ')?</span>' +
+                                '<button type="button" id="resumeBtn" style="background: var(--ink); color: #fff; border: none; padding: 8px 16px; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;">Continuar</button>' +
+                                '<button type="button" id="restartBtn" style="background: transparent; color: var(--muted); border: none; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: underline;">Começar do zero</button>';
+      var welcomeStep = document.querySelector('.step[data-step="0"]');
+      welcomeStep.appendChild(resumeBanner);
+
+      document.getElementById('resumeBtn').addEventListener('click', function() {
+        show(savedStep);
+      });
+      document.getElementById('restartBtn').addEventListener('click', function() {
+        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+        answers = {};
+        document.querySelectorAll('[data-q]').forEach(function(el) { el.value = ''; });
+        document.querySelectorAll('.choice.selected').forEach(function(el) { el.classList.remove('selected'); });
+        resumeBanner.remove();
+      });
+    }
+  })();
+</script>
+
+<script>
+(function(){
+  var inp=document.getElementById('cnpjInput'), st=document.getElementById('cnpjStatus'), rz=document.getElementById('cnpjRazao');
+  if(!inp||!rz) return;
+  var t=null, last='';
+  function setRazao(v){ rz.value=v; rz.dispatchEvent(new Event('input',{bubbles:true})); }
+  inp.addEventListener('input', function(){
+    var raw=(inp.value||'').replace(/\D/g,'');
+    if(raw.length!==14){ if(rz.value) setRazao(''); if(st) st.textContent='Ao digitar o CNPJ, buscamos a razão social na Receita.'; last=''; return; }
+    if(raw===last) return; last=raw;
+    clearTimeout(t);
+    t=setTimeout(function(){
+      if(st) st.textContent='Buscando razão social na Receita…';
+      fetch('https://brasilapi.com.br/api/cnpj/v1/'+raw).then(function(r){return r.ok?r.json():Promise.reject(r.status);}).then(function(d){
+        var nome=d.razao_social||d.nome_fantasia||'';
+        if(nome){ setRazao(nome); if(st) st.textContent='\u2713 '+nome; }
+        else { if(st) st.textContent='CNPJ não encontrado — confira o número.'; }
+      }).catch(function(){ if(st) st.textContent='Não deu pra consultar agora — pode seguir; a gente confere depois.'; });
+    }, 500);
+  });
+})();
+</script>
+</body>
+</html>
