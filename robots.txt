@@ -1,26 +1,28 @@
+# Páginas internas (admin, briefing) — não indexar. Vale para todos os robôs.
 User-agent: *
 Allow: /
-
-# Crawlers de IA — explicitamente permitidos pra GEO
-User-agent: GPTBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-# Páginas internas (admin, briefing) — não indexar
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /onboarding
 Disallow: /onboarding.html
+Disallow: /onboarding-site
+Disallow: /onboarding-trafego
+
+# Crawlers de IA — explicitamente permitidos pra GEO (mesmas exceções)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /onboarding
+Disallow: /onboarding.html
+Disallow: /onboarding-site
+Disallow: /onboarding-trafego
 
 Sitemap: https://maracatumktdigital.com/sitemap.xml

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agência de marketing digital em Recife | Maracatu Digital, Google Partner</title>
+<meta name="description" content="Agência de marketing digital em Recife e Região Metropolitana, credenciada Google Partner. Anúncios no Google e na Meta, redes sociais, sites, branding e vídeo com time próprio." />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+<link rel="icon" type="image/png" href="/favicon.png?v=2" />
+<link rel="canonical" href="https://maracatumktdigital.com/agencia-de-marketing-digital-recife" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Agência de marketing digital em Recife | Maracatu Digital, Google Partner" />
+<meta property="og:description" content="Agência de marketing digital em Recife e Região Metropolitana, credenciada Google Partner. Anúncios no Google e na Meta, redes sociais, sites, branding e vídeo com time próprio." />
+<meta property="og:url" content="https://maracatumktdigital.com/agencia-de-marketing-digital-recife" />
+<meta property="og:image" content="https://static.wixstatic.com/media/b8c5b7_208052d92b6844279e1596fc222f8e47~mv2.jpg" />
+<meta property="og:locale" content="pt_BR" />
+<meta name="geo.region" content="BR-PE" />
+<meta name="geo.placename" content="Recife" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #EA4335;
+    --yellow: #FBBC04;
+    --green: #34A853;
+    --blue: #4285F4;
+    --ink: #0A0A0A;
+    --bg: #FAFAF7;
+    --muted: #6B7280;
+    --border: #ECECE6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .narrow { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+
+  /* === HEADER === */
+  header.nav {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+    background: transparent;
+  }
+  header.nav.scrolled {
+    position: fixed;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(16px);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; }
+  .logo-link { display: flex; align-items: center; text-decoration: none; }
+  .logo-link img {
+    height: 104px; width: auto; display: block;
+    filter: brightness(0) invert(1);
+    transition: opacity 0.2s, height 0.3s;
+  }
+  header.nav.scrolled .logo-link img { height: 72px; }
+
+  /* === HERO === */
+  .page-hero {
+    position: relative;
+    padding: 200px 0 100px;
+    background: #000; color: #fff;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(66, 133, 244, 0.25), transparent 65%);
+    pointer-events: none;
+  }
+  .page-hero::after {
+    content: ''; position: absolute; bottom: -250px; left: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(234, 67, 53, 0.20), transparent 65%);
+    pointer-events: none;
+  }
+  .grain {
+    position: absolute; inset: 0; opacity: 0.4; pointer-events: none;
+    background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.02) 1px, transparent 1px),
+                      radial-gradient(circle at 70% 80%, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px, 120px 120px;
+  }
+  .page-hero .container { position: relative; z-index: 1; }
+  .breadcrumb {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+  }
+  .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  .breadcrumb a:hover { color: #fff; }
+  .breadcrumb .sep { opacity: 0.4; }
+  .page-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px);
+    font-size: 13px; font-weight: 500; color: #fff;
+    margin-bottom: 28px;
+  }
+  .page-hero h1 {
+    font-size: clamp(40px, 6vw, 76px);
+    font-weight: 800; line-height: 1.02; letter-spacing: -2.5px;
+    margin-bottom: 24px;
+  }
+  .page-hero h1 .accent { color: var(--yellow); font-weight: 400; font-family: 'Instrument Serif', serif; font-style: italic; }
+  .page-hero p.lead {
+    font-size: 20px; color: rgba(255,255,255,0.75);
+    max-width: 720px; line-height: 1.55;
+  }
+
+  /* === INTRO ===
+     Bloco SEO/GEO com palavras-chave naturais */
+  .intro {
+    padding: 80px 0 40px;
+    background: var(--bg);
+  }
+  .intro p {
+    font-size: 17px; color: var(--ink); line-height: 1.7;
+    margin-bottom: 18px;
+  }
+  .intro p:last-child { margin-bottom: 0; }
+  .intro strong { font-weight: 700; }
+
+  /* === FAQ === */
+  .faq-section {
+    padding: 60px 0 120px;
+    background: var(--bg);
+  }
+  .faq-cat {
+    margin-bottom: 56px;
+  }
+  .faq-cat h2 {
+    font-size: 28px; font-weight: 800; letter-spacing: -1px;
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .faq-cat h2 .badge {
+    font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 6px 12px; border-radius: 999px;
+  }
+  .faq-cat[data-cat="local"] h2 .badge   { background: var(--red); }
+  .faq-cat[data-cat="agencia"] h2 .badge { background: var(--blue); }
+  .faq-cat[data-cat="plan"] h2 .badge    { background: var(--green); }
+  .faq-cat[data-cat="redes"] h2 .badge   { background: var(--yellow); color: var(--ink); }
+  .faq-cat[data-cat="video"] h2 .badge   { background: var(--red); }
+  .faq-cat[data-cat="trafego"] h2 .badge { background: var(--blue); }
+  .faq-cat[data-cat="seo"] h2 .badge     { background: var(--green); }
+  .faq-cat[data-cat="results"] h2 .badge { background: var(--ink); }
+
+  details.faq-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  details.faq-item[open] {
+    border-color: var(--ink);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+  }
+  details.faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 26px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px;
+    font-size: 17px; font-weight: 700;
+    letter-spacing: -0.2px;
+    color: var(--ink);
+  }
+  details.faq-item summary::-webkit-details-marker { display: none; }
+  details.faq-item summary::after {
+    content: '+'; font-size: 28px; color: var(--red);
+    transition: transform 0.3s;
+    line-height: 1; font-weight: 400; flex-shrink: 0;
+  }
+  details.faq-item[open] summary::after { transform: rotate(45deg); }
+  details.faq-item .answer {
+    padding: 0 26px 24px;
+    color: var(--ink); font-size: 16px; line-height: 1.7;
+  }
+  details.faq-item .answer a {
+    color: var(--blue); text-decoration: underline; text-underline-offset: 3px;
+  }
+  details.faq-item .answer strong { font-weight: 700; }
+
+  /* === CTA inline === */
+  .cta-block {
+    background: var(--ink); color: #fff;
+    border-radius: 24px;
+    padding: 56px 48px;
+    text-align: center;
+    margin-top: 60px;
+    position: relative; overflow: hidden;
+  }
+  .cta-block::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(234, 67, 53, 0.3), transparent 70%);
+  }
+  .cta-block::after {
+    content: ''; position: absolute; bottom: -100px; left: -100px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(66, 133, 244, 0.3), transparent 70%);
+  }
+  .cta-block > * { position: relative; z-index: 1; }
+  .cta-block h3 {
+    font-size: 30px; font-weight: 800; letter-spacing: -1px;
+    margin-bottom: 14px;
+  }
+  .cta-block h3 .accent { color: var(--yellow); font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .cta-block p {
+    font-size: 16px; color: rgba(255,255,255,0.75);
+    max-width: 480px; margin: 0 auto 28px;
+  }
+  .cta-block a {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #25D366; color: #fff;
+    padding: 16px 32px; border-radius: 999px;
+    font-weight: 700; font-size: 15px;
+    text-decoration: none;
+    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cta-block a:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(37, 211, 102, 0.55); }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--ink); color: #fff;
+    padding: 60px 0 30px;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    color: rgba(255,255,255,0.5); font-size: 13px;
+  }
+  .footer-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.8); text-decoration: none;
+    font-size: 14px; font-weight: 500;
+  }
+  .footer-back:hover { color: var(--yellow); }
+
+  /* WhatsApp Floating */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: #25D366;
+    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; z-index: 100; text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.08); }
+
+  @media (max-width: 968px) {
+    .page-hero { padding: 130px 0 70px; }
+    .page-hero h1 { font-size: clamp(34px, 9vw, 56px); }
+    .faq-section { padding: 40px 0 80px; }
+    .cta-block { padding: 36px 24px; }
+    .cta-block h3 { font-size: 24px; }
+  }
+</style>
+<style>
+  /* páginas de serviço (SEO local) — mesmo visual do FAQ */
+  .bloco { padding: 8px 0 40px; }
+  .bloco h2 { font-size: clamp(24px, 3.2vw, 32px); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; margin: 8px 0 18px; }
+  .bloco h3 { font-size: 18px; font-weight: 700; margin: 22px 0 6px; }
+  .bloco p { font-size: 17px; line-height: 1.7; color: #2b2b2b; margin-bottom: 14px; }
+  .bloco a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  .numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 10px 0 8px; }
+  .numeros div { background: var(--card, #fff); border: 1px solid var(--border, #ECECE6); border-radius: 14px; padding: 16px; }
+  .numeros strong { display: block; font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+  .numeros span { font-size: 13px; color: var(--muted, #6B7280); }
+  .relacionadas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+  .relacionadas a { border: 1px solid var(--border, #ECECE6); border-radius: 999px; padding: 8px 14px; font-size: 14px; text-decoration: none; background: #fff; }
+  @media (max-width: 720px) { .numeros { grid-template-columns: repeat(2, 1fr); } }
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+fbq("init", "3370747626536621");
+fbq("track", "PageView");
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3370747626536621&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "ProfessionalService",
+   "@id": "https://maracatumktdigital.com/#agencia",
+   "name": "Maracatu Digital Intelligence",
+   "alternateName": "Maracatu Digital",
+   "url": "https://maracatumktdigital.com/",
+   "logo": "https://maracatumktdigital.com/logo-symbol.png",
+   "image": "https://maracatumktdigital.com/Maracatu.png",
+   "telephone": "+55-11-96624-9876",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. A, 5165, 6º andar, Sala 611/612, Torre 6, Paiva",
+    "addressLocality": "Cabo de Santo Agostinho",
+    "addressRegion": "PE",
+    "postalCode": "54522-005",
+    "addressCountry": "BR"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Recife"
+    },
+    {
+     "@type": "City",
+     "name": "Jaboatão dos Guararapes"
+    },
+    {
+     "@type": "City",
+     "name": "Olinda"
+    },
+    {
+     "@type": "City",
+     "name": "Cabo de Santo Agostinho"
+    },
+    {
+     "@type": "City",
+     "name": "Paulista"
+    },
+    {
+     "@type": "City",
+     "name": "Camaragibe"
+    },
+    {
+     "@type": "AdministrativeArea",
+     "name": "Região Metropolitana do Recife"
+    },
+    {
+     "@type": "AdministrativeArea",
+     "name": "Pernambuco"
+    },
+    {
+     "@type": "Country",
+     "name": "Brasil"
+    }
+   ],
+   "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "name": "Google Partner",
+    "url": "https://www.google.com/partners/agency?id=9841772001"
+   },
+   "sameAs": [
+    "https://www.google.com/partners/agency?id=9841772001",
+    "https://www.instagram.com/maracatumktdigital/"
+   ]
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://maracatumktdigital.com/agencia-de-marketing-digital-recife#pagina",
+   "url": "https://maracatumktdigital.com/agencia-de-marketing-digital-recife",
+   "name": "Agência de marketing digital em Recife | Maracatu Digital, Google Partner",
+   "description": "Agência de marketing digital em Recife e Região Metropolitana, credenciada Google Partner. Anúncios no Google e na Meta, redes sociais, sites, branding e vídeo com time próprio.",
+   "inLanguage": "pt-BR",
+   "about": {
+    "@id": "https://maracatumktdigital.com/#agencia"
+   },
+   "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+     {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Início",
+      "item": "https://maracatumktdigital.com/"
+     },
+     {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Agência de marketing digital em Recife",
+      "item": "https://maracatumktdigital.com/agencia-de-marketing-digital-recife"
+     }
+    ]
+   }
+  },
+  {
+   "name": "Marketing digital para empresas em Recife",
+   "serviceType": "Agência de marketing digital",
+   "description": "Gestão de anúncios no Google e na Meta, redes sociais, sites, branding, vídeo e marketing político.",
+   "@type": "Service",
+   "provider": {
+    "@id": "https://maracatumktdigital.com/#agencia"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Recife"
+    },
+    {
+     "@type": "City",
+     "name": "Jaboatão dos Guararapes"
+    },
+    {
+     "@type": "City",
+     "name": "Olinda"
+    },
+    {
+     "@type": "City",
+     "name": "Cabo de Santo Agostinho"
+    },
+    {
+     "@type": "City",
+     "name": "Paulista"
+    },
+    {
+     "@type": "City",
+     "name": "Camaragibe"
+    },
+    {
+     "@type": "AdministrativeArea",
+     "name": "Região Metropolitana do Recife"
+    },
+    {
+     "@type": "AdministrativeArea",
+     "name": "Pernambuco"
+    },
+    {
+     "@type": "Country",
+     "name": "Brasil"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Qual agência de marketing digital em Recife é Google Partner?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A Maracatu Digital Intelligence é credenciada como Google Partner. A credencial pode ser conferida no diretório oficial do Google, em Google Partner."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "A Maracatu atende pequenas empresas do Recife?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Atende. O orçamento é montado conforme o tamanho da empresa e o que ela quer alcançar, e a primeira conversa é um diagnóstico sem compromisso."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Onde fica o escritório da Maracatu Digital?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No Paiva, no Cabo de Santo Agostinho: Av. A, 5165, 6º andar, salas 611 e 612, Torre 6. Há também um escritório em Sorocaba, em São Paulo. A maior parte do atendimento acontece por WhatsApp e videochamada."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Quanto tempo leva para ver resultado em marketing digital?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Anúncios costumam trazer os primeiros contatos nas primeiras semanas. SEO e construção de marca levam de 3 a 6 meses para mostrar consistência. Em geral, os primeiros resultados aparecem entre 30 e 90 dias."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Como contratar a Maracatu?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Mande uma mensagem no WhatsApp contando o que a sua empresa precisa. Em até 24 horas alguém do time responde com um diagnóstico inicial."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="nav" id="siteNav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo-link">
+      <img src="Maracatu.png" alt="Maracatu Digital Intelligence" />
+    </a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="grain"></div>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/">Início</a>
+      <span class="sep">·</span>
+      <span>Agência de marketing digital em Recife</span>
+    </div>
+    <div class="page-eyebrow">Recife e Região Metropolitana</div>
+    <h1>Agência de marketing digital em <span class="accent">Recife</span>.</h1>
+    <p class="lead">A Maracatu Digital cuida de anúncios, redes sociais, site e marca para empresas do Recife e da Região Metropolitana, com time próprio e certificação Google Partner.</p>
+  </div>
+</section>
+
+<main>
+
+<section class="intro">
+  <div class="narrow">
+    <p>A <strong>Maracatu Digital Intelligence</strong> é uma <strong>agência de marketing digital em Recife</strong> e na Região Metropolitana, credenciada como <a href="https://www.google.com/partners/agency?id=9841772001" target="_blank" rel="noopener">Google Partner</a>. O escritório fica no Paiva, no Cabo de Santo Agostinho, e o time atende empresas de todos os bairros do Recife e das cidades vizinhas, no escritório ou por WhatsApp e videochamada.</p>
+    <p>A agência cuida de anúncios no Google e na Meta, redes sociais, site, marca e vídeo com time próprio, sem repassar o trabalho para freelancers. Até hoje passaram por aqui mais de 250 clientes.</p>
+  </div>
+</section>
+
+<section class="bloco">
+  <div class="narrow">
+    <div class="numeros">
+      <div><strong>250+</strong><span>clientes atendidos</span></div>
+      <div><strong>R$ 10,2 mi</strong><span>em mídia gerenciada</span></div>
+      <div><strong>5.000+</strong><span>campanhas criadas</span></div>
+      <div><strong>50 mi</strong><span>cliques em anúncios</span></div>
+    </div>
+
+    <h2>O que a Maracatu faz por empresas do Recife</h2>
+    <h3>Anúncios no Google, Instagram, Facebook e TikTok</h3>
+    <p>Gestão de tráfego pago com campanhas de pesquisa, Performance Max, YouTube e Meta Ads. O cliente acompanha num painel quanto foi investido e o que voltou, e todo mês recebe o relatório. <a href="/gestao-de-trafego-pago-recife">Veja como funciona a gestão de anúncios</a>.</p>
+    <h3>Gestão de redes sociais</h3>
+    <p>A gente planeja o mês, cria os posts e responde os comentários. A empresa aprova o conteúdo e fica livre para atender quem chega pelo Instagram.</p>
+    <h3>Sites e páginas de venda</h3>
+    <p>Site rápido, com a cara da marca, feito para a visita virar mensagem no WhatsApp ou contato pelo formulário.</p>
+    <h3>Branding</h3>
+    <p>Logo, paleta de cores, tipografia e manual de marca, para a empresa ser reconhecida em qualquer lugar onde apareça.</p>
+    <h3>Vídeo e foto</h3>
+    <p>Roteiro, gravação e edição com equipe e equipamento próprios, para Reels, anúncios e site.</p>
+    <h3>Marketing político</h3>
+    <p>Conteúdo, anúncios e gestão de imagem para candidatos, com um time que já trabalhou em campanhas em Pernambuco.</p>
+
+    <h2>Como a gente trabalha</h2>
+    <p>Todo cliente passa pelo mesmo ciclo. Primeiro a gente mede: cada campanha tem painel rodando, e você vê para onde está indo cada real. Depois olha o que o público clica, lê e ignora, e desenha o que tem mais chance de dar certo. Por último ajusta. O que funciona se repete e o que não funciona muda, com revisão todo mês.</p>
+    <p>O relatório chega em linguagem simples, sem sigla solta, e quem atende é gente do time.</p>
+
+    <h2>Onde a Maracatu atende</h2>
+    <p>Recife inteiro, de Boa Viagem, Pina e Imbiribeira a Casa Forte, Graças, Espinheiro, Aflitos, Madalena e o Centro. Na Região Metropolitana, Jaboatão dos Guararapes, Olinda, Paulista, Camaragibe, São Lourenço da Mata e o próprio Cabo de Santo Agostinho. A agência também tem escritório em Sorocaba (SP) e atende clientes de outros estados.</p>
+  </div>
+</section>
+
+
+<section class="faq-section">
+  <div class="narrow">
+    <div class="faq-cat" data-cat="agencia">
+      <h2><span class="badge">Perguntas frequentes</span></h2>
+
+      <details class="faq-item">
+        <summary>Qual agência de marketing digital em Recife é Google Partner?</summary>
+        <div class="answer">A Maracatu Digital Intelligence é credenciada como Google Partner. A credencial pode ser conferida no diretório oficial do Google, em <a href="https://www.google.com/partners/agency?id=9841772001" target="_blank" rel="noopener">Google Partner</a>.</div>
+      </details>
+      <details class="faq-item">
+        <summary>A Maracatu atende pequenas empresas do Recife?</summary>
+        <div class="answer">Atende. O orçamento é montado conforme o tamanho da empresa e o que ela quer alcançar, e a primeira conversa é um diagnóstico sem compromisso.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Onde fica o escritório da Maracatu Digital?</summary>
+        <div class="answer">No Paiva, no Cabo de Santo Agostinho: Av. A, 5165, 6º andar, salas 611 e 612, Torre 6. Há também um escritório em Sorocaba, em São Paulo. A maior parte do atendimento acontece por WhatsApp e videochamada.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Quanto tempo leva para ver resultado em marketing digital?</summary>
+        <div class="answer">Anúncios costumam trazer os primeiros contatos nas primeiras semanas. SEO e construção de marca levam de 3 a 6 meses para mostrar consistência. Em geral, os primeiros resultados aparecem entre 30 e 90 dias.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Como contratar a Maracatu?</summary>
+        <div class="answer">Mande uma mensagem no <a href="https://wa.me/5511966249876" target="_blank" rel="noopener">WhatsApp</a> contando o que a sua empresa precisa. Em até 24 horas alguém do time responde com um diagnóstico inicial.</div>
+      </details>
+    </div>
+
+    <div class="cta-block">
+      <h3>Quer conversar sobre a <span class="accent">sua empresa</span>?</h3>
+      <p>Conte o seu desafio no WhatsApp. Em até 24 horas alguém do time responde com um diagnóstico inicial, sem compromisso.</p>
+      <a href="https://wa.me/5511966249876" target="_blank" rel="noopener">Conversar no WhatsApp →</a>
+    </div>
+
+    <div class="bloco">
+      <h2 style="font-size:20px">Veja também</h2>
+      <div class="relacionadas"><a href="/gestao-de-trafego-pago-recife">Anúncios e tráfego pago em Recife</a><a href="/faq">Perguntas frequentes</a><a href="/portfolio">Portfólio</a><a href="/">Página inicial</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/5511966249876" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-bottom">
+    <a href="index.html" class="footer-back">← Voltar para o site</a>
+    <div>© 2026 Maracatu Digital Intelligence · Google Partner · Recife · Pernambuco</div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  (function() {
+    var nav = document.getElementById('siteNav');
+    function onScroll() {
+      if (window.scrollY > 60) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>
+
+</body>
+</html>
